@@ -1,10 +1,8 @@
 # -----------------------------------------------------------------------------
 #                            THINGS TO CHANGE IN THIS MAKEFILE
 # -----------------------------------------------------------------------------
-# 	-> check les paths des libs (enlever mlx) la libft doit etre a la racine
-#   -> check les flags gcc, enlever ce qui concerne la mlx
-#   -> modifier les sources
-#   -> modifier les rules en conséquences#
+#   -> ajouter les paramètres a push_swap : liste d'int ou une seule chaine
+#   d'int
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
@@ -27,18 +25,19 @@ RM=-rm -rf
 MAKE=make
 
 # -----------------------------------------------------------------------------
+#                            LIBS PATH
+# -----------------------------------------------------------------------------
+LIBFT_PATH=./libft
+GNL_PATH=./gnl
+
+# -----------------------------------------------------------------------------
 #                            GCC FLAGS
 # -----------------------------------------------------------------------------
 CFLAGS=-Wall -Werror -Wextra
 CHEADERS= -I ./includes
 ALL_FLAGS= $(CHEADERS) $(CFLAGS)
-LDFLAGS= -L $(LIBFT_PATH) -lft -L $(GNL_PATH) -lgnl 
-
-# -----------------------------------------------------------------------------
-#                            LIBS PATH
-# -----------------------------------------------------------------------------
-LIBFT_PATH=./libft
-GNL_PATH=./lib/gnl
+#LDFLAGS= -L $(LIBFT_PATH) -lft -L $(GNL_PATH) -lgnl 
+LDFLAGS= -L $(LIBFT_PATH) -lft
 
 # -----------------------------------------------------------------------------
 #                            FILES
@@ -60,7 +59,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) libft
-	@$(MAKE) gnl
+#	@$(MAKE) gnl
 	@$(ECHO) "$(GRE)"
 	$(CC) $(LDFLAGS) $^ -o $@
 	@$(ECHO) "$(NO_COL)"
@@ -76,63 +75,52 @@ gnl:
 	@$(ECHO) "$(NO_COL)"
 
 test: $(NAME)
-#	./$(NAME) maps/13x5_invalid_char.ber
+#	./$(NAME) 
 	@$(MAKE) fclean
 	
 sani: $(OBJ)
 	@$(MAKE) libft
-	@$(MAKE) gnl
-	@$(MAKE) mlx
-	cp $(MLX_PATH)/libmlx.dylib .
+#	@$(MAKE) gnl
 	@$(ECHO) "$(GRE)"
 	$(CC) -g -fsanitize=address -fno-omit-frame-pointer -static-libsan $(LDFLAGS) $^ -o $(NAME) 
 	@$(ECHO) "$(NO_COL)"
-#	./$(NAME) maps/13x5_valid_map.ber
-	./$(NAME) maps/15x15_valid_map.ber
-#	./$(NAME) maps/34x6_valid_map.ber
-#	./$(NAME) maps/80x25_valid_map.ber
-	@$(MAKE) clean
-	@$(MAKE) libftclean
-	@$(MAKE) gnlclean
-	@$(MAKE) mlxclean
+	./$(NAME) 
+#	./$(NAME) 
+#	@$(MAKE) clean
+#	@$(MAKE) libftclean
+#	@$(MAKE) gnlclean
+	@$(MAKE) fclean-debug
 	@$(ECHO) "$(RED)"
-	$(RM) $(NAME) debug.dSYM libmlx.dylib.dSYM
 	@$(ECHO) "$(NO_COL)"
 
 debug: $(OBJ)
 	@$(MAKE) libft
-	@$(MAKE) gnl
-	@$(MAKE) mlx
-	cp $(MLX_PATH)/libmlx.dylib .
+#	@$(MAKE) gnl
 	@$(ECHO) "$(BLU)"
-	$(CC) -g $(LDFLAGS) $^ -o $@
+	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
-	valgrind ./$@ maps/15x15_valid_map.ber
-	@$(MAKE) clean
-	@$(MAKE) libftclean
-	@$(MAKE) gnlclean
-	@$(MAKE) mlxclean
+	valgrind ./$(NAME)
+#	@$(MAKE) clean
+#	@$(MAKE) libftclean
+#	@$(MAKE) gnlclean
+	@$(MAKE) fclean-debug
 	@$(ECHO) "$(RED)"
-	$(RM) $@ debug.dSYM
-	$(RM) $@ libmlx.dylib.dSYM
+	$(RM) $(NAME) debug.dSYM
 	@$(ECHO) "$(NO_COL)"
 
 debug-full: $(OBJ)
 	@$(MAKE) libft
-	@$(MAKE) gnl
-	@$(MAKE) mlx
-	cp $(MLX_PATH)/libmlx.dylib .
+#	@$(MAKE) gnl
 	@$(ECHO) "$(BLU)"
-	$(CC) -g $(LDFLAGS) $^ -o $@
+	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
-	valgrind --leak-check=full --show-leak-kinds=all ./$@ maps/15x15_valid_map.ber
-	@$(MAKE) clean
-	@$(MAKE) libftclean
-	@$(MAKE) gnlclean
-	@$(MAKE) mlxclean
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 
+#	@$(MAKE) clean
+#	@$(MAKE) libftclean
+#	@$(MAKE) gnlclean
+	@$(MAKE) fclean-debug
 	@$(ECHO) "$(RED)"
-	$(RM) $@ debug-full.dSYM
-	$(RM) $@ libmlx.dylib.dSYM
+	$(RM) $(NAME) debug-full.dSYM 
 	@$(ECHO) "$(NO_COL)"
 
 %.o: %.c
@@ -155,17 +143,14 @@ gnlclean:
 	$(RM) $(GNL_PATH)/libgnl.a
 	@$(ECHO) "$(NO_COL)"
 
-fclean: clean libftclean gnlclean mlxclean
+fclean: clean libftclean gnlclean
 	@$(ECHO) "$(RED)"
 	$(RM) $(NAME)
 	@$(ECHO) "$(NO_COL)"
 
 fclean-debug: fclean
 	@$(ECHO) "$(RED)"
-	$(RM) so_long.dSYM
-	$(RM) debug debug.dSYM
-	$(RM) debug-full debug-full.dSYM
-	$(RM) $@ libmlx.dylib $(MLX_PATH)/libmlx.dylib libmlx.dylib.dSYM
+	$(RM) $(NAME).dSYM
 	@$(ECHO) "$(NO_COL)"
 
 re: fclean all
