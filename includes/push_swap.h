@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/19 00:05:32 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/19 22:35:00 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef t_list	t_stack;
 void	ft_puterr(void);
 
 /* Parsing Handling - ps for push_swap */
-int	ft_is_valid_ps_args(char **argv);
+t_bool	ft_is_valid_ps_args(char **argv);
+t_bool ft_has_duplicate_chars(char **argv);
 
 /* Launch Program */
 int	main(int argc, char **argv);

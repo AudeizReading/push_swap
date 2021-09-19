@@ -5,7 +5,7 @@ void	ft_puterr(void)
 }
 
 /* If **argv is a digit or space - In case there is only 1 string of numbers*/
-int	ft_is_valid_ps_args(char **argv)
+t_bool	ft_is_valid_ps_args(char **argv)
 {
 	char	**p_argv;
 	char	*pp_argv;
@@ -20,13 +20,37 @@ int	ft_is_valid_ps_args(char **argv)
 			if (!ft_isdigit(*pp_argv) && *pp_argv != 32 && *pp_argv != '-')
 			{
 				ft_puterr();
-				return (0);
+				return (e_false);
 			}
 			pp_argv++;
 		}
 		p_argv++;
 	}
-	return (1);
+	return (e_true);
+}
+
+t_bool ft_has_duplicate_chars(char **argv)
+{
+	int		i;
+	int		j;
+	char	*duplicate;
+
+	i = 0;
+	j = 0;
+	duplicate = NULL;
+	while (argv[i] && argv[i + 1] && !duplicate)
+	{
+		j = i;
+		while (argv[j + 1] && !duplicate)
+		{
+			duplicate = ft_strnstr(argv[i], argv[j + 1], ft_strlen(argv[j + 1]));
+			j++;
+		}
+		if (duplicate)
+			return (e_true);
+		i++;
+	}
+	return (e_false);
 }
 
 int	main(int argc, char **argv)
@@ -46,50 +70,39 @@ int	main(int argc, char **argv)
 			char **args = ft_split(*argv, 32);
 			if (!args)
 				return (-1);
-			int	i = 0;
+			if (ft_has_duplicate_chars(args))
+				ft_puterr();
+		/*	int	i = 0;
 			int	j = 0;
-			int	size = sizeof(*args[i]) * ft_strlen(args[i]) + 1;
 			char	*doublon = NULL;
-			while (args[i] && args[i + 1])
+			while (args[i] && args[i + 1] && !doublon)
 			{
 				j = i;
-				ft_putstr("size: [");
-				ft_putnbr(size);
-				ft_putendl("]");
-				ft_putstr("\033[31m");
-				doublon = ft_strnstr(args[j + 1], args[i], ft_strlen(args[i]));
-				// Check si 2 doublons cote a cote mais pas separes
-				while (!doublon)
-				//while (args[j + 1])
-	//			while (args[i])
+				while (args[j + 1] && !doublon)
 				{
-					doublon = ft_strnstr(args[j + 1], args[i], ft_strlen(args[i]));
+					doublon = ft_strnstr(args[i], args[j + 1], ft_strlen(args[j + 1]));
 					j++;
 				}
 				if (doublon)
 				{
-					ft_putstr("doublon: [");
-					ft_putstr(doublon);
-					ft_putendl("]");
-					// ft_puterr();
-					// liberer args avant d'exit si doublon
+					 -----------------------------------------------------
+					ft_putstr("\033[31m");
+					ft_putstr("doublon: ["); ft_putstr(doublon); ft_putendl("]");
+					 -----------------------------------------------------
+					 ft_puterr();
+					 liberer args avant d'exit si doublon
 				}
-				ft_putstr("\033[0m"); ft_putstr("\033[32m args[i]: ["); ft_putstr(args[i]); ft_putendl("]");
-				ft_putstr("*argv + size: [");
-				if (args[i + 1])
-					ft_putstr(*argv + size);
-				ft_putendl("]");
-				ft_putchar('\n');
-				ft_putstr("\033[0m");
+				 -----------------------------------------------------
+				ft_putstr("\033[0m"); ft_putstr("\033[32margs[i]: ["); ft_putstr(args[i]); ft_putendl("]"); ft_putstr("\033[0m");
+				 -----------------------------------------------------
 				i++;
-				if (args[i])
-					size += (sizeof(*args[i]) * ft_strlen(args[i]) + 1);
-			}
-			while (i--)
+			}*/
+			// Garder ca pour ne pas oublier de free le split
+		/*	while (i--)
 			{
 				free(args[i]);
 			}
-			free(args);
+			free(args);*/
 			// ----------------------------------------------------------------
 		}
 		while (*argv)
