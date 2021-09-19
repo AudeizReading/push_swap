@@ -76,6 +76,28 @@ gnl:
 
 test: $(NAME)
 #	./$(NAME) 
+	./$(NAME) 4 4 23 -98 0 105 105 
+	./$(NAME) 4 4 23 -98 0  4 105 105 
+	./$(NAME) 4 4 23 -98  0 105 105 
+	./$(NAME) "4 4 23 -98 0 105 105"
+	./$(NAME) "4 4 23 -98 0 4 105 105"
+	./$(NAME) "4 23 -98 0 4 105 105"
+	./$(NAME) "4 4 23 -98   0 105 105"
+#	./$(NAME) "23 -98 0 4 105 1054 4"
+#	./$(NAME) "4 4 23 -98 o 105 105"
+	./$(NAME) 4 4 23 -98 o 105 105 
+	./$(NAME) "Hello World"
+	./$(NAME) 4 8 7 6 2 1 5 3 442
+	./$(NAME) "4 4 8 7 6 6 2 1 5 3 3"
+	./$(NAME) "4 8 7 6 2 1 -16 5 3 442"
+	./$(NAME) 4 4 8 7 6 2 1 5 3 442
+	./$(NAME) 4 8 7 6 2 1 1 5 3 442
+	./$(NAME) "4 8 7 6 2 1 1 5 3 442"
+	./$(NAME) 4 8 7 O 2 1 5 3 442
+	./$(NAME) 4 8 7 "O" 2 1 5 3 442
+	./$(NAME) 442
+	./$(NAME) -442
+	./$(NAME)
 	@$(MAKE) fclean
 	
 sani: $(OBJ)
@@ -84,7 +106,23 @@ sani: $(OBJ)
 	@$(ECHO) "$(GRE)"
 	$(CC) -g -fsanitize=address -fno-omit-frame-pointer -static-libsan $(LDFLAGS) $^ -o $(NAME) 
 	@$(ECHO) "$(NO_COL)"
-	./$(NAME) 
+	./$(NAME) 4 4 23 -98 0 105 105 
+	./$(NAME) "4 4 23 -98 0 105 105"
+	./$(NAME) "4 4 23 -98   0 105 105"
+	./$(NAME) "4 4 23 -98 o 105 105"
+	./$(NAME) 4 4 23 -98 o 105 105 
+	./$(NAME) "Hello World"
+	./$(NAME) 4 8 7 6 2 1 5 3 442
+	./$(NAME) "4 4 8 7 6 6 2 1 5 3 3"
+	./$(NAME) "4 8 7 6 2 1 -16 5 3 442"
+	./$(NAME) 4 4 8 7 6 2 1 5 3 442
+	./$(NAME) 4 8 7 6 2 1 1 5 3 442
+	./$(NAME) "4 8 7 6 2 1 1 5 3 442"
+	./$(NAME) 4 8 7 O 2 1 5 3 442
+	./$(NAME) 4 8 7 "O" 2 1 5 3 442
+	./$(NAME) 442
+	./$(NAME) -442
+	./$(NAME)
 #	./$(NAME) 
 #	@$(MAKE) clean
 #	@$(MAKE) libftclean
@@ -99,6 +137,23 @@ debug: $(OBJ)
 	@$(ECHO) "$(BLU)"
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
+	valgrind ./$(NAME)
+	valgrind ./$(NAME) 4 4 23 -98 0 105 105 
+	valgrind ./$(NAME) "4 4 23 -98 0 105 105"
+	valgrind ./$(NAME) "4 4 23 -98   0 105 105"
+	valgrind ./$(NAME) "4 4 23 -98 o 105 105"
+	valgrind ./$(NAME) 4 4 23 -98 o 105 105 
+	valgrind ./$(NAME) "Hello World"
+	valgrind ./$(NAME) 4 8 7 6 2 1 5 3 442
+	valgrind ./$(NAME) "4 4 8 7 6 6 2 1 5 3 3"
+	valgrind ./$(NAME) "4 8 7 6 2 1 -16 5 3 442"
+	valgrind ./$(NAME) 4 4 8 7 6 2 1 5 3 442
+	valgrind ./$(NAME) 4 8 7 6 2 1 1 5 3 442
+	valgrind ./$(NAME) "4 8 7 6 2 1 1 5 3 442"
+	valgrind ./$(NAME) 4 8 7 O 2 1 5 3 442
+	valgrind ./$(NAME) 4 8 7 "O" 2 1 5 3 442
+	valgrind ./$(NAME) 442
+	valgrind ./$(NAME) -442
 	valgrind ./$(NAME)
 #	@$(MAKE) clean
 #	@$(MAKE) libftclean
@@ -115,6 +170,23 @@ debug-full: $(OBJ)
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 4 23 -98 0 105 105 
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 23 -98 0 105 105"
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 23 -98   0 105 105"
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 23 -98 o 105 105"
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 4 23 -98 o 105 105 
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "Hello World"
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 6 2 1 5 3 442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 8 7 6 6 2 1 5 3 3"
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 8 7 6 2 1 -16 5 3 442"
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 4 8 7 6 2 1 5 3 442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 6 2 1 1 5 3 442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 8 7 6 2 1 1 5 3 442"
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 O 2 1 5 3 442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 "O" 2 1 5 3 442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) -442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 #	@$(MAKE) clean
 #	@$(MAKE) libftclean
 #	@$(MAKE) gnlclean
