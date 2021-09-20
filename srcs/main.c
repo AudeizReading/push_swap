@@ -56,43 +56,7 @@ t_bool ft_has_duplicate_chars(char **argv)
 	return (e_false);
 }
 
-void	ft_putlnbr_base(long nbr, char *base)
-{
-	unsigned long	l_nbr;
-	int				size_base;
-
-	size_base = 0;
-	if (ft_check_invalid_base(base, &size_base))
-		return ;
-	if (nbr < 0)
-	{
-		ft_putchar_fd('-', 1);
-	//	l_nbr = -l_nbr;
-		nbr = -nbr;
-	}
-	l_nbr = nbr;
-	if (l_nbr >= (unsigned long)size_base)
-		ft_putlnbr_base(l_nbr / size_base, base);
-	ft_putchar_fd(base[l_nbr % size_base], 1);
-}
-
-void	ft_putlnbr(long n)
-{
-	unsigned long	c;
-
-	if (n < 0)
-	{
-	//	c = -c;
-		ft_putchar('-');
-		n = -n;
-	}
-	c = n;
-	if (c / 10 > 0)
-		ft_putlnbr(c / 10);
-	ft_putchar(c % 10 + 48);
-}
-
-long	ft_atol(char *s)
+/*long	ft_atol(char *s)
 {
 	long	atol;
 	int		polarity;
@@ -119,9 +83,9 @@ long	ft_atol(char *s)
 	}
 	atol *= polarity;
 	return ((long)atol);
-}
+}*/
 
-/**/long	ft_atol_base(char *s, int base)
+long	ft_atol_base(char *s, int base)
 {
 	long	atol;
 	int		polarity;
