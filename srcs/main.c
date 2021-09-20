@@ -47,7 +47,10 @@ t_bool ft_has_duplicate_chars(char **argv)
 			j++;
 		}
 		if (duplicate)
+		{
+			ft_puterr();
 			return (e_true);
+		}
 		i++;
 	}
 	return (e_false);
@@ -59,51 +62,36 @@ int	main(int argc, char **argv)
 	ft_putstr(" arguments.\n");
 	if (argc > 1)
 	{
+		char	**args;
+		int		i;
 		argv++;
 		if (!ft_is_valid_ps_args(argv))
-				return (-1);
+			ft_putendl("Arg invalide");
+			//	return (-1);
 		if (argc == 2)
 		{
 			ft_putnbr(ft_cntwds(*argv, 32));
 			ft_putendl(" args.");
 			// ----------------------------------------------------------------
-			char **args = ft_split(*argv, 32);
+			args = ft_split(*argv, 32);
 			if (!args)
 				return (-1);
-			if (ft_has_duplicate_chars(args))
-				ft_puterr();
-		/*	int	i = 0;
-			int	j = 0;
-			char	*doublon = NULL;
-			while (args[i] && args[i + 1] && !doublon)
-			{
-				j = i;
-				while (args[j + 1] && !doublon)
-				{
-					doublon = ft_strnstr(args[i], args[j + 1], ft_strlen(args[j + 1]));
-					j++;
-				}
-				if (doublon)
-				{
-					 -----------------------------------------------------
-					ft_putstr("\033[31m");
-					ft_putstr("doublon: ["); ft_putstr(doublon); ft_putendl("]");
-					 -----------------------------------------------------
-					 ft_puterr();
-					 liberer args avant d'exit si doublon
-				}
-				 -----------------------------------------------------
-				ft_putstr("\033[0m"); ft_putstr("\033[32margs[i]: ["); ft_putstr(args[i]); ft_putendl("]"); ft_putstr("\033[0m");
-				 -----------------------------------------------------
-				i++;
-			}*/
-			// Garder ca pour ne pas oublier de free le split
-		/*	while (i--)
+			// ----------------------------------------------------------------
+		}
+		else
+			args = argv;
+		if (ft_has_duplicate_chars(args))
+			ft_putendl("Arg duplicate");
+		//	return (-1);
+			;
+		if (argc == 2)
+		{
+			i = ft_cntwds(*argv, 32);
+			while (i--)
 			{
 				free(args[i]);
 			}
-			free(args);*/
-			// ----------------------------------------------------------------
+			free(args);
 		}
 		while (*argv)
 		{
@@ -113,7 +101,8 @@ int	main(int argc, char **argv)
 				if (!ft_isdigit(**argv) && **argv != 32 && **argv != 45)
 				{
 					ft_puterr();
-					return (-1);
+					ft_putendl("Arg invalide");
+					//return (-1);
 				}
 				else
 				{
@@ -128,7 +117,8 @@ int	main(int argc, char **argv)
 	else
 	{
 		ft_puterr();
-		return (-1);
+		ft_putendl("No args");
+	//	return (-1);
 	}
 	ft_putstr("---------------------------------------\n");
 	return (0);
