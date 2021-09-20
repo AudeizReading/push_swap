@@ -58,32 +58,55 @@ t_bool ft_has_duplicate_chars(char **argv)
 
 int	main(int argc, char **argv)
 {
+	// --------------------DISPLAY-------------------------------------
 	ft_putnbr(argc);
 	ft_putstr(" arguments.\n");
+	// ----------------------------------------------------------------
 	if (argc > 1)
 	{
 		char	**args;
 		int		i;
 		argv++;
+		// --------------------DISPLAY-------------------------------------
 		if (!ft_is_valid_ps_args(argv))
 			ft_putendl("Arg invalide");
 			//	return (-1);
+		// ----------------------------------------------------------------
 		if (argc == 2)
 		{
+			// --------------------DISPLAY-------------------------------------
 			ft_putnbr(ft_cntwds(*argv, 32));
 			ft_putendl(" args.");
 			// ----------------------------------------------------------------
 			args = ft_split(*argv, 32);
 			if (!args)
 				return (-1);
-			// ----------------------------------------------------------------
 		}
 		else
 			args = argv;
 		if (ft_has_duplicate_chars(args))
+			// --------------------DISPLAY-------------------------------------
 			ft_putendl("Arg duplicate");
 		//	return (-1);
-			;
+			// ----------------------------------------------------------------
+		// Ici, il faudrait checker les valeurs de args si +petit que INT_MIN ou plus grand que INT_MAX
+		i = 0;
+		while (args[i])
+		{
+			int	value;
+
+			value = ft_atoi(args[i]);
+			ft_putnbr(ft_atoi(args[i]));
+			ft_putchar('\n');
+			if (value < INT_MIN || value > INT_MAX)
+			{
+				ft_putendl("Arg sup or inf to the limits of type int");
+				ft_puterr();
+				// return (-1);
+			}
+			i++;
+		}
+
 		if (argc == 2)
 		{
 			i = ft_cntwds(*argv, 32);
@@ -100,9 +123,11 @@ int	main(int argc, char **argv)
 				
 				if (!ft_isdigit(**argv) && **argv != 32 && **argv != 45)
 				{
+					// --------------------DISPLAY-------------------------------------
 					ft_puterr();
 					ft_putendl("Arg invalide");
 					//return (-1);
+					// ----------------------------------------------------------------
 				}
 				else
 				{
@@ -116,9 +141,11 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
+		// --------------------DISPLAY-------------------------------------
 		ft_puterr();
 		ft_putendl("No args");
 	//	return (-1);
+		// ----------------------------------------------------------------
 	}
 	ft_putstr("---------------------------------------\n");
 	return (0);

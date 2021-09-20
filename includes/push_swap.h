@@ -6,12 +6,13 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/19 22:35:00 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/20 16:55:41 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# include <limits.h>
 # include "../libft/libft.h"
 
 typedef t_list	t_stack;
