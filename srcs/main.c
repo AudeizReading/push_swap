@@ -56,6 +56,35 @@ t_bool ft_has_duplicate_chars(char **argv)
 	return (e_false);
 }
 
+long	ft_atol(char *s)
+{
+	long	atol;
+	int			polarity;
+	int			sign;
+
+	polarity = 1;
+	sign = 0;
+	atol = 0;
+	while (ft_isspace(*s))
+		s++;
+	while (*s == 43 || *s == 45)
+	{
+		if (*s == 45)
+			polarity *= -1;
+		sign++;
+		s++;
+	}
+	if (sign > 1)
+		return 0;
+	while (ft_isdigit(*s))
+	{
+		atol = atol * 10 + (*s - 48);
+		s++;
+	}
+	atol *= polarity;
+	return ((long)atol);
+}
+
 int	main(int argc, char **argv)
 {
 	// --------------------DISPLAY-------------------------------------
@@ -93,10 +122,13 @@ int	main(int argc, char **argv)
 		i = 0;
 		while (args[i])
 		{
-			int	value;
+			//int	value;
+			long	value;
 
-			value = ft_atoi(args[i]);
-			ft_putnbr(ft_atoi(args[i]));
+			//value = ft_atoi(args[i]);
+			value = ft_atol(args[i]);
+		//	ft_putnbr(ft_atoi(args[i]));
+			printf("%ld\n", value);
 			ft_putchar('\n');
 			if (value < INT_MIN || value > INT_MAX)
 			{
