@@ -1,5 +1,6 @@
 #include "../includes/push_swap.h"
 
+// Quel comportement si argv = "liste de nombres valides" nb nb nb "re liste de nombres valides"
 int	main(int argc, char **argv)
 {
 	// --------------------DISPLAY-------------------------------------
