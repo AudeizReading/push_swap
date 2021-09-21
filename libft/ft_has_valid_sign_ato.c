@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_has_valid_sign_ato.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/21 12:25:51 by alellouc         ###   ########.fr       */
+/*   Created: 2021/09/20 22:26:52 by alellouc          #+#    #+#             */
+/*   Updated: 2021/09/20 22:27:04 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-//# include <limits.h>
-# include <stdio.h>
-# include "../libft/libft.h"
+#include "libft.h"
 
-typedef t_list	t_stack;
+t_bool	ft_has_valid_sign_ato(char **s, int *polarity)
+{
+	int	sign;
 
-/* Errors Handling */
-void	ft_puterr(void);
-
-/* Parsing Handling - ps for push_swap */
-t_bool	ft_is_valid_ps_args(char **argv);
-t_bool ft_has_duplicate_chars(char **argv);
-
-/* Launch Program */
-int	main(int argc, char **argv);
-#endif
+	sign = 0;
+	if (!s)
+		return (e_false);
+	while (**s == 43 || **s == 45)
+	{
+		if (**s == 45)
+			*polarity *= -1;
+		sign++;
+		(*s)++;
+	}
+	if (sign > 1)
+		return (e_false);
+	return (e_true);
+}

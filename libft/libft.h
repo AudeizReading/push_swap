@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:41:48 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/20 22:01:19 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:26:25 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/errno.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -90,5 +91,7 @@ void	ft_print_list(t_list *list);
 void	ft_putlnbr_base(long nbr, char *base);
 void	ft_putlnbr(long n);
 long	ft_atol(char *s);
-//long	ft_atol_base(char *s, int base);
+t_bool	ft_has_valid_sign_ato(char **s, int *polarity);
+long	ft_atol_base(char *s, int base);
+t_bool	ft_is_int(long value);
 #endif

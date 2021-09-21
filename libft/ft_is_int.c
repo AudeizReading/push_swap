@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_is_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/21 12:25:51 by alellouc         ###   ########.fr       */
+/*   Created: 2021/09/21 12:24:50 by alellouc          #+#    #+#             */
+/*   Updated: 2021/09/21 12:25:08 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-//# include <limits.h>
-# include <stdio.h>
-# include "../libft/libft.h"
+#include "libft.h"
 
-typedef t_list	t_stack;
-
-/* Errors Handling */
-void	ft_puterr(void);
-
-/* Parsing Handling - ps for push_swap */
-t_bool	ft_is_valid_ps_args(char **argv);
-t_bool ft_has_duplicate_chars(char **argv);
-
-/* Launch Program */
-int	main(int argc, char **argv);
-#endif
+t_bool	ft_is_int(long value)
+{
+	if (value < INT_MIN || value > INT_MAX)
+		return (e_false);
+	return (e_true);
+}
