@@ -47,6 +47,7 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 ))\
 	 $(addprefix srcs/ft_, $(addsuffix .c, \
 	 errors\
+	 parse_arguments\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap
