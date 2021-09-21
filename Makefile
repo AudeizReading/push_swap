@@ -116,34 +116,34 @@ test: $(NAME)
 	./$(NAME) $(ARGS_IS_STR_VALID_1)
 	./$(NAME) $(ARGS_IS_VALID_15)
 	./$(NAME) $(ARGS_IS_STR_VALID_15)
-	./$(NAME) $(ARGS_IS_VALID_150)
-	./$(NAME) $(ARGS_IS_STR_VALID_150)
-	./$(NAME) $(ARGS_IS_VALID_600)
-	./$(NAME) $(ARGS_IS_STR_VALID_600)
+#	./$(NAME) $(ARGS_IS_VALID_150)
+#	./$(NAME) $(ARGS_IS_STR_VALID_150)
+#	./$(NAME) $(ARGS_IS_VALID_600)
+#	./$(NAME) $(ARGS_IS_STR_VALID_600)
 	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_15)
 	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_15)
-	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
-	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
-	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
-	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
+#	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
+#	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
+#	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
+#	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
 	./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
 	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
-	./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
-	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
-	./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
-	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
+#	./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
+#	./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
 	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
 	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
-	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
-	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
-	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
-	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
+#	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
+#	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
 	./$(NAME) $(ARGS_IS_INVALID_INT_15)
 	./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
-	./$(NAME) $(ARGS_IS_INVALID_INT_150)
-	./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
-	./$(NAME) $(ARGS_IS_INVALID_INT_600)
-	./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
+#	./$(NAME) $(ARGS_IS_INVALID_INT_150)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
+#	./$(NAME) $(ARGS_IS_INVALID_INT_600)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
 	./$(NAME) "Hello World"
 	./$(NAME) Hello World
 	./$(NAME)
@@ -155,30 +155,43 @@ sani: $(OBJ)
 	@$(ECHO) "$(GRE)"
 	$(CC) -g -fsanitize=address -fno-omit-frame-pointer -static-libsan $(LDFLAGS) $^ -o $(NAME) 
 	@$(ECHO) "$(NO_COL)"
-	./$(NAME) 4 4 23 -98 0 105 105 
-	./$(NAME) "4 4 23 -98 0 105 105"
-	./$(NAME) "4 4 23 -98   0 105 105"
-	./$(NAME) "4 4 23 -98 o 105 105"
-	./$(NAME) 4 4 23 -98 o 105 105 
+	./$(NAME) $(ARGS_IS_VALID_1)
+	./$(NAME) $(ARGS_IS_STR_VALID_1)
+	./$(NAME) $(ARGS_IS_VALID_15)
+	./$(NAME) $(ARGS_IS_STR_VALID_15)
+#	./$(NAME) $(ARGS_IS_VALID_150)
+#	./$(NAME) $(ARGS_IS_STR_VALID_150)
+#	./$(NAME) $(ARGS_IS_VALID_600)
+#	./$(NAME) $(ARGS_IS_STR_VALID_600)
+	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_15)
+	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_15)
+#	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
+#	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
+#	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
+#	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
+	./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
+	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
+#	./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
+#	./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
+	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
+	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
+#	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
+#	./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
+	./$(NAME) $(ARGS_IS_INVALID_INT_15)
+	./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
+#	./$(NAME) $(ARGS_IS_INVALID_INT_150)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
+#	./$(NAME) $(ARGS_IS_INVALID_INT_600)
+#	./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
 	./$(NAME) "Hello World"
-	./$(NAME) 4 8 7 6 2 1 5 3 442
-	./$(NAME) "4 4 8 7 6 6 2 1 5 3 3"
-	./$(NAME) "4 8 7 6 2 1 -16 5 3 442"
-	./$(NAME) 4 4 8 7 6 2 1 5 3 442
-	./$(NAME) 4 8 7 6 2 1 1 5 3 442
-	./$(NAME) "4 8 7 6 2 1 1 5 3 442"
-	./$(NAME) 4 8 7 O 2 1 5 3 442
-	./$(NAME) 4 8 7 "O" 2 1 5 3 442
-	./$(NAME) 442
-	./$(NAME) -442
+	./$(NAME) Hello World
 	./$(NAME)
-#	./$(NAME) 
-#	@$(MAKE) clean
-#	@$(MAKE) libftclean
 #	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
-	@$(ECHO) "$(RED)"
-	@$(ECHO) "$(NO_COL)"
 
 debug: $(OBJ)
 	@$(MAKE) libft
@@ -186,31 +199,43 @@ debug: $(OBJ)
 	@$(ECHO) "$(BLU)"
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
-	valgrind ./$(NAME)
-	valgrind ./$(NAME) 4 4 23 -98 0 105 105 
-	valgrind ./$(NAME) "4 4 23 -98 0 105 105"
-	valgrind ./$(NAME) "4 4 23 -98   0 105 105"
-	valgrind ./$(NAME) "4 4 23 -98 o 105 105"
-	valgrind ./$(NAME) 4 4 23 -98 o 105 105 
+	valgrind ./$(NAME) $(ARGS_IS_VALID_1)
+	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_1)
+	valgrind ./$(NAME) $(ARGS_IS_VALID_15)
+	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_15)
+#	valgrind ./$(NAME) $(ARGS_IS_VALID_150)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_150)
+#	valgrind ./$(NAME) $(ARGS_IS_VALID_600)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_600)
+	valgrind ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_15)
+	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_15)
+#	valgrind ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
+#	valgrind ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
+	valgrind ./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
+	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
+	valgrind ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
+	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
+	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_15)
+	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_150)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_600)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
 	valgrind ./$(NAME) "Hello World"
-	valgrind ./$(NAME) 4 8 7 6 2 1 5 3 442
-	valgrind ./$(NAME) "4 4 8 7 6 6 2 1 5 3 3"
-	valgrind ./$(NAME) "4 8 7 6 2 1 -16 5 3 442"
-	valgrind ./$(NAME) 4 4 8 7 6 2 1 5 3 442
-	valgrind ./$(NAME) 4 8 7 6 2 1 1 5 3 442
-	valgrind ./$(NAME) "4 8 7 6 2 1 1 5 3 442"
-	valgrind ./$(NAME) 4 8 7 O 2 1 5 3 442
-	valgrind ./$(NAME) 4 8 7 "O" 2 1 5 3 442
-	valgrind ./$(NAME) 442
-	valgrind ./$(NAME) -442
+	valgrind ./$(NAME) Hello World
 	valgrind ./$(NAME)
-#	@$(MAKE) clean
-#	@$(MAKE) libftclean
 #	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
-	@$(ECHO) "$(RED)"
-	$(RM) $(NAME) debug.dSYM
-	@$(ECHO) "$(NO_COL)"
 
 debug-full: $(OBJ)
 	@$(MAKE) libft
@@ -218,31 +243,43 @@ debug-full: $(OBJ)
 	@$(ECHO) "$(BLU)"
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 4 23 -98 0 105 105 
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 23 -98 0 105 105"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 23 -98   0 105 105"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 23 -98 o 105 105"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 4 23 -98 o 105 105 
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_1)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_1)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_15)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_15)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_600)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_600)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_15)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_15)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_15)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_600)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "Hello World"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 6 2 1 5 3 442
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 4 8 7 6 6 2 1 5 3 3"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 8 7 6 2 1 -16 5 3 442"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 4 8 7 6 2 1 5 3 442
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 6 2 1 1 5 3 442
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "4 8 7 6 2 1 1 5 3 442"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 O 2 1 5 3 442
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 4 8 7 "O" 2 1 5 3 442
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 442
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) -442
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) Hello World
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-#	@$(MAKE) clean
-#	@$(MAKE) libftclean
 #	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
-	@$(ECHO) "$(RED)"
-	$(RM) $(NAME) debug-full.dSYM 
-	@$(ECHO) "$(NO_COL)"
 
 %.o: %.c
 	@$(ECHO) "$(GRE)"
