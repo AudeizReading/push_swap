@@ -1,8 +1,9 @@
 #include "../includes/push_swap.h"
-void	ft_puterr(void)
-{
-	ft_putendl_fd("\033[31mError\033[0m", 2);
-}
+/*void	ft_puterr(void)
+{*/
+	// Attention a enlever couleur rouge
+	/*ft_putendl_fd("\033[31mError\033[0m", 2);
+}*/
 
 /* If **argv is a digit or space - In case there is only 1 string of numbers*/
 t_bool	ft_is_valid_ps_args(char **argv)
@@ -56,30 +57,21 @@ t_bool ft_has_duplicate_chars(char **argv)
 	return (e_false);
 }
 
-/*t_bool	ft_is_int(long value)
-{
-	if (value < INT_MIN || value > INT_MAX)
-		return (e_false);
-	return (e_true);
-}*/
-
 t_bool	ft_check_arg_is_int(char **args)
 {
 	long	value;
-	int		i;
 
 	if (!args)
 		return (e_false);
-	i = 0;
-	while (args[i])
+	while (*args)
 	{
-		value = ft_atol(args[i]);
+		value = ft_atol(*args);
 		if (!ft_is_int(value))
 		{
 			ft_puterr();
 			return (e_false);
 		}
-		i++;
+		args++;
 	}
 	return (e_true);
 }
@@ -116,27 +108,13 @@ int	main(int argc, char **argv)
 		if (ft_has_duplicate_chars(args))
 			// --------------------DISPLAY-------------------------------------
 			ft_putendl("Arg duplicate");
-		//	return (-1);
 			// ----------------------------------------------------------------
-		// Ici, il faudrait checker les valeurs de args si +petit que INT_MIN ou plus grand que INT_MAX
+		//	return (-1);
 		if (!ft_check_arg_is_int(args))
+			// --------------------DISPLAY-------------------------------------
 			ft_putendl("Arg sup or inf to the limits of type int");
+			// ----------------------------------------------------------------
 			// return (-1);
-	/*	i = 0;
-		while (args[i])
-		{
-			long	value;
-
-			value = ft_atol(args[i]);
-			printf("%ld\n", value);
-			ft_putchar('\n');
-			if (value < INT_MIN || value > INT_MAX)
-			{
-				ft_putendl("Arg sup or inf to the limits of type int");
-				ft_puterr();
-			}
-			i++;
-		}*/
 
 		if (argc == 2)
 		{
