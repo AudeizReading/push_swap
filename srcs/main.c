@@ -49,6 +49,8 @@ int	main(int argc, char **argv)
 			}
 			free(args);
 		}
+		// --------------------CHECK ARGV----------------------------------
+		// Cette boucle est la pr verif que je modifie pas le pointeur argv avec mes tests de fonction dessus
 		while (*argv)
 		{
 			while (**argv)
@@ -71,6 +73,7 @@ int	main(int argc, char **argv)
 			ft_putchar('\n');
 			argv++;
 		}
+		// ----------------------------------------------------------------
 	}
 	else
 	{
