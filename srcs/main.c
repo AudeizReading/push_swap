@@ -1,9 +1,4 @@
 #include "../includes/push_swap.h"
-/*void	ft_puterr(void)
-{*/
-	// Attention a enlever couleur rouge
-	/*ft_putendl_fd("\033[31mError\033[0m", 2);
-}*/
 
 /* If **argv is a digit or space - In case there is only 1 string of numbers*/
 t_bool	ft_is_valid_ps_args(char **argv)
