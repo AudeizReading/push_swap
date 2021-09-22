@@ -1,16 +1,21 @@
 #include "../includes/push_swap.h"
 
-void	ft_swap(int *a, int *b)
+void	ft_swap(void *a, void *b)
 {
-	int	tmp;
+	unsigned char	*tmp;
+	unsigned char	*p_a;
+	unsigned char	*p_b;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	p_a = (unsigned char *)a;
+	p_b = (unsigned char *)b;
+	tmp = malloc(sizeof(*tmp) * ft_strlen((char *)p_a));
+	*tmp = *p_a;
+	*p_a = *p_b;
+	*p_b = *tmp;
+	free(tmp);
 }
 
 void	ft_swap_tab(void *tab[], int a, int b)
-//void	ft_swap_tab(char **tab, int a, int b)
 {
 	void	*tmp;
 
@@ -26,7 +31,7 @@ int		ft_lnbrcmp(char *s1, char *s2)
 
 	n1 = ft_atol(s1);
 	n2 = ft_atol(s2);
-	printf("n1 %ld, n2 %ld\n", n1, n2);
+//	printf("n1 %ld, n2 %ld\n", n1, n2);
 	if (n1 < n2)
 		return (-1);
 	else if (n1 > n2)
@@ -55,44 +60,45 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 	ft_swap_tab(tab, l, (l + r) / 2);
 	last = l;
 	i = l + 1;
-	ft_putstr("Avant le tri ");
-	ft_putstr("elt last: ");
-	ft_putnbr(last);
-	ft_putstr(" ");
-	ft_putstr(tab[last]);
-	ft_putstr(" swap avec elt i ");
-	ft_putnbr(i);
-	ft_putstr(" ");
-	ft_putstr(tab[i]);
-	ft_putstr("(not yet)\n");
+//	ft_putstr("Avant le tri ");
+//	ft_putstr("elt last: ");
+//	ft_putnbr(last);
+//	ft_putstr(" ");
+//	ft_putstr(tab[last]);
+//	ft_putstr(" swap avec elt i ");
+//	ft_putnbr(i);
+//	ft_putstr(" ");
+//	ft_putstr(tab[i]);
+//	ft_putstr("(not yet)\n");
+	//ft_putstr(tab[r]);
 	while (i <= r)
 	{
 		if ((*cmp)(tab[i], tab[l]) < 0)
 		//if (ft_strcmp(tab[i], tab[l]) < 0)
 		{
-			ft_putstr("Avant le tri ");
-			ft_putstr("elt last: ");
-			ft_putnbr(last);
-			ft_putstr(" ");
-			ft_putstr(tab[last]);
-			ft_putstr(" swap avec elt i ");
-			ft_putnbr(i);
-			ft_putstr(" ");
-			ft_putstr(tab[i]);
-			ft_putstr("\n");
+		//	ft_putstr("Avant le tri ");
+		//	ft_putstr("elt last: ");
+		//	ft_putnbr(last);
+		//	ft_putstr(" ");
+		//	ft_putstr(tab[last]);
+		//	ft_putstr(" swap avec elt i ");
+		//	ft_putnbr(i);
+		//	ft_putstr(" ");
+		//	ft_putstr(tab[i]);
+		//	ft_putstr("\n");
 			// swap ici
 			ft_swap_tab(tab, ++last, i);
 			// fin de swap
-			ft_putstr("Apres le tri ");
-			ft_putstr("elt last: ");
-			ft_putnbr(last);
-			ft_putstr(" ");
-			ft_putstr(tab[last]);
-			ft_putstr(" swap avec elt i ");
-			ft_putnbr(i);
-			ft_putstr(" ");
-			ft_putstr(tab[i]);
-			ft_putstr("\n");
+		//	ft_putstr("Apres le tri ");
+		//	ft_putstr("elt last: ");
+		//	ft_putnbr(last);
+		//	ft_putstr(" ");
+		//	ft_putstr(tab[last]);
+		//	ft_putstr(" swap avec elt i ");
+		//	ft_putnbr(i);
+		//	ft_putstr(" ");
+		//	ft_putstr(tab[i]);
+		//	ft_putstr("\n");
 		}
 		i++;
 	}
@@ -142,29 +148,44 @@ int	main(int argc, char **argv)
 			// ----------------------------------------------------------------
 			// return (-1);
 		// Passer args en liste chainee
+
 		// Trouver la mediane, donc trier args une fois mis en liste chainee (pr pas casser l'ordre initial
-		// Pb avec les args non chaine (argv[argc])
 		int end;
 		int begin;
+		long	me;
+		long	q1;
+		long	q3;
+
+		begin = 0;
 		if (argc == 2)
-		{
 			end  = ft_cntwds(*argv, 32) - 1;
-			begin = 0;
-		}
 		else
-		{
-			begin = 1;
 			end = argc - 2;
-		}
+		// Apartir d'ici args est trié
 		ft_qsort_tab((void **)args, begin, end, (int (*) (void *, void *)) ft_lnbrcmp);
-	//	ft_qsort_tab((void **)args, 0, ft_cntwds(*argv, 32) - 1, (int (*) (void *, void *)) ft_strcmp);
+		// Reste a savoir si on prend la mediane
+		me = ft_atol(args[end / 2]);
+		q1 = ft_atol(args[end / 4]);
+		q3 = ft_atol(args[(3 * end) / 4]);
+		printf("\033[35mq1 (end / 4: %d): %ld, me (end / 2: %d): %ld, q3 ((3 * end) / 4: %d): %ld\033[0m\n", end / 4, q1, end / 2, me, (3 * end) / 4, q3);
 		i = 0;
-	//	ft_putstr("ft_cntwds");
+
+		//int a = 3;
+		//int	b = 5;
+		char	*a = " World";
+		char	*b = "Hello";
+		printf("before swap a: %s and b: %s\n", a, b);
+		ft_swap(&a, &b);
+		printf("after swap a: %s and b: %s\n", a, b);
+		// --------------------DISPLAY-------------------------------------
 		ft_putendl("Tableau args trié");
 		while (args[i])
 		{
 			ft_putendl(args[i++]);
 		}
+		// ----------------------------------------------------------------
+
+		// On free le tableau genere par split
 		if (argc == 2)
 		{
 			i = ft_cntwds(*argv, 32);
