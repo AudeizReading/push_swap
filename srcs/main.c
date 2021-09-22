@@ -154,7 +154,7 @@ int	main(int argc, char **argv)
 		else
 		{
 			begin = 1;
-			end = argc - 1;
+			end = argc - 2;
 		}
 		ft_qsort_tab((void **)args, begin, end, (int (*) (void *, void *)) ft_lnbrcmp);
 	//	ft_qsort_tab((void **)args, 0, ft_cntwds(*argv, 32) - 1, (int (*) (void *, void *)) ft_strcmp);
