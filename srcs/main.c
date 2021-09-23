@@ -1,20 +1,6 @@
 #include "../includes/push_swap.h"
 
-/*int		ft_lnbrcmp(char *s1, char *s2)
-{
-	long	n1;
-	long	n2;
-
-	n1 = ft_atol(s1);
-	n2 = ft_atol(s2);
-	if (n1 < n2)
-		return (-1);
-	else if (n1 > n2)
-		return (1);
-	return (0);
-}*/
-
-//void	ft_qsort_tab(char **tab, int l, int r)
+// garder ca ici le temps que le tri soit efficace
 void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 {
 	int	i;
@@ -25,45 +11,16 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 	ft_swap_tab(tab, l, (l + r) / 2);
 	last = l;
 	i = l + 1;
-//	ft_putstr("Avant le tri ");
-//	ft_putstr("elt last: ");
-//	ft_putnbr(last);
-//	ft_putstr(" ");
-//	ft_putstr(tab[last]);
-//	ft_putstr(" swap avec elt i ");
-//	ft_putnbr(i);
-//	ft_putstr(" ");
-//	ft_putstr(tab[i]);
-//	ft_putstr("(not yet)\n");
-	//ft_putstr(tab[r]);
+	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s (not yet)\n", last, tab[last], i, tab[i]);
 	while (i <= r)
 	{
 		if ((*cmp)(tab[i], tab[l]) < 0)
-		//if (ft_strcmp(tab[i], tab[l]) < 0)
 		{
-		//	ft_putstr("Avant le tri ");
-		//	ft_putstr("elt last: ");
-		//	ft_putnbr(last);
-		//	ft_putstr(" ");
-		//	ft_putstr(tab[last]);
-		//	ft_putstr(" swap avec elt i ");
-		//	ft_putnbr(i);
-		//	ft_putstr(" ");
-		//	ft_putstr(tab[i]);
-		//	ft_putstr("\n");
+			printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
 			// swap ici
 			ft_swap_tab(tab, ++last, i);
 			// fin de swap
-		//	ft_putstr("Apres le tri ");
-		//	ft_putstr("elt last: ");
-		//	ft_putnbr(last);
-		//	ft_putstr(" ");
-		//	ft_putstr(tab[last]);
-		//	ft_putstr(" swap avec elt i ");
-		//	ft_putnbr(i);
-		//	ft_putstr(" ");
-		//	ft_putstr(tab[i]);
-		//	ft_putstr("\n");
+			printf("Après le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
 		}
 		i++;
 	}
@@ -72,6 +29,13 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 	ft_qsort_tab(tab, last + 1, r, cmp);
 }
 
+void	sa(t_stack *a, int *last, int *penultimate)
+{
+	if (!a || ft_lstsize(a) == 1)
+		return ;
+	ft_swap(last, penultimate);
+	ft_putendl("sa");
+}
 // Quel comportement si argv = "liste de nombres valides" nb nb nb "re liste de nombres valides"
 int	main(int argc, char **argv)
 {
@@ -113,7 +77,26 @@ int	main(int argc, char **argv)
 			// return (-1);
 		// Passer args en liste chainee
 		// voir du cote de strtotab pour recup argv dans un tab de structures
+		t_stack	*a;
+		t_stack	*elt_a;
+		int		*p_i;
 
+		a = NULL;
+		i = 0;
+		p_i = &i;
+		while (i < 4)
+		{
+			elt_a = ft_lstnew(p_i);
+			printf("elt_a->content: %ld, i %d %p %x\n", (long)elt_a->content, *p_i, p_i, *p_i);
+			ft_putlnbr((long)elt_a->(*content));
+			ft_putchar(' ');
+			ft_luint_putnbr_base((long)elt_a->content, "0123456789abcdef", 1);
+			ft_putchar('\n');
+			ft_lstadd_back(&a, elt_a);
+			p_i++;
+			*p_i = i++;;
+		}
+		ft_print_list(a);
 		// --------------------MEDIAN--------------------------------------
 		// Trouver la mediane, donc trier args une fois mis en liste chainee (pr pas casser l'ordre initial
 		int end;
@@ -133,18 +116,18 @@ int	main(int argc, char **argv)
 		me = ft_atol(args[end / 2]);
 		q1 = ft_atol(args[end / 4]);
 		q3 = ft_atol(args[(3 * end) / 4]);
-		// ----------------------------------------------------------------
 		printf("\033[35mq1 (end / 4: %d): %ld, me (end / 2: %d): %ld, q3 ((3 * end) / 4: %d): %ld\033[0m\n", end / 4, q1, end / 2, me, (3 * end) / 4, q3);
-		i = 0;
+		// ----------------------------------------------------------------
 
 		//int a = 3;
 		//int	b = 5;
-		char	*a = " World";
+	/*	char	*a = " World";
 		char	*b = "Hello";
 		printf("before swap a: %s and b: %s\n", a, b);
 		ft_swap(&a, &b);
-		printf("after swap a: %s and b: %s\n", a, b);
+		printf("after swap a: %s and b: %s\n", a, b);*/
 		// --------------------DISPLAY-------------------------------------
+		i = 0;
 		ft_putendl("Tableau args trié");
 		while (args[i])
 		{
