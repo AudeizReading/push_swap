@@ -1,5 +1,12 @@
 #include "../includes/push_swap.h"
 
+/*   TO-DO LIST 
+**   - creer fn qui recup le tab d'argv en liste chainee
+**   - trouver moyen de reutils la fn sa pour sb
+**   - coder la fonction de la mediane
+**   - coder les fonction pop et push de la stack
+**   - faut-il des membres sup comme le grp ou la pile a Stack
+**   -*/
 // garder ca ici le temps que le tri soit efficace
 void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 {
@@ -29,11 +36,13 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 	ft_qsort_tab(tab, last + 1, r, cmp);
 }
 
-void	sa(t_stack *a, int *last, int *penultimate)
+void	sa(t_stack *stack, int *top_stack, int *penultimate)
 {
-	if (!a || ft_lstsize(a) == 1)
+	if (!stack || ft_lstsize(stack) == 1)
 		return ;
-	ft_swap(last, penultimate);
+	ft_swap(top_stack, penultimate);
+	// Trouver un moyen pour afficher sa ou sb car same function
+	// Changer le nom de la fonction aussi
 	ft_putendl("sa");
 }
 // Quel comportement si argv = "liste de nombres valides" nb nb nb "re liste de nombres valides"
@@ -83,15 +92,36 @@ int	main(int argc, char **argv)
 
 		a = NULL;
 		i = 0;
-		p_i = &i;
+		//p_i = &i;
+		p_i = malloc(sizeof(*p_i) * 4);
+		if (!p_i)
+			return (-1);
+		*p_i = i;
+		ft_putnbr(i);
+		ft_putchar('\n');
 		while (i < 4)
 		{
 			elt_a = ft_lstnew(p_i);
 			printf("elt_a->content: %d, i %d %p %x\n",*((int *)elt_a->content), *p_i, p_i, *p_i);
 			ft_lstadd_back(&a, elt_a);
-			i++;
+			*p_i = i++;
+			p_i++;
+			//p_i += i * sizeof(int);
+		//	p_i[i] = i;
+		//	i++;
 		}
-		ft_print_list(a);
+		free(p_i);
+	//	printf("content: %d, next content %d\n", *((int *)elt_a->content), *((int *)elt_a->next->content));
+		printf("a %d, next %d\n", (*((int *)a->next->content)), *((int *)a->next->next->content));
+		//sa(a, *((int *)a->next->content), *((int *)a->next->next->content));
+		sa(a, (int *)a->next->content, (int *)a->next->next->content);
+		printf("a %d, next %d\n", *((int *)a->next->content), *((int *)a->next->next->content));
+		while (i-- > 0)
+		{
+		//	printf("elt_a->content: %d\n", *(int *)elt_a->content);
+		//	elt_a = elt_a->next;
+		}
+		//ft_print_list(a);
 		// --------------------MEDIAN--------------------------------------
 		// Trouver la mediane, donc trier args une fois mis en liste chainee (pr pas casser l'ordre initial
 		int end;
