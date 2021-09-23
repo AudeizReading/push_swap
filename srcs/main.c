@@ -1,29 +1,5 @@
 #include "../includes/push_swap.h"
 
-/*void	ft_swap(void *a, void *b)
-{
-	unsigned char	*tmp;
-	unsigned char	*p_a;
-	unsigned char	*p_b;
-
-	p_a = (unsigned char *)a;
-	p_b = (unsigned char *)b;
-	tmp = malloc(sizeof(*tmp) * ft_strlen((char *)p_a));
-	*tmp = *p_a;
-	*p_a = *p_b;
-	*p_b = *tmp;
-	free(tmp);
-}*/
-
-void	ft_swap_tab(void *tab[], int a, int b)
-{
-	void	*tmp;
-
-	tmp = tab[a];
-	tab[a] = tab[b];
-	tab[b] = tmp;
-}
-
 int		ft_lnbrcmp(char *s1, char *s2)
 {
 	long	n1;
@@ -39,7 +15,7 @@ int		ft_lnbrcmp(char *s1, char *s2)
 	return (0);
 }
 
-int		ft_strcmp(char *s1, char *s2)
+/*int		ft_strcmp(char *s1, char *s2)
 {
 	while (s1 && s2 && (*s1 == *s2))
 	{
@@ -47,7 +23,7 @@ int		ft_strcmp(char *s1, char *s2)
 		s2++;
 	}
 	return ((unsigned char) *s1 - (unsigned char) *s2);
-}
+}*/
 
 //void	ft_qsort_tab(char **tab, int l, int r)
 void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))

@@ -6,7 +6,7 @@
 #    By: alellouc <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 08:35:31 by alellouc          #+#    #+#              #
-#    Updated: 2021/09/23 13:23:42 by alellouc         ###   ########.fr        #
+#    Updated: 2021/09/23 15:15:11 by alellouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRC=$(addprefix ft_, $(addsuffix .c,\
 		atol_base\
 		is_int\
 		swap\
+		strcmp\
 	))
 BONUS_SRC=$(addprefix ft_, $(addsuffix .c,\
 		  lstnew\
