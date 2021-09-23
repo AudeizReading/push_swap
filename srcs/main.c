@@ -87,14 +87,15 @@ int	main(int argc, char **argv)
 		while (i < 4)
 		{
 			elt_a = ft_lstnew(p_i);
-			printf("elt_a->content: %ld, i %d %p %x\n", (long)elt_a->content, *p_i, p_i, *p_i);
-			ft_putlnbr((long)elt_a->(*content));
-			ft_putchar(' ');
+			printf("elt_a->content: %d, i %d %p %x\n",*((int *)elt_a->content), *p_i, p_i, *p_i);
+		//	ft_putlnbr((long)elt_a->(content));
+		/*	ft_putchar(' ');
 			ft_luint_putnbr_base((long)elt_a->content, "0123456789abcdef", 1);
-			ft_putchar('\n');
+			ft_putchar('\n');*/
 			ft_lstadd_back(&a, elt_a);
-			p_i++;
-			*p_i = i++;;
+			//p_i++;
+		//	*p_i = 
+			i++;
 		}
 		ft_print_list(a);
 		// --------------------MEDIAN--------------------------------------
