@@ -1,28 +1,17 @@
 #include "../includes/push_swap.h"
 
-int		ft_lnbrcmp(char *s1, char *s2)
+/*int		ft_lnbrcmp(char *s1, char *s2)
 {
 	long	n1;
 	long	n2;
 
 	n1 = ft_atol(s1);
 	n2 = ft_atol(s2);
-//	printf("n1 %ld, n2 %ld\n", n1, n2);
 	if (n1 < n2)
 		return (-1);
 	else if (n1 > n2)
 		return (1);
 	return (0);
-}
-
-/*int		ft_strcmp(char *s1, char *s2)
-{
-	while (s1 && s2 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char) *s1 - (unsigned char) *s2);
 }*/
 
 //void	ft_qsort_tab(char **tab, int l, int r)
