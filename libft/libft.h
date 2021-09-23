@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:41:48 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/21 12:26:25 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:21:53 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,6 @@ long	ft_atol(char *s);
 t_bool	ft_has_valid_sign_ato(char **s, int *polarity);
 long	ft_atol_base(char *s, int base);
 t_bool	ft_is_int(long value);
+void	ft_swap(void *a, void *b);
+void	ft_swap_tab(void *tab[], int a, int b);
 #endif

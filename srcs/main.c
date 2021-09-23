@@ -1,6 +1,6 @@
 #include "../includes/push_swap.h"
 
-void	ft_swap(void *a, void *b)
+/*void	ft_swap(void *a, void *b)
 {
 	unsigned char	*tmp;
 	unsigned char	*p_a;
@@ -13,7 +13,7 @@ void	ft_swap(void *a, void *b)
 	*p_a = *p_b;
 	*p_b = *tmp;
 	free(tmp);
-}
+}*/
 
 void	ft_swap_tab(void *tab[], int a, int b)
 {
@@ -130,7 +130,6 @@ int	main(int argc, char **argv)
 			ft_putnbr(ft_cntwds(*argv, 32));
 			ft_putendl(" args.");
 			// ----------------------------------------------------------------
-			// voir du cote de strtotab pour recup argv dans un tab de structures
 			args = ft_split(*argv, 32);
 			if (!args)
 				return (-1);
@@ -148,7 +147,9 @@ int	main(int argc, char **argv)
 			// ----------------------------------------------------------------
 			// return (-1);
 		// Passer args en liste chainee
+		// voir du cote de strtotab pour recup argv dans un tab de structures
 
+		// --------------------MEDIAN--------------------------------------
 		// Trouver la mediane, donc trier args une fois mis en liste chainee (pr pas casser l'ordre initial
 		int end;
 		int begin;
@@ -163,10 +164,11 @@ int	main(int argc, char **argv)
 			end = argc - 2;
 		// Apartir d'ici args est trié
 		ft_qsort_tab((void **)args, begin, end, (int (*) (void *, void *)) ft_lnbrcmp);
-		// Reste a savoir si on prend la mediane
+		// Reste a savoir si on prend la mediane des valeurs ou des indices (comme qs)
 		me = ft_atol(args[end / 2]);
 		q1 = ft_atol(args[end / 4]);
 		q3 = ft_atol(args[(3 * end) / 4]);
+		// ----------------------------------------------------------------
 		printf("\033[35mq1 (end / 4: %d): %ld, me (end / 2: %d): %ld, q3 ((3 * end) / 4: %d): %ld\033[0m\n", end / 4, q1, end / 2, me, (3 * end) / 4, q3);
 		i = 0;
 
