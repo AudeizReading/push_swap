@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 13:22:30 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/23 15:09:01 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/24 10:38:49 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_swap(void *a, void *b)
 
 	p_a = (unsigned char *)a;
 	p_b = (unsigned char *)b;
-	tmp = malloc(sizeof(*tmp) * ft_strlen((char *)p_a));
+	tmp = malloc(sizeof(*tmp));
 	*tmp = *p_a;
 	*p_a = *p_b;
 	*p_b = *tmp;

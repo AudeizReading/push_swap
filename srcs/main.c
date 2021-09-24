@@ -92,7 +92,6 @@ int	main(int argc, char **argv)
 
 		a = NULL;
 		i = 0;
-		//p_i = &i;
 		p_i = malloc(sizeof(*p_i) * 4);
 		if (!p_i)
 			return (-1);
@@ -106,22 +105,15 @@ int	main(int argc, char **argv)
 			ft_lstadd_back(&a, elt_a);
 			*p_i = i++;
 			p_i++;
-			//p_i += i * sizeof(int);
-		//	p_i[i] = i;
-		//	i++;
 		}
-		free(p_i);
-	//	printf("content: %d, next content %d\n", *((int *)elt_a->content), *((int *)elt_a->next->content));
-		printf("a %d, next %d\n", (*((int *)a->next->content)), *((int *)a->next->next->content));
-		//sa(a, *((int *)a->next->content), *((int *)a->next->next->content));
-		sa(a, (int *)a->next->content, (int *)a->next->next->content);
-		printf("a %d, next %d\n", *((int *)a->next->content), *((int *)a->next->next->content));
-		while (i-- > 0)
-		{
-		//	printf("elt_a->content: %d\n", *(int *)elt_a->content);
-		//	elt_a = elt_a->next;
-		}
-		//ft_print_list(a);
+		printf("a %d, next %d\n", (*((int *)a->content)), *((int *)a->next->content));
+		sa(a, (int *)a->content, (int *)a->next->content);
+		printf("a %d, next %d\n", *((int *)a->content), *((int *)a->next->content));
+	//	free(p_i);
+		free(elt_a);
+		//ft_lstclear(&a, free);
+		//free(a);
+
 		// --------------------MEDIAN--------------------------------------
 		// Trouver la mediane, donc trier args une fois mis en liste chainee (pr pas casser l'ordre initial
 		int end;
