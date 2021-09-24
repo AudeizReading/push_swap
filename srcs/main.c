@@ -111,7 +111,7 @@ int	main(int argc, char **argv)
 		printf("a %d, next %d\n", *((int *)a->content), *((int *)a->next->content));
 	//	free(p_i);
 		free(elt_a);
-		//ft_lstclear(&a, free);
+		ft_lstclear(&a, free);
 		//free(a);
 
 		// --------------------MEDIAN--------------------------------------
