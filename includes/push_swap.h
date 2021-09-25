@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/25 18:25:10 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/25 21:00:55 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,25 @@ typedef struct s_stk
 void	ft_puterr(void);
 
 /* Parsing Handling - ps for push_swap */
-t_bool	ft_is_valid_ps_args(char **argv);
-t_bool	ft_has_duplicate_chars(char **argv);
-t_bool	ft_check_arg_is_int(char **args);
-char	**ft_parse_args(int argc, char **argv);
-void	ft_free_args(int argc, char **argv, char **args);
+t_bool		ft_is_valid_ps_args(char **argv);
+t_bool		ft_has_duplicate_chars(char **argv);
+t_bool		ft_check_arg_is_int(char **args);
+char		**ft_parse_args(int argc, char **argv);
+void		ft_free_args(int argc, char **argv, char **args);
 
 /* Stack handling */
+t_stk		*ft_init_stack(char *stack_name);
+t_stk_elt	*ft_init_stk_elt(long value, int grp, char *stk_name);
+void		ft_print_stack(t_stk *stack);
+void		ft_stkadd_back(t_stk **stack, t_stk_elt *elt);
 
 /* Instructions */
 
 /* Median */
-t_piv	ft_get_median(int argc, char **argv, char **args);
+t_piv		ft_get_median(int argc, char **argv, char **args);
 
 /* Algos */
-void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
+void		ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
 
 /* Launch Program */
 int	main(int argc, char **argv);
