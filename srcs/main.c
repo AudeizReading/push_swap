@@ -2,50 +2,21 @@
 
 /*   TO-DO LIST 
 **   - creer fn qui recup le tab d'argv en liste chainee
-**   - trouver moyen de reutils la fn sa pour sb
+**   - recoder sa en fonction nv structure et adapter pr sb
 **   - coder les fonction pop et push de la stack
-**   - faut-il des membres sup comme le grp ou la pile a Stack
 **   -*/
 
-// garder ca ici le temps que le tri soit efficace
-void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
-{
-	int	i;
-	int	last;
-
-	if (l >= r)
-		return ;
-	ft_swap_tab(tab, l, (l + r) / 2);
-	last = l;
-	i = l + 1;
-//	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s (not yet)\n", last, tab[last], i, tab[i]);
-	while (i <= r)
-	{
-		if ((*cmp)(tab[i], tab[l]) < 0)
-		{
-		//	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
-			// swap ici
-			ft_swap_tab(tab, ++last, i);
-			// fin de swap
-	//		printf("Après le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
-		}
-		i++;
-	}
-	ft_swap_tab(tab, l, last);
-	ft_qsort_tab(tab, l, last - 1, cmp);
-	ft_qsort_tab(tab, last + 1, r, cmp);
-}
-
 // A adapter a la nouvelle structure stack
-void	sa(t_stack *stack, int *top_stack, int *penultimate)
-{
-	if (!stack || ft_lstsize(stack) == 1)
-		return ;
-	ft_swap(top_stack, penultimate);
-	// Trouver un moyen pour afficher sa ou sb car same function
-	// Changer le nom de la fonction aussi
-	ft_putendl("sa");
-}
+//void	sa(t_stack *stack, int *top_stack, int *penultimate)
+//{
+//	if (!stack || ft_lstsize(stack) == 1)
+//		return ;
+//	ft_swap(top_stack, penultimate);
+//	// Trouver un moyen pour afficher sa ou sb car same function
+//	// Changer le nom de la fonction aussi
+//	ft_putendl("sa");
+//}
+
 int	main(int argc, char **argv)
 {
 	if (argc > 1)

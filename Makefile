@@ -49,6 +49,7 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 errors\
 	 parse_arguments\
 	 get_median\
+	 quicksort\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap
