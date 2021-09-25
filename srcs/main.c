@@ -3,10 +3,19 @@
 /*   TO-DO LIST 
 **   - creer fn qui recup le tab d'argv en liste chainee
 **   - trouver moyen de reutils la fn sa pour sb
-**   - coder la fonction de la mediane
 **   - coder les fonction pop et push de la stack
 **   - faut-il des membres sup comme le grp ou la pile a Stack
 **   -*/
+
+typedef struct s_pivots
+{
+	long	min;
+	long	max;
+	long	me;
+	long	q1;
+	long	q3;
+}				t_pivots;
+
 // garder ca ici le temps que le tri soit efficace
 void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 {
@@ -18,16 +27,16 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 	ft_swap_tab(tab, l, (l + r) / 2);
 	last = l;
 	i = l + 1;
-	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s (not yet)\n", last, tab[last], i, tab[i]);
+//	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s (not yet)\n", last, tab[last], i, tab[i]);
 	while (i <= r)
 	{
 		if ((*cmp)(tab[i], tab[l]) < 0)
 		{
-			printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
+		//	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
 			// swap ici
 			ft_swap_tab(tab, ++last, i);
 			// fin de swap
-			printf("Après le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
+	//		printf("Après le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
 		}
 		i++;
 	}
@@ -36,6 +45,64 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 	ft_qsort_tab(tab, last + 1, r, cmp);
 }
 
+// Attention trie args definitement, recup dans une stack avant tri
+t_pivots	ft_get_median(int argc, char **argv, char **args)
+{
+	t_pivots	pivot;
+	int			begin;
+	int			end;
+
+	begin = 0;
+	if (argc == 2)
+		end  = ft_cntwds(*argv, 32) - 1;
+	else
+		end = argc - 2;
+	ft_qsort_tab((void **)args, begin, end, (int (*) (void *, void *)) ft_lnbrcmp);
+	pivot.min = ft_atol(args[begin]);
+	pivot.me = ft_atol(args[end / 2]);
+	pivot.q1 = ft_atol(args[end / 4]);
+	pivot.q3 = ft_atol(args[(3 * end) / 4]);
+	pivot.max = ft_atol(args[end]);
+	return (pivot);
+}
+
+/*char	**ft_parse_args(int argc, char **argv)
+{
+	char	**args;
+
+	if (argc < 2)
+		return (NULL);
+	if (!ft_is_valid_ps_args(argv))
+		return (NULL);
+	if (argc == 2)
+	{
+		args = ft_split(*argv, 32);
+		if (!args)
+			return (NULL);
+	}
+	else
+		args = argv;
+	if (ft_has_duplicate_chars(args))
+		return (NULL);
+	if (!ft_check_arg_is_int(args))
+		return (NULL);
+	return (args);
+}
+
+void	ft_free_args(int argc, char **argv, char **args)
+{
+	int	i;
+
+	if (argc == 2)
+	{
+		i = ft_cntwds(*argv, 32);
+		while (i--)
+			free(args[i]);
+		free(args);
+	}
+}*/
+
+// A adapter a la nouvelle structure stack
 void	sa(t_stack *stack, int *top_stack, int *penultimate)
 {
 	if (!stack || ft_lstsize(stack) == 1)
@@ -48,102 +115,21 @@ void	sa(t_stack *stack, int *top_stack, int *penultimate)
 // Quel comportement si argv = "liste de nombres valides" nb nb nb "re liste de nombres valides"
 int	main(int argc, char **argv)
 {
-	// --------------------DISPLAY-------------------------------------
-	ft_putnbr(argc);
-	ft_putstr(" arguments.\n");
-	// ----------------------------------------------------------------
 	if (argc > 1)
 	{
 		char	**args;
 		int		i;
 		argv++;
-		// --------------------DISPLAY-------------------------------------
-		if (!ft_is_valid_ps_args(argv))
-			ft_putendl("Arg invalide");
-			//	return (-1);
-		// ----------------------------------------------------------------
-		if (argc == 2)
-		{
-			// --------------------DISPLAY-------------------------------------
-			ft_putnbr(ft_cntwds(*argv, 32));
-			ft_putendl(" args.");
-			// ----------------------------------------------------------------
-			args = ft_split(*argv, 32);
-			if (!args)
-				return (-1);
-		}
-		else
-			args = argv;
-		if (ft_has_duplicate_chars(args))
-			// --------------------DISPLAY-------------------------------------
-			ft_putendl("Arg duplicate");
-			// ----------------------------------------------------------------
-		//	return (-1);
-		if (!ft_check_arg_is_int(args))
-			// --------------------DISPLAY-------------------------------------
-			ft_putendl("Arg sup or inf to the limits of type int");
-			// ----------------------------------------------------------------
-			// return (-1);
-		// Passer args en liste chainee
-		// voir du cote de strtotab pour recup argv dans un tab de structures
-		t_stack	*a;
-		t_stack	*elt_a;
-		int		*p_i;
 
-		a = NULL;
-		i = 0;
-		p_i = malloc(sizeof(*p_i) * 4);
-		if (!p_i)
+		args = ft_parse_args(argc, argv);
+		if (!args)
 			return (-1);
-		*p_i = i;
-		ft_putnbr(i);
-		ft_putchar('\n');
-		while (i < 4)
-		{
-			elt_a = ft_lstnew(p_i);
-			printf("elt_a->content: %d, i %d %p %x\n",*((int *)elt_a->content), *p_i, p_i, *p_i);
-			ft_lstadd_back(&a, elt_a);
-			*p_i = i++;
-			p_i++;
-		}
-		printf("a %d, next %d\n", (*((int *)a->content)), *((int *)a->next->content));
-		sa(a, (int *)a->content, (int *)a->next->content);
-		printf("a %d, next %d\n", *((int *)a->content), *((int *)a->next->content));
-	//	free(p_i);
-		free(elt_a);
-		ft_lstclear(&a, free);
-		//free(a);
-
 		// --------------------MEDIAN--------------------------------------
-		// Trouver la mediane, donc trier args une fois mis en liste chainee (pr pas casser l'ordre initial
-		int end;
-		int begin;
-		long	me;
-		long	q1;
-		long	q3;
+		t_pivots	pivot;
 
-		begin = 0;
-		if (argc == 2)
-			end  = ft_cntwds(*argv, 32) - 1;
-		else
-			end = argc - 2;
-		// Apartir d'ici args est trié
-		ft_qsort_tab((void **)args, begin, end, (int (*) (void *, void *)) ft_lnbrcmp);
-		// Reste a savoir si on prend la mediane des valeurs ou des indices (comme qs)
-		me = ft_atol(args[end / 2]);
-		q1 = ft_atol(args[end / 4]);
-		q3 = ft_atol(args[(3 * end) / 4]);
-		printf("\033[35mq1 (end / 4: %d): %ld, me (end / 2: %d): %ld, q3 ((3 * end) / 4: %d): %ld\033[0m\n", end / 4, q1, end / 2, me, (3 * end) / 4, q3);
-		// ----------------------------------------------------------------
-
-		//int a = 3;
-		//int	b = 5;
-	/*	char	*a = " World";
-		char	*b = "Hello";
-		printf("before swap a: %s and b: %s\n", a, b);
-		ft_swap(&a, &b);
-		printf("after swap a: %s and b: %s\n", a, b);*/
+		pivot = ft_get_median(argc, argv, args);
 		// --------------------DISPLAY-------------------------------------
+		printf("\033[36;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 		i = 0;
 		ft_putendl("Tableau args trié");
 		while (args[i])
@@ -152,16 +138,19 @@ int	main(int argc, char **argv)
 		}
 		// ----------------------------------------------------------------
 
+		// --------------------SWAP----------------------------------------
+		//int a = 3;
+		//int	b = 5;
+	/*	char	*a = " World";
+		char	*b = "Hello";
+		printf("before swap a: %s and b: %s\n", a, b);
+		ft_swap(&a, &b);
+		printf("after swap a: %s and b: %s\n", a, b);*/
+		// ----------------------------------------------------------------
+
+		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
-		if (argc == 2)
-		{
-			i = ft_cntwds(*argv, 32);
-			while (i--)
-			{
-				free(args[i]);
-			}
-			free(args);
-		}
+		ft_free_args(argc, argv, args);
 		// --------------------CHECK ARGV----------------------------------
 		// Cette boucle est la pr verif que je modifie pas le pointeur argv avec mes tests de fonction dessus
 		while (*argv)
@@ -193,7 +182,6 @@ int	main(int argc, char **argv)
 		// --------------------DISPLAY-------------------------------------
 		// only give the prompt back, display nothing if no arg
 		ft_puterr();
-		ft_putendl("No arg");
 		return (0);
 		// ----------------------------------------------------------------
 	}

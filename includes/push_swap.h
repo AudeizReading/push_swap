@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/23 17:52:04 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/25 17:52:20 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_puterr(void);
 t_bool	ft_is_valid_ps_args(char **argv);
 t_bool	ft_has_duplicate_chars(char **argv);
 t_bool	ft_check_arg_is_int(char **args);
+char	**ft_parse_args(int argc, char **argv);
+void	ft_free_args(int argc, char **argv, char **args);
 
 /* Launch Program */
 int	main(int argc, char **argv);

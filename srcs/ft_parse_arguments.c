@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:54:45 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/21 15:55:12 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/25 17:53:18 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,40 @@ t_bool	ft_check_arg_is_int(char **args)
 		args++;
 	}
 	return (e_true);
+}
+
+char	**ft_parse_args(int argc, char **argv)
+{
+	char	**args;
+
+	if (argc < 2)
+		return (NULL);
+	if (!ft_is_valid_ps_args(argv))
+		return (NULL);
+	if (argc == 2)
+	{
+		args = ft_split(*argv, 32);
+		if (!args)
+			return (NULL);
+	}
+	else
+		args = argv;
+	if (ft_has_duplicate_chars(args))
+		return (NULL);
+	if (!ft_check_arg_is_int(args))
+		return (NULL);
+	return (args);
+}
+
+void	ft_free_args(int argc, char **argv, char **args)
+{
+	int	i;
+
+	if (argc == 2)
+	{
+		i = ft_cntwds(*argv, 32);
+		while (i--)
+			free(args[i]);
+		free(args);
+	}
 }

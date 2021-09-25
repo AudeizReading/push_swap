@@ -113,6 +113,9 @@ gnl:
 	@$(ECHO) "$(NO_COL)"
 
 test: $(NAME)
+#	./$(NAME) "World Hello"
+#	./$(NAME) Hello World
+#	./$(NAME)
 	./$(NAME) $(ARGS_IS_VALID_1)
 	./$(NAME) $(ARGS_IS_STR_VALID_1)
 	./$(NAME) $(ARGS_IS_VALID_15)
@@ -145,9 +148,6 @@ test: $(NAME)
 #	./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
 #	./$(NAME) $(ARGS_IS_INVALID_INT_600)
 #	./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
-	./$(NAME) "World Hello"
-	./$(NAME) Hello World
-	./$(NAME)
 	@$(MAKE) fclean
 	
 sani: $(OBJ)
@@ -156,6 +156,9 @@ sani: $(OBJ)
 	@$(ECHO) "$(GRE)"
 	$(CC) -g -fsanitize=address -fno-omit-frame-pointer -static-libsan $(LDFLAGS) $^ -o $(NAME) 
 	@$(ECHO) "$(NO_COL)"
+#	./$(NAME) "Hello World"
+#	./$(NAME) Hello World
+#	./$(NAME)
 	./$(NAME) $(ARGS_IS_VALID_1)
 	./$(NAME) $(ARGS_IS_STR_VALID_1)
 	./$(NAME) $(ARGS_IS_VALID_15)
@@ -188,9 +191,6 @@ sani: $(OBJ)
 #	./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
 #	./$(NAME) $(ARGS_IS_INVALID_INT_600)
 #	./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
-	./$(NAME) "Hello World"
-	./$(NAME) Hello World
-	./$(NAME)
 #	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
 
@@ -200,6 +200,9 @@ debug: $(OBJ)
 	@$(ECHO) "$(BLU)"
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
+#	valgrind ./$(NAME) "Hello World"
+#	valgrind ./$(NAME) Hello World
+#	valgrind ./$(NAME)
 	valgrind ./$(NAME) $(ARGS_IS_VALID_1)
 	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_1)
 	valgrind ./$(NAME) $(ARGS_IS_VALID_15)
@@ -214,27 +217,24 @@ debug: $(OBJ)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
 #	valgrind ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
-	valgrind ./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
-	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
 #	valgrind ./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
 #	valgrind ./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
-	valgrind ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
-	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
 #	valgrind ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
 #	valgrind ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
-	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_15)
-	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
+#	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_15)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
 #	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_150)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
 #	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_600)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
-	valgrind ./$(NAME) "Hello World"
-	valgrind ./$(NAME) Hello World
-	valgrind ./$(NAME)
 #	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
 
@@ -244,41 +244,41 @@ debug-full: $(OBJ)
 	@$(ECHO) "$(BLU)"
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_1)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_1)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_15)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_15)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_600)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_600)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_15)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_15)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_15)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_600)
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "Hello World"
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) Hello World
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) "Hello World"
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) Hello World
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_1)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_1)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_15)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_600)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_15)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_CHAR_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_DOUBLON_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_DOUBLON_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_600)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
 #	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
 
