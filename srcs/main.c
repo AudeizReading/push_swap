@@ -7,15 +7,6 @@
 **   - faut-il des membres sup comme le grp ou la pile a Stack
 **   -*/
 
-typedef struct s_pivots
-{
-	long	min;
-	long	max;
-	long	me;
-	long	q1;
-	long	q3;
-}				t_pivots;
-
 // garder ca ici le temps que le tri soit efficace
 void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 {
@@ -45,63 +36,6 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 	ft_qsort_tab(tab, last + 1, r, cmp);
 }
 
-// Attention trie args definitement, recup dans une stack avant tri
-t_pivots	ft_get_median(int argc, char **argv, char **args)
-{
-	t_pivots	pivot;
-	int			begin;
-	int			end;
-
-	begin = 0;
-	if (argc == 2)
-		end  = ft_cntwds(*argv, 32) - 1;
-	else
-		end = argc - 2;
-	ft_qsort_tab((void **)args, begin, end, (int (*) (void *, void *)) ft_lnbrcmp);
-	pivot.min = ft_atol(args[begin]);
-	pivot.me = ft_atol(args[end / 2]);
-	pivot.q1 = ft_atol(args[end / 4]);
-	pivot.q3 = ft_atol(args[(3 * end) / 4]);
-	pivot.max = ft_atol(args[end]);
-	return (pivot);
-}
-
-/*char	**ft_parse_args(int argc, char **argv)
-{
-	char	**args;
-
-	if (argc < 2)
-		return (NULL);
-	if (!ft_is_valid_ps_args(argv))
-		return (NULL);
-	if (argc == 2)
-	{
-		args = ft_split(*argv, 32);
-		if (!args)
-			return (NULL);
-	}
-	else
-		args = argv;
-	if (ft_has_duplicate_chars(args))
-		return (NULL);
-	if (!ft_check_arg_is_int(args))
-		return (NULL);
-	return (args);
-}
-
-void	ft_free_args(int argc, char **argv, char **args)
-{
-	int	i;
-
-	if (argc == 2)
-	{
-		i = ft_cntwds(*argv, 32);
-		while (i--)
-			free(args[i]);
-		free(args);
-	}
-}*/
-
 // A adapter a la nouvelle structure stack
 void	sa(t_stack *stack, int *top_stack, int *penultimate)
 {
@@ -112,7 +46,6 @@ void	sa(t_stack *stack, int *top_stack, int *penultimate)
 	// Changer le nom de la fonction aussi
 	ft_putendl("sa");
 }
-// Quel comportement si argv = "liste de nombres valides" nb nb nb "re liste de nombres valides"
 int	main(int argc, char **argv)
 {
 	if (argc > 1)
@@ -125,7 +58,7 @@ int	main(int argc, char **argv)
 		if (!args)
 			return (-1);
 		// --------------------MEDIAN--------------------------------------
-		t_pivots	pivot;
+		t_piv	pivot;
 
 		pivot = ft_get_median(argc, argv, args);
 		// --------------------DISPLAY-------------------------------------
@@ -136,8 +69,6 @@ int	main(int argc, char **argv)
 		{
 			ft_putendl(args[i++]);
 		}
-		// ----------------------------------------------------------------
-
 		// --------------------SWAP----------------------------------------
 		//int a = 3;
 		//int	b = 5;
@@ -146,8 +77,6 @@ int	main(int argc, char **argv)
 		printf("before swap a: %s and b: %s\n", a, b);
 		ft_swap(&a, &b);
 		printf("after swap a: %s and b: %s\n", a, b);*/
-		// ----------------------------------------------------------------
-
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
 		ft_free_args(argc, argv, args);
