@@ -46,8 +46,8 @@ t_stk_elt	*ft_init_stk_elt(long value, int grp, char *stk_name)
 	if (!elt)
 		return (NULL);
 	elt->stack_name = ft_strdup(stk_name);
-	if (!elt->stack_name)
-		return (NULL);
+/*	if (!elt->stack_name)
+		return (NULL);*/
 	elt->grp = grp;
 	elt->value = value;
 	elt->prev = NULL;
@@ -96,6 +96,62 @@ void	ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
 	(*stack)->size++;
 }
 
+void	ft_del_stk_elt(t_stk_elt *elt)
+{
+	if (!elt)
+		return ;
+	if (elt->stack_name)
+		free(elt->stack_name);
+	free(elt);
+	elt = NULL;
+}
+
+/* Clean in top order the stack (top to base) */
+void	ft_pop_clear_stk(t_stk **stack)
+{
+	t_stk_elt	*tmp;
+
+	if (!*stack)
+		return;
+	while ((*stack)->size)
+	{
+		tmp = (*stack)->top->prev;
+		ft_del_stk_elt((*stack)->top);
+		(*stack)->top = tmp;
+		(*stack)->size--;
+	}
+	free((*stack)->stk_name);
+	free(*stack);
+}
+
+t_stk_elt	*ft_pop_stack(t_stk **stack)
+{
+	t_stk_elt	*elt_pop;
+
+	if (!(*stack)->top)
+		return (NULL);
+	elt_pop = (*stack)->top;
+	//elt_pop = ft_init_stk_elt((*stack)->top->value, 0, 0);
+	if (!elt_pop)
+		return (NULL);
+	elt_pop->prev = (*stack)->top->prev;
+	if (elt_pop->prev)
+	{
+		//ft_del_stk_elt((*stack)->top);
+		(*stack)->top = elt_pop->prev;
+		elt_pop->prev = NULL;
+		free(elt_pop->stack_name);
+		elt_pop->stack_name = NULL;
+		elt_pop->grp = 0;
+	}
+	else
+	{
+		(*stack)->top = NULL;
+	}
+	(*stack)->size--;
+	return (elt_pop);
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc > 1)
@@ -110,6 +166,7 @@ int	main(int argc, char **argv)
 		// --------------------STACK---------------------------------------
 		t_stk		*a;
 		t_stk_elt	*a_elt;
+		t_stk_elt	*pop;
 
 		a = ft_init_stack("a");
 		i = 0;
@@ -120,7 +177,15 @@ int	main(int argc, char **argv)
 			i++;
 		}
 		ft_print_stack(a);
+		pop = ft_pop_stack(&a);
+	//	printf("\033[1;35mpop->value: %ld, pop->group: %d\033[0m\n", pop->value, pop->grp);
+		if (a->top)
+			ft_print_stack(a);
 	//	printf("top: %ld, base: %ld\n", a->top->value, a->base->value);
+		if (pop)
+			ft_del_stk_elt(pop);
+		if (a)
+			ft_pop_clear_stk(&a);
 		// --------------------MEDIAN--------------------------------------
 		t_piv	pivot;
 
