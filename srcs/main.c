@@ -161,6 +161,7 @@ t_stk_elt	*ft_pop_stack(t_stk **stack)
 	elt_pop = (*stack)->top;
 	if (elt_pop->prev)
 	{
+		elt_pop->prev->next = NULL;
 		(*stack)->top = elt_pop->prev;
 		elt_pop->prev = NULL;
 		free(elt_pop->stack_name);
