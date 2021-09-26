@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 13:22:30 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/24 10:38:49 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/26 15:14:28 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 void	ft_swap(void *a, void *b)
 {
-	unsigned char	*tmp;
-	unsigned char	*p_a;
-	unsigned char	*p_b;
+	double	tmp;
+	double	*p_a;
+	double	*p_b;
 
-	p_a = (unsigned char *)a;
-	p_b = (unsigned char *)b;
-	tmp = malloc(sizeof(*tmp));
-	*tmp = *p_a;
+	p_a = (double *)a;
+	p_b = (double *)b;
+	tmp = *p_a;
 	*p_a = *p_b;
-	*p_b = *tmp;
-	free(tmp);
+	*p_b = tmp;
 }
 
 void	ft_swap_tab(void *tab[], int a, int b)
@@ -34,4 +32,21 @@ void	ft_swap_tab(void *tab[], int a, int b)
 	tmp = tab[a];
 	tab[a] = tab[b];
 	tab[b] = tmp;
+}
+
+//void	ft_long_swap(long a, long b)
+void	ft_long_swap(long *a, long *b)
+{
+	long	tmp;
+/*	long	*p_a;
+	long	*p_b;
+	
+	p_a = &a;
+	p_b = &b;
+	tmp = p_a;
+	*p_a = *p_b;
+	*p_b = *tmp;*/
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }

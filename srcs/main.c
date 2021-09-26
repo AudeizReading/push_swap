@@ -55,7 +55,7 @@ t_stk_elt	*ft_init_stk_elt(long value, int grp, char *stk_name)
 	return (elt);
 }
 
-void	ft_print_stack(t_stk *stack)
+void	ft_print_top_stack(t_stk *stack)
 {
 	t_stk_elt	*tmp;
 
@@ -80,8 +80,34 @@ void	ft_print_stack(t_stk *stack)
 	}
 }
 
+void	ft_print_base_stack(t_stk *stack)
+{
+	t_stk_elt	*tmp;
+
+	tmp = stack->base;
+	ft_putstr("size ");
+	ft_putnbr(stack->size);
+	ft_putstr(" name ");
+	ft_putendl(stack->stk_name);
+	ft_putstr("top ");
+	ft_putlnbr(stack->top->value);
+	ft_putstr(" base ");
+	ft_putlnbr(stack->base->value);
+	ft_putchar('\n');
+	while (tmp)
+	{
+		ft_putlnbr(tmp->value);
+		ft_putchar(' ');
+		ft_putnbr(tmp->grp);
+		ft_putchar(' ');
+		ft_putendl(tmp->stack_name);
+		tmp = tmp->next;
+	}
+}
+
 void	ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
 {
+	t_stk_elt	*tmp;
 	if (!*stack)
 		return ;
 	if (!(*stack)->size)
@@ -91,7 +117,9 @@ void	ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
 		(*stack)->size++;
 		return ;
 	}
-	elt->prev = (*stack)->top;
+	tmp = (*stack)->top;
+	elt->prev = tmp;
+	tmp->next = elt;
 	(*stack)->top = elt;
 	(*stack)->size++;
 }
@@ -131,13 +159,8 @@ t_stk_elt	*ft_pop_stack(t_stk **stack)
 	if (!(*stack)->top)
 		return (NULL);
 	elt_pop = (*stack)->top;
-	//elt_pop = ft_init_stk_elt((*stack)->top->value, 0, 0);
-	if (!elt_pop)
-		return (NULL);
-	elt_pop->prev = (*stack)->top->prev;
 	if (elt_pop->prev)
 	{
-		//ft_del_stk_elt((*stack)->top);
 		(*stack)->top = elt_pop->prev;
 		elt_pop->prev = NULL;
 		free(elt_pop->stack_name);
@@ -145,9 +168,7 @@ t_stk_elt	*ft_pop_stack(t_stk **stack)
 		elt_pop->grp = 0;
 	}
 	else
-	{
 		(*stack)->top = NULL;
-	}
 	(*stack)->size--;
 	return (elt_pop);
 }
@@ -163,25 +184,47 @@ int	main(int argc, char **argv)
 		args = ft_parse_args(argc, argv);
 		if (!args)
 			return (-1);
-		// --------------------STACK---------------------------------------
+		// --------------------INIT STACK----------------------------------
 		t_stk		*a;
 		t_stk_elt	*a_elt;
 		t_stk_elt	*pop;
 
 		a = ft_init_stack("a");
 		i = 0;
+		// Recup des args sur la stack a, base: 1er elt empilé; top: dernier elt empilé
 		while (args[i])
 		{
 			a_elt = ft_init_stk_elt(ft_atol(args[i]), 1, a->stk_name);
 			ft_stkadd_back(&a, a_elt);
 			i++;
 		}
-		ft_print_stack(a);
+		ft_print_top_stack(a);
+		ft_putendl("-----------------------------------------------------");
+		if (a->size)
+			ft_print_base_stack(a);
+		// --------------------POP STACK-----------------------------------
 		pop = ft_pop_stack(&a);
-	//	printf("\033[1;35mpop->value: %ld, pop->group: %d\033[0m\n", pop->value, pop->grp);
 		if (a->top)
-			ft_print_stack(a);
-	//	printf("top: %ld, base: %ld\n", a->top->value, a->base->value);
+			ft_print_top_stack(a);
+		// --------------------SWAP STACK----------------------------------
+		if (a->size > 1)
+		{
+			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
+			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
+			ft_swap((&(a)->top->value), (&(a)->top->prev->value));
+			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
+			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
+			if (a->base->next)
+			{
+				printf("base: %ld, %p\n", a->base->value, &a->base->value);
+				printf("base next: %ld, %p\n", a->base->next->value, &a->base->next->value);
+			}
+			ft_print_top_stack(a);
+		}
+		ft_putendl("-----------------------------------------------------");
+		if (a->size)
+			ft_print_base_stack(a);
+		// --------------------FREE STACK----------------------------------
 		if (pop)
 			ft_del_stk_elt(pop);
 		if (a)
@@ -198,14 +241,6 @@ int	main(int argc, char **argv)
 		{
 			ft_putendl(args[i++]);
 		}
-		// --------------------SWAP----------------------------------------
-		//int a = 3;
-		//int	b = 5;
-	/*	char	*a = " World";
-		char	*b = "Hello";
-		printf("before swap a: %s and b: %s\n", a, b);
-		ft_swap(&a, &b);
-		printf("after swap a: %s and b: %s\n", a, b);*/
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
 		ft_free_args(argc, argv, args);

@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/25 22:40:47 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/26 16:06:15 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ void		ft_free_args(int argc, char **argv, char **args);
 /* Stack handling */
 t_stk		*ft_init_stack(char *stack_name);
 t_stk_elt	*ft_init_stk_elt(long value, int grp, char *stk_name);
-void		ft_print_stack(t_stk *stack);
+void		ft_print_top_stack(t_stk *stack);
 void		ft_stkadd_back(t_stk **stack, t_stk_elt *elt);
 void		ft_del_stk_elt(t_stk_elt *elt);
 void		ft_pop_clear_stk(t_stk **stack);
+t_stk_elt	*ft_pop_stack(t_stk **stack);
 
 /* Instructions */
 
