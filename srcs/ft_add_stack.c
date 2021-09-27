@@ -6,13 +6,13 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:09:18 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/27 11:10:17 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:30:33 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-t_stk	*ft_init_stack(char *stack_name)
+t_stk		*ft_init_stack(char *stack_name)
 {
 	t_stk	*stack;
 
@@ -48,7 +48,7 @@ t_stk_elt	*ft_init_stk_elt(long value, int grp, char *stk_name)
 	return (elt);
 }
 
-void	ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
+void		ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
 {
 	t_stk_elt	*tmp;
 
@@ -68,7 +68,7 @@ void	ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
 	(*stack)->size++;
 }
 
-void	ft_stkadd_front(t_stk **stack, t_stk_elt *elt)
+void		ft_stkadd_front(t_stk **stack, t_stk_elt *elt)
 {
 	t_stk_elt	*tmp;
 

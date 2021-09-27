@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:04:30 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/27 11:20:41 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:32:48 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_del_stk_elt(t_stk_elt *elt)
 }
 
 /* Clean in top order the stack (top to base) */
-void	ft_pop_clear_stk(t_stk **stack)
+void		ft_pop_clear_stk(t_stk **stack)
 {
 	t_stk_elt	*tmp;
 
@@ -40,7 +40,7 @@ void	ft_pop_clear_stk(t_stk **stack)
 	free(*stack);
 }
 
-void	ft_deq_clear_stk(t_stk **stack)
+void		ft_deq_clear_stk(t_stk **stack)
 {
 	t_stk_elt	*tmp;
 
