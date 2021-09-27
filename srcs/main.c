@@ -16,6 +16,20 @@
 //	ft_putendl("sa");
 //}
 
+char	*ft_strcpy(char *dst, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = 0;
+	return (dst);
+}
+
 void	ft_swap_stack(t_stk *stack)
 {
 	if (!stack || stack->size < 2)
@@ -109,6 +123,7 @@ void	ft_print_top_base_stack(t_stk *a)
 	}
 }
 
+// Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
 {
 	if (argc > 1)
@@ -117,6 +132,7 @@ int	main(int argc, char **argv)
 		int		i;
 		argv++;
 
+		// --------------------PARSE ARGV----------------------------------
 		args = ft_parse_args(argc, argv);
 		if (!args)
 			return (-1);
@@ -130,13 +146,22 @@ int	main(int argc, char **argv)
 		a = ft_init_stack("a");
 		b = ft_init_stack("b");
 		i = 0;
-		// Recup des args sur la stack a, base: 1er elt empilé; top: dernier elt empilé
 		while (args[i])
 		{
 			a_elt = ft_init_stk_elt(ft_atol(args[i]), 1, a->stk_name);
 			ft_stkadd_back(&a, a_elt);
 			i++;
 		}
+		// --------------------QUIT IF STACK SIZE < 2----------------------
+		if (a->size < 2)
+		{
+			ft_pop_clear_stk(&a);
+			ft_pop_clear_stk(&b);
+			ft_free_args(argc, argv, args);
+			return (0);
+		}
+
+		// --------------------TEST STACK----------------------------------
 		ft_print_top_base_stack(a);
 		ft_swap_stack(a);
 		ft_print_top_base_stack(a);
@@ -150,49 +175,18 @@ int	main(int argc, char **argv)
 		ft_print_top_base_stack(a);
 		ft_print_top_base_stack(b);
 
-		// --------------------POP STACK-----------------------------------
-//		if (a->size > 0)
-//			pop = ft_pop_stack(&a);
-//		if (a->size > 0)
-//			ft_print_top_stack(a);
-		// --------------------SWAP STACK----------------------------------
-//		if (a->size > 1)
-//		{
-//			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
-//			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
-//			ft_swap((&(a)->top->value), (&(a)->top->prev->value));
-//			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
-//			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
-//			if (a->base->next)
-//			{
-//				printf("base: %ld, %p\n", a->base->value, &a->base->value);
-//				printf("base next: %ld, %p\n", a->base->next->value, &a->base->next->value);
-//			}
-//			ft_print_top_stack(a);
-//		}
-//		ft_putendl("-----------------------------------------------------");
-//		if (a->size > 0)
-//			ft_print_base_stack(a);
-		// --------------------DEQ STACK-----------------------------------
-	//	if (a->size > 0)
-	//	{
-	//		deq = ft_deq_stack(&a);
-	//		ft_putendl("--------------DEQ TEST-------------------------------");
-	//		ft_print_top_stack(a);
-	//		ft_putendl("-----------------------------------------------------");
-	//		ft_print_base_stack(a);
-	//		ft_putendl("-----------------------------------------------------");
-	//	}
-		// --------------------FREE STACK----------------------------------
-		if (pop)
-			ft_del_stk_elt(pop);
-		if (deq)
-			ft_del_stk_elt(deq);
-		if (a)
-			ft_pop_clear_stk(&a);
-		if (b)
-			ft_pop_clear_stk(&b);
-			//ft_deq_clear_stk(&a);
+		ft_rotate_stack(&b);
+		ft_rotate_reverse_stack(&a);
+		ft_rotate_reverse_stack(&a);
+		ft_print_top_base_stack(a);
+		ft_print_top_base_stack(b);
+
+		rrr(&a, &b);
+		rrr(&a, &b);
+		ss(a, b);
+		rr(&a, &b);
+		ft_print_top_base_stack(a);
+		ft_print_top_base_stack(b);
 		// --------------------MEDIAN--------------------------------------
 		t_piv	pivot;
 
@@ -205,6 +199,16 @@ int	main(int argc, char **argv)
 		{
 			ft_putendl(args[i++]);
 		}
+		// --------------------FREE STACK----------------------------------
+		if (pop)
+			ft_del_stk_elt(pop);
+		if (deq)
+			ft_del_stk_elt(deq);
+		if (a)
+			ft_pop_clear_stk(&a);
+		if (b)
+			ft_pop_clear_stk(&b);
+			//ft_deq_clear_stk(&a);
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
 		ft_free_args(argc, argv, args);
