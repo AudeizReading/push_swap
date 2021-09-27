@@ -108,6 +108,7 @@ void	ft_print_base_stack(t_stk *stack)
 void	ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
 {
 	t_stk_elt	*tmp;
+
 	if (!*stack)
 		return ;
 	if (!(*stack)->size)
@@ -121,6 +122,26 @@ void	ft_stkadd_back(t_stk **stack, t_stk_elt *elt)
 	elt->prev = tmp;
 	tmp->next = elt;
 	(*stack)->top = elt;
+	(*stack)->size++;
+}
+
+void	ft_stkadd_front(t_stk **stack, t_stk_elt *elt)
+{
+	t_stk_elt	*tmp;
+
+	if (!*stack)
+		return ;
+	if (!(*stack)->size)
+	{
+		(*stack)->base = elt;
+		(*stack)->top = elt;
+		(*stack)->size++;
+		return ;
+	}
+	tmp = (*stack)->base;
+	elt->next = tmp;
+	tmp->prev = elt;
+	(*stack)->base = elt;
 	(*stack)->size++;
 }
 
@@ -174,6 +195,28 @@ t_stk_elt	*ft_pop_stack(t_stk **stack)
 	return (elt_pop);
 }
 
+t_stk_elt	*ft_deq_stack(t_stk **stack)
+{
+	t_stk_elt	*elt_deq;
+
+	if (!(*stack)->base)
+		return (NULL);
+	elt_deq = (*stack)->base;
+	if (elt_deq->next)
+	{
+		elt_deq->next->prev = NULL;
+		(*stack)->base = elt_deq->next;
+		elt_deq->next = NULL;
+		free(elt_deq->stack_name);
+		elt_deq->stack_name = NULL;
+		elt_deq->grp = 0;
+	}
+	else
+		(*stack)->base = NULL;
+	(*stack)->size--;
+	return (elt_deq);
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc > 1)
@@ -188,7 +231,8 @@ int	main(int argc, char **argv)
 		// --------------------INIT STACK----------------------------------
 		t_stk		*a;
 		t_stk_elt	*a_elt;
-		t_stk_elt	*pop;
+		t_stk_elt	*pop = NULL;
+		t_stk_elt	*deq = NULL;
 
 		a = ft_init_stack("a");
 		i = 0;
@@ -197,15 +241,18 @@ int	main(int argc, char **argv)
 		{
 			a_elt = ft_init_stk_elt(ft_atol(args[i]), 1, a->stk_name);
 			ft_stkadd_back(&a, a_elt);
+	//		ft_stkadd_front(&a, a_elt);
 			i++;
 		}
-		ft_print_top_stack(a);
+		if (a->size > 0)
+			ft_print_top_stack(a);
 		ft_putendl("-----------------------------------------------------");
 		if (a->size)
 			ft_print_base_stack(a);
 		// --------------------POP STACK-----------------------------------
-		pop = ft_pop_stack(&a);
-		if (a->top)
+		if (a->size > 0)
+			pop = ft_pop_stack(&a);
+		if (a->size > 0)
 			ft_print_top_stack(a);
 		// --------------------SWAP STACK----------------------------------
 		if (a->size > 1)
@@ -223,11 +270,23 @@ int	main(int argc, char **argv)
 			ft_print_top_stack(a);
 		}
 		ft_putendl("-----------------------------------------------------");
-		if (a->size)
+		if (a->size > 0)
 			ft_print_base_stack(a);
+		// --------------------DEQ STACK-----------------------------------
+		if (a->size > 0)
+		{
+			deq = ft_deq_stack(&a);
+			ft_putendl("--------------DEQ TEST-------------------------------");
+			ft_print_top_stack(a);
+			ft_putendl("-----------------------------------------------------");
+			ft_print_base_stack(a);
+			ft_putendl("-----------------------------------------------------");
+		}
 		// --------------------FREE STACK----------------------------------
 		if (pop)
 			ft_del_stk_elt(pop);
+		if (deq)
+			ft_del_stk_elt(deq);
 		if (a)
 			ft_pop_clear_stk(&a);
 		// --------------------MEDIAN--------------------------------------
