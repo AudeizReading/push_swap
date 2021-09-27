@@ -22,9 +22,12 @@ void	ft_swap_stack(t_stk *stack)
 		return ;
 	ft_swap(&stack->top->value, &stack->top->prev->value);
 	ft_swap(&stack->top->grp, &stack->top->prev->grp);
-	if (stack->stk_name == "a")
+	ft_putendl("name stack: ");
+	ft_putendl(stack->stk_name);
+	//if (!ft_strncmp(stack->stk_name, "a", 1))
+	if (!ft_strcmp(stack->stk_name, "a"))
 		ft_putendl("sa");
-	else if (stack->stk_name == "b")
+	else if (!ft_strcmp(stack->stk_name, "b"))
 		ft_putendl("sb");
 }
 
@@ -41,12 +44,12 @@ void	ft_push_stack(t_stk **stack_1, t_stk **stack_2)
 	if ((*stack_2)->size > 0)
 	{
 		p_stack = ft_pop_stack(stack_1);
-		p_stack->stack_name = ft_strdup(stack_2->stk_name);
+		p_stack->stack_name = ft_strdup((*stack_2)->stk_name);
 		// Groupe ?
 		ft_stkadd_back(stack_2, p_stack);
-		if ((*stack_1)->stk_name == "a")
+		if (!ft_strcmp((*stack_1)->stk_name, "a"))
 			ft_putendl("pa");
-		else if ((*stack_2)->stk_name == "b")
+		else if (!ft_strcmp((*stack_2)->stk_name, "b"))
 			ft_putendl("pb");
 	}
 }
@@ -59,11 +62,11 @@ void	ft_rotate_stack(t_stk **stack)
 	{
 		p_stack = ft_pop_stack(stack);
 		// Groupe ?
-		p_stack->stack_name = ft_strdup(stack->stk_name);
+		p_stack->stack_name = ft_strdup((*stack)->stk_name);
 		ft_stkadd_front(stack, p_stack);
-		if (stack->stk_name == "a")
+		if (!ft_strcmp((*stack)->stk_name, "a"))
 			ft_putendl("ra");
-		else if (stack->stk_name == "b")
+		else if (!ft_strcmp((*stack)->stk_name, "b"))
 			ft_putendl("rb");
 	}
 }
@@ -82,11 +85,11 @@ void	ft_rotate_reverse_stack(t_stk **stack)
 	{
 		p_stack = ft_deq_stack(stack);
 		// Groupe ?
-		p_stack->stack_name = ft_strdup(stack->stk_name);
+		p_stack->stack_name = ft_strdup((*stack)->stk_name);
 		ft_stkadd_back(stack, p_stack);
-		if (stack->stk_name == "a")
+		if (!ft_strcmp((*stack)->stk_name, "a"))
 			ft_putendl("rra");
-		else if (stack->stk_name == "b")
+		else if (!ft_strcmp((*stack)->stk_name, "b"))
 			ft_putendl("rrb");
 	}
 }
@@ -95,6 +98,18 @@ void	rrr(t_stk **a, t_stk **b)
 {
 	ft_rotate_reverse_stack(a);
 	ft_rotate_reverse_stack(b);
+}
+
+void	ft_print_top_base_stack(t_stk *a)
+{
+	if (a->size > 0)
+	{
+		ft_putendl("---------TOP STACK-----------------------------------");
+		ft_print_top_stack(a);
+		ft_putendl("---------BASE STACK-----------------------------------");
+		ft_print_base_stack(a);
+		ft_putendl("-----------------------------------------------------");
+	}
 }
 
 int	main(int argc, char **argv)
@@ -110,58 +125,60 @@ int	main(int argc, char **argv)
 			return (-1);
 		// --------------------INIT STACK----------------------------------
 		t_stk		*a;
+		t_stk		*b;
 		t_stk_elt	*a_elt;
 		t_stk_elt	*pop = NULL;
 		t_stk_elt	*deq = NULL;
 
 		a = ft_init_stack("a");
+		b = ft_init_stack("b");
 		i = 0;
 		// Recup des args sur la stack a, base: 1er elt empilé; top: dernier elt empilé
 		while (args[i])
 		{
 			a_elt = ft_init_stk_elt(ft_atol(args[i]), 1, a->stk_name);
 			ft_stkadd_back(&a, a_elt);
-	//		ft_stkadd_front(&a, a_elt);
 			i++;
 		}
-		if (a->size > 0)
-			ft_print_top_stack(a);
-		ft_putendl("-----------------------------------------------------");
-		if (a->size)
-			ft_print_base_stack(a);
+		ft_print_top_base_stack(a);
+		ft_swap_stack(a);
+		ft_print_top_base_stack(a);
+	//	ft_push_stack(&a, &b);
+	//	ft_print_top_base_stack(a);
+	//	ft_print_top_base_stack(b);
 		// --------------------POP STACK-----------------------------------
-		if (a->size > 0)
-			pop = ft_pop_stack(&a);
-		if (a->size > 0)
-			ft_print_top_stack(a);
+//		if (a->size > 0)
+//			pop = ft_pop_stack(&a);
+//		if (a->size > 0)
+//			ft_print_top_stack(a);
 		// --------------------SWAP STACK----------------------------------
-		if (a->size > 1)
-		{
-			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
-			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
-			ft_swap((&(a)->top->value), (&(a)->top->prev->value));
-			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
-			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
-			if (a->base->next)
-			{
-				printf("base: %ld, %p\n", a->base->value, &a->base->value);
-				printf("base next: %ld, %p\n", a->base->next->value, &a->base->next->value);
-			}
-			ft_print_top_stack(a);
-		}
-		ft_putendl("-----------------------------------------------------");
-		if (a->size > 0)
-			ft_print_base_stack(a);
+//		if (a->size > 1)
+//		{
+//			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
+//			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
+//			ft_swap((&(a)->top->value), (&(a)->top->prev->value));
+//			printf("swap: %ld, %p\n", a->top->value, &a->top->value);
+//			printf("swap prev: %ld, %p\n", a->top->prev->value, &a->top->prev->value);
+//			if (a->base->next)
+//			{
+//				printf("base: %ld, %p\n", a->base->value, &a->base->value);
+//				printf("base next: %ld, %p\n", a->base->next->value, &a->base->next->value);
+//			}
+//			ft_print_top_stack(a);
+//		}
+//		ft_putendl("-----------------------------------------------------");
+//		if (a->size > 0)
+//			ft_print_base_stack(a);
 		// --------------------DEQ STACK-----------------------------------
-		if (a->size > 0)
-		{
-			deq = ft_deq_stack(&a);
-			ft_putendl("--------------DEQ TEST-------------------------------");
-			ft_print_top_stack(a);
-			ft_putendl("-----------------------------------------------------");
-			ft_print_base_stack(a);
-			ft_putendl("-----------------------------------------------------");
-		}
+	//	if (a->size > 0)
+	//	{
+	//		deq = ft_deq_stack(&a);
+	//		ft_putendl("--------------DEQ TEST-------------------------------");
+	//		ft_print_top_stack(a);
+	//		ft_putendl("-----------------------------------------------------");
+	//		ft_print_base_stack(a);
+	//		ft_putendl("-----------------------------------------------------");
+	//	}
 		// --------------------FREE STACK----------------------------------
 		if (pop)
 			ft_del_stk_elt(pop);
@@ -169,6 +186,8 @@ int	main(int argc, char **argv)
 			ft_del_stk_elt(deq);
 		if (a)
 			ft_pop_clear_stk(&a);
+		if (b)
+			ft_pop_clear_stk(&b);
 			//ft_deq_clear_stk(&a);
 		// --------------------MEDIAN--------------------------------------
 		t_piv	pivot;

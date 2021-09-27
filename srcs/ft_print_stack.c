@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:13:54 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/27 11:16:07 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/27 15:39:51 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	ft_print_base_stack(t_stk *stack)
 	ft_putnbr(stack->size);
 	ft_putstr(" name ");
 	ft_putendl(stack->stk_name);
-	ft_putstr(" base ");
+	ft_putstr("base ");
 	ft_putlnbr(stack->base->value);
-	ft_putstr("top ");
+	ft_putstr(" top ");
 	ft_putlnbr(stack->top->value);
 	ft_putchar('\n');
 	while (tmp)
