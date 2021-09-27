@@ -22,9 +22,6 @@ void	ft_swap_stack(t_stk *stack)
 		return ;
 	ft_swap(&stack->top->value, &stack->top->prev->value);
 	ft_swap(&stack->top->grp, &stack->top->prev->grp);
-	ft_putendl("name stack: ");
-	ft_putendl(stack->stk_name);
-	//if (!ft_strncmp(stack->stk_name, "a", 1))
 	if (!ft_strcmp(stack->stk_name, "a"))
 		ft_putendl("sa");
 	else if (!ft_strcmp(stack->stk_name, "b"))
@@ -41,17 +38,17 @@ void	ft_push_stack(t_stk **stack_1, t_stk **stack_2)
 {
 	t_stk_elt	*p_stack;
 
-	if ((*stack_2)->size > 0)
-	{
+/*	if ((*stack_2)->size > 0)
+	{*/
 		p_stack = ft_pop_stack(stack_1);
 		p_stack->stack_name = ft_strdup((*stack_2)->stk_name);
 		// Groupe ?
 		ft_stkadd_back(stack_2, p_stack);
-		if (!ft_strcmp((*stack_1)->stk_name, "a"))
+		if (!ft_strcmp((*stack_2)->stk_name, "a"))
 			ft_putendl("pa");
 		else if (!ft_strcmp((*stack_2)->stk_name, "b"))
 			ft_putendl("pb");
-	}
+//	}
 }
 
 void	ft_rotate_stack(t_stk **stack)
@@ -143,9 +140,9 @@ int	main(int argc, char **argv)
 		ft_print_top_base_stack(a);
 		ft_swap_stack(a);
 		ft_print_top_base_stack(a);
-	//	ft_push_stack(&a, &b);
-	//	ft_print_top_base_stack(a);
-	//	ft_print_top_base_stack(b);
+		ft_push_stack(&a, &b);
+		ft_print_top_base_stack(a);
+		ft_print_top_base_stack(b);
 		// --------------------POP STACK-----------------------------------
 //		if (a->size > 0)
 //			pop = ft_pop_stack(&a);
