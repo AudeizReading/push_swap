@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 13:22:30 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/26 15:14:28 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/27 18:46:45 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,10 @@ void	ft_swap_tab(void *tab[], int a, int b)
 	tab[b] = tmp;
 }
 
-//void	ft_long_swap(long a, long b)
 void	ft_long_swap(long *a, long *b)
 {
 	long	tmp;
-/*	long	*p_a;
-	long	*p_b;
 	
-	p_a = &a;
-	p_b = &b;
-	tmp = p_a;
-	*p_a = *p_b;
-	*p_b = *tmp;*/
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
