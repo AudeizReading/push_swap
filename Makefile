@@ -50,6 +50,9 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 parse_arguments\
 	 get_median\
 	 quicksort\
+	 delete_stack\
+	 add_stack\
+	 print_stack\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap
