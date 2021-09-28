@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:21:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/25 18:21:49 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/28 19:38:35 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,30 @@ void	ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *))
 //	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s (not yet)\n", last, tab[last], i, tab[i]);
 	while (i <= r)
 	{
+		//	printf("Avant le swap elt last: [%d] %s, swap avec elt i: [%d] %s\n", last, tab[last], i, tab[i]);
 		if ((*cmp)(tab[i], tab[l]) < 0)
 		{
-		//	printf("Avant le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
+		//	printf("Avant le tri elt last: [%d] %s, swap avec elt i: [%d] %s\n", last, tab[last], i, tab[i]);
 			// swap ici
 			ft_swap_tab(tab, ++last, i);
 			// fin de swap
-	//		printf("Après le tri elt last: %d %s, swap avec elt i: %d %s\n", last, tab[last], i, tab[i]);
+		//	printf("Après le swap elt last: [%d] %s, swap avec elt i: [%d] %s\n", last, tab[last], i, tab[i]);
+		//	int	j = 0;
+		//	while (j <= r)
+		//	{
+		//		ft_putstr((char *)tab[j]);
+		//		ft_putchar('\n');
+		//		j++;
+		//	}
 		}
+		//printf("Après le swap elt last: [%d] %s, swap avec elt i: [%d] %s\n", last, tab[last], i, tab[i]);
+		//int	j = 0;
+		//while (j <= r)
+		//{
+		//	ft_putstr((char *)tab[j]);
+		//	ft_putchar('\n');
+		//	j++;
+		//}
 		i++;
 	}
 	ft_swap_tab(tab, l, last);

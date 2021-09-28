@@ -173,25 +173,25 @@ int	main(int argc, char **argv)
 			return (-1);
 		// --------------------INIT STACK----------------------------------
 		t_stk		*a;
-//		t_stk		*b;
+		t_stk		*b;
 		t_stk_elt	*a_elt;
 //		t_stk_elt	*pop = NULL;
 //		t_stk_elt	*deq = NULL;
 
 		a = ft_init_stack("a");
-//		b = ft_init_stack("b");
+		b = ft_init_stack("b");
 		i = 0;
 		while (args[i])
 		{
 			a_elt = ft_init_stk_elt(ft_atol(args[i]), 1, a->stk_name);
-			ft_stkadd_back(&a, a_elt);
+			ft_stkadd_front(&a, a_elt);
 			i++;
 		}
 		// --------------------QUIT IF STACK SIZE < 2----------------------
 		if (a->size < 2)
 		{
 			ft_pop_clear_stk(&a);
-		//	ft_pop_clear_stk(&b);
+			ft_pop_clear_stk(&b);
 			ft_free_args(argc, argv, args);
 			return (0);
 		}
@@ -235,19 +235,39 @@ int	main(int argc, char **argv)
 			ft_putendl(args[i++]);
 		}
 		// --------------------ALGORITHM-----------------------------------
-		ft_print_top_base_stack(a);
+		int		size;
+		long	top;
+		long	prev;
+
+		size = a->size;
+	//	ft_print_top_base_stack(a);
 	//	ft_print_top_base_stack(b);
-	/*	while (a->top->value < pivot.me)
-		{
-			if (a->top->prev->value < pivot.q1 && a->top->value >
-			a->top->prev->value)*/
-	//			ft_swap_stack(a);
-	//		ft_push_stack(&a, &b);
-		//}
-	/*	if (a)
+		if (a->size)
 			ft_print_top_stack(a);
-		if (b)
-			ft_print_top_stack(b);*/
+		if (b->size)
+			ft_print_top_stack(b);
+		while (size--)
+		//while (size)
+		{
+			top = a->top->value;
+			prev = a->top->prev->value;
+			if (top > prev)
+				ft_swap_stack(a);
+			else if (top < pivot.me)
+			{
+				ft_push_stack(&a, &b);
+				//size--;
+			}
+			else if (top > pivot.me)
+				ft_rotate_reverse_stack(&a);
+			else
+				ft_rotate_stack(&a);
+			printf("me: %ld, top: %ld\n", pivot.me, top);
+		}
+		if (a->size)
+			ft_print_top_stack(a);
+		if (b->size)
+			ft_print_top_stack(b);
 		// --------------------FREE STACK----------------------------------
 	/*	if (pop)
 			ft_del_stk_elt(pop);
@@ -255,8 +275,8 @@ int	main(int argc, char **argv)
 			ft_del_stk_elt(deq);*/
 		if (a)
 			ft_pop_clear_stk(&a);
-//		if (b)
-//			ft_pop_clear_stk(&b);
+		if (b)
+			ft_pop_clear_stk(&b);
 			//ft_deq_clear_stk(&a);
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
