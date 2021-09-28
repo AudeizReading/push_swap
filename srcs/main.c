@@ -30,6 +30,33 @@ char	*ft_strcpy(char *dst, char *src)
 	return (dst);
 }
 
+char	*ft_ltoa(long n)
+{
+	size_t			len;
+	char			*ltoa;
+	unsigned long	c;
+
+	c = n;
+	len = ft_intlen(c);
+	if (ft_isneg(c))
+	{
+		len++;
+		c = -c;
+	}
+	ltoa = (char *)ft_calloc((len + 1), sizeof(*ltoa));
+	if (!ltoa)
+		return (NULL);
+	ltoa[len] = 0;
+	while (len--)
+	{
+		ltoa[len] = c % 10 + '0' ;
+		c /= 10;
+	}
+	if (ft_isneg(n))
+		ltoa[0] = '-';
+	return (ltoa);
+}
+
 void	ft_swap_stack(t_stk *stack)
 {
 	if (!stack || stack->size < 2)
@@ -123,6 +150,14 @@ void	ft_print_top_base_stack(t_stk *a)
 	}
 }
 
+/*char	**ft_stack_to_tab(t_stk *stack)
+{
+	char	**dst;
+
+	if (!stack)
+		return (NULL);
+}*/
+
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
 {
@@ -138,13 +173,13 @@ int	main(int argc, char **argv)
 			return (-1);
 		// --------------------INIT STACK----------------------------------
 		t_stk		*a;
-		t_stk		*b;
+//		t_stk		*b;
 		t_stk_elt	*a_elt;
-		t_stk_elt	*pop = NULL;
-		t_stk_elt	*deq = NULL;
+//		t_stk_elt	*pop = NULL;
+//		t_stk_elt	*deq = NULL;
 
 		a = ft_init_stack("a");
-		b = ft_init_stack("b");
+//		b = ft_init_stack("b");
 		i = 0;
 		while (args[i])
 		{
@@ -156,37 +191,37 @@ int	main(int argc, char **argv)
 		if (a->size < 2)
 		{
 			ft_pop_clear_stk(&a);
-			ft_pop_clear_stk(&b);
+		//	ft_pop_clear_stk(&b);
 			ft_free_args(argc, argv, args);
 			return (0);
 		}
 
 		// --------------------TEST STACK----------------------------------
-		ft_print_top_base_stack(a);
-		ft_swap_stack(a);
-		ft_print_top_base_stack(a);
+	//	ft_print_top_base_stack(a);
+	//	ft_swap_stack(a);
+	//	ft_print_top_base_stack(a);
 
-		ft_push_stack(&a, &b);
-		ft_print_top_base_stack(a);
-		ft_print_top_base_stack(b);
+	//	ft_push_stack(&a, &b);
+	//	ft_print_top_base_stack(a);
+	//	ft_print_top_base_stack(b);
 
-		ft_push_stack(&a, &b);
-		ft_push_stack(&a, &b);
-		ft_print_top_base_stack(a);
-		ft_print_top_base_stack(b);
+	//	ft_push_stack(&a, &b);
+	//	ft_push_stack(&a, &b);
+	//	ft_print_top_base_stack(a);
+	//	ft_print_top_base_stack(b);
 
-		ft_rotate_stack(&b);
-		ft_rotate_reverse_stack(&a);
-		ft_rotate_reverse_stack(&a);
-		ft_print_top_base_stack(a);
-		ft_print_top_base_stack(b);
+	//	ft_rotate_stack(&b);
+	//	ft_rotate_reverse_stack(&a);
+	//	ft_rotate_reverse_stack(&a);
+	//	ft_print_top_base_stack(a);
+	//	ft_print_top_base_stack(b);
 
-		rrr(&a, &b);
-		rrr(&a, &b);
-		ss(a, b);
-		rr(&a, &b);
-		ft_print_top_base_stack(a);
-		ft_print_top_base_stack(b);
+	//	rrr(&a, &b);
+	//	rrr(&a, &b);
+	//	ss(a, b);
+	//	rr(&a, &b);
+	//	ft_print_top_base_stack(a);
+	//	ft_print_top_base_stack(b);
 		// --------------------MEDIAN--------------------------------------
 		t_piv	pivot;
 
@@ -199,15 +234,29 @@ int	main(int argc, char **argv)
 		{
 			ft_putendl(args[i++]);
 		}
+		// --------------------ALGORITHM-----------------------------------
+		ft_print_top_base_stack(a);
+	//	ft_print_top_base_stack(b);
+	/*	while (a->top->value < pivot.me)
+		{
+			if (a->top->prev->value < pivot.q1 && a->top->value >
+			a->top->prev->value)*/
+	//			ft_swap_stack(a);
+	//		ft_push_stack(&a, &b);
+		//}
+	/*	if (a)
+			ft_print_top_stack(a);
+		if (b)
+			ft_print_top_stack(b);*/
 		// --------------------FREE STACK----------------------------------
-		if (pop)
+	/*	if (pop)
 			ft_del_stk_elt(pop);
 		if (deq)
-			ft_del_stk_elt(deq);
+			ft_del_stk_elt(deq);*/
 		if (a)
 			ft_pop_clear_stk(&a);
-		if (b)
-			ft_pop_clear_stk(&b);
+//		if (b)
+//			ft_pop_clear_stk(&b);
 			//ft_deq_clear_stk(&a);
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
