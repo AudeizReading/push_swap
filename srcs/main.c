@@ -160,8 +160,6 @@ int	main(int argc, char **argv)
 		t_stk		*a;
 		t_stk		*b;
 		t_stk_elt	*a_elt;
-//		t_stk_elt	*pop = NULL;
-//		t_stk_elt	*deq = NULL;
 
 		a = ft_init_stack("a");
 		b = ft_init_stack("b");
@@ -173,16 +171,14 @@ int	main(int argc, char **argv)
 			i++;
 		}
 		// --------------------QUIT IF STACK SIZE < 2----------------------
-		if (a->size < 2)
+		// --------------------CHECK A IS SORTED---------------------------
+		if (a->size < 2 || ft_stack_a_is_sort(a))
 		{
 			ft_pop_clear_stk(&a);
 			ft_pop_clear_stk(&b);
 			ft_free_args(argc, argv, args);
 			return (0);
 		}
-		// --------------------CHECK A IS SORTED---------------------------
-		if (ft_stack_a_is_sort(a))
-			return (0);
 		// --------------------TEST STACK----------------------------------
 	//	ft_print_top_base_stack(a);
 	//	ft_swap_stack(a);
@@ -212,15 +208,32 @@ int	main(int argc, char **argv)
 		// --------------------MEDIAN--------------------------------------
 		t_piv	pivot;
 
-		pivot = ft_get_median(argc, argv, args);
+		pivot = ft_get_median(args, a->size);
 		// --------------------DISPLAY-------------------------------------
 		printf("\033[36;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 		i = 0;
 		ft_putendl("Tableau args trié");
 		while (args[i])
 		{
-			ft_putendl(args[i++]);
+			ft_putendl(args[i]);
+			t_stk_elt	*tmp;
+			tmp = a->top;
+			while (tmp)
+			{
+				if (ft_atol(args[i]) == tmp->value)
+				{
+					tmp->grp = i;
+					break ;
+				}
+				else
+					tmp = tmp->prev;
+			}
+			i++;
 		}
+
+		ft_push_stack(&a, &b);
+		ft_push_stack(&a, &b);
+		ft_push_stack(&a, &b);
 		// --------------------ALGORITHM-----------------------------------
 		int		size;
 		long	top;
@@ -237,7 +250,8 @@ int	main(int argc, char **argv)
 			printf("\033[33m%s\033[0m\n", test_stack[i]);
 			i++;
 		}
-		pivot = ft_get_median(argc, argv, test_stack);
+		//pivot = ft_get_median(argc, argv, test_stack);
+		pivot = ft_get_median(test_stack, a->size);
 		printf("\033[33;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 		if (a->size)
 			ft_print_top_stack(a);
@@ -266,17 +280,13 @@ int	main(int argc, char **argv)
 		if (b->size)
 			ft_print_top_stack(b);
 		// --------------------FREE STACK----------------------------------
-	/*	if (pop)
-			ft_del_stk_elt(pop);
-		if (deq)
-			ft_del_stk_elt(deq);*/
 		if (a)
 			ft_pop_clear_stk(&a);
 		if (b)
 			ft_pop_clear_stk(&b);
-			//ft_deq_clear_stk(&a);
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
+		// Et on free le tableau genere pour la mediane
 
 		ft_free_args(argc, argv, args);
 		i = 0;

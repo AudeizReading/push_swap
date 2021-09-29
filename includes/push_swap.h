@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/28 15:41:37 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/29 12:58:34 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ t_stk_elt	*ft_deq_stack(t_stk **stack);
 /* Instructions */
 
 /* Median */
-t_piv		ft_get_median(int argc, char **argv, char **args);
+//t_piv		ft_get_median(int argc, char **argv, char **args);
+t_piv		ft_get_median(char **args, int end);
 
 /* Algos */
 void		ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
