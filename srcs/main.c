@@ -98,13 +98,50 @@ void	ft_print_top_base_stack(t_stk *a)
 	}
 }
 
-/*char	**ft_stack_to_tab(t_stk *stack)
+char	**ft_stack_to_tab(t_stk *stack)
 {
-	char	**dst;
+	char		**dst;
+	t_stk_elt	*tmp;
+	int			i;
 
 	if (!stack)
 		return (NULL);
-}*/
+	i = 0;
+	dst = (char **)malloc(sizeof(*dst) * (stack->size + 1));
+	if(!dst)
+		return (NULL);
+	tmp = stack->top;
+	while (tmp)
+	{
+		dst[i] = ft_ltoa(tmp->value);
+		if (!dst[i])
+		{
+			while (dst[i--])
+				free(dst[i]);
+			free(dst);
+		}
+		i++;
+		tmp = tmp->prev;
+	}
+	dst[i] = NULL;
+	return (dst);
+}
+
+t_bool	ft_stack_a_is_sort(t_stk *stack)
+{
+	t_stk_elt	*tmp;
+
+	if (!stack)
+		return (e_false);
+	tmp = stack->top;
+	while (tmp->prev)
+	{
+		if (tmp->value > tmp->prev->value)
+			return (e_false);
+		tmp = tmp->prev;
+	}
+	return (e_true);
+}
 
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
@@ -143,7 +180,9 @@ int	main(int argc, char **argv)
 			ft_free_args(argc, argv, args);
 			return (0);
 		}
-
+		// --------------------CHECK A IS SORTED---------------------------
+		if (ft_stack_a_is_sort(a))
+			return (0);
 		// --------------------TEST STACK----------------------------------
 	//	ft_print_top_base_stack(a);
 	//	ft_swap_stack(a);
@@ -190,6 +229,16 @@ int	main(int argc, char **argv)
 		size = a->size;
 	//	ft_print_top_base_stack(a);
 	//	ft_print_top_base_stack(b);
+		char	**test_stack = ft_stack_to_tab(a);
+		i = 0;
+		// recup stack et conversion en tab de tab de char pour trouver la mediane de la stack
+		while (test_stack[i])
+		{
+			printf("\033[33m%s\033[0m\n", test_stack[i]);
+			i++;
+		}
+		pivot = ft_get_median(argc, argv, test_stack);
+		printf("\033[33;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
@@ -228,7 +277,15 @@ int	main(int argc, char **argv)
 			//ft_deq_clear_stk(&a);
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
+
 		ft_free_args(argc, argv, args);
+		i = 0;
+		while (test_stack[i])
+		{
+			free(test_stack[i]);
+			i++;
+		}
+		free(test_stack);
 	}
 	else
 	{
