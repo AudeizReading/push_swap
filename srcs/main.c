@@ -183,6 +183,8 @@ int	main(int argc, char **argv)
 	//	ft_print_top_base_stack(a);
 	//	ft_swap_stack(a);
 	//	ft_print_top_base_stack(a);
+	//	ft_rotate_reverse_stack(&a);
+	//	ft_print_top_base_stack(a);
 
 	//	ft_push_stack(&a, &b);
 	//	ft_print_top_base_stack(a);
@@ -212,10 +214,10 @@ int	main(int argc, char **argv)
 		// --------------------DISPLAY-------------------------------------
 		printf("\033[36;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 		i = 0;
-		ft_putendl("Tableau args trié");
+	//	ft_putendl("Tableau args trié");
 		while (args[i])
 		{
-			ft_putendl(args[i]);
+		//	ft_putendl(args[i]);
 			t_stk_elt	*tmp;
 			tmp = a->top;
 			while (tmp)
@@ -231,9 +233,9 @@ int	main(int argc, char **argv)
 			i++;
 		}
 
-		ft_push_stack(&a, &b);
-		ft_push_stack(&a, &b);
-		ft_push_stack(&a, &b);
+//		ft_push_stack(&a, &b);
+//		ft_push_stack(&a, &b);
+//		ft_push_stack(&a, &b);
 		// --------------------ALGORITHM-----------------------------------
 		int		size;
 		long	top;
@@ -247,12 +249,24 @@ int	main(int argc, char **argv)
 		// recup stack et conversion en tab de tab de char pour trouver la mediane de la stack
 		while (test_stack[i])
 		{
-			printf("\033[33m%s\033[0m\n", test_stack[i]);
+			t_stk_elt	*tmp;
+
+		//	printf("\033[33m%s\033[0m\n", test_stack[i]);
+			tmp = a->top;
+			while (tmp)
+			{
+				if (ft_atol(args[i]) == tmp->value)
+				{
+					tmp->grp = i;
+					break ;
+				}
+				else
+					tmp = tmp->prev;
+			}
 			i++;
 		}
-		//pivot = ft_get_median(argc, argv, test_stack);
 		pivot = ft_get_median(test_stack, a->size);
-		printf("\033[33;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+	//	printf("\033[33;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
@@ -262,18 +276,42 @@ int	main(int argc, char **argv)
 		{
 			top = a->top->value;
 			prev = a->top->prev->value;
-			if (top > prev)
+		/*	if (top > prev)
 				ft_swap_stack(a);
-			else if (top < pivot.me)
+			else if (top <= pivot.me)
 			{
 				ft_push_stack(&a, &b);
 				//size--;
 			}
 			else if (top > pivot.me)
-				ft_rotate_reverse_stack(&a);
-			else
 				ft_rotate_stack(&a);
+			else
+				ft_rotate_reverse_stack(&a);*/
 			printf("me: %ld, top: %ld\n", pivot.me, top);
+			if (top <= pivot.me)
+			{
+				if (top > prev)
+				{
+					ft_swap_stack(a);
+					ft_push_stack(&a, &b);
+					//ft_rotate_reverse_stack(&a);
+				}
+				ft_push_stack(&a, &b);
+			}
+			else
+			{
+				if (top > prev)
+				{
+					ft_swap_stack(a);
+					size++;
+				//	if (top <= pivot.me)
+				//		ft_push_stack(&a, &b);
+				//	else
+				//		ft_rotate_stack(&a);
+				}/**/
+				else
+					ft_rotate_stack(&a);
+			}
 		}
 		if (a->size)
 			ft_print_top_stack(a);
