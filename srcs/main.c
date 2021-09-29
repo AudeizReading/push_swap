@@ -5,58 +5,6 @@
 **   - algo de tri
 */
 
-// A adapter a la nouvelle structure stack
-//void	sa(t_stack *stack, int *top_stack, int *penultimate)
-//{
-//	if (!stack || ft_lstsize(stack) == 1)
-//		return ;
-//	ft_swap(top_stack, penultimate);
-//	// Trouver un moyen pour afficher sa ou sb car same function
-//	// Changer le nom de la fonction aussi
-//	ft_putendl("sa");
-//}
-
-/*char	*ft_strcpy(char *dst, char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = 0;
-	return (dst);
-}*/
-
-char	*ft_ltoa(long n)
-{
-	size_t			len;
-	char			*ltoa;
-	unsigned long	c;
-
-	c = n;
-	len = ft_intlen(c);
-	if (ft_isneg(c))
-	{
-		len++;
-		c = -c;
-	}
-	ltoa = (char *)ft_calloc((len + 1), sizeof(*ltoa));
-	if (!ltoa)
-		return (NULL);
-	ltoa[len] = 0;
-	while (len--)
-	{
-		ltoa[len] = c % 10 + '0' ;
-		c /= 10;
-	}
-	if (ft_isneg(n))
-		ltoa[0] = '-';
-	return (ltoa);
-}
-
 void	ft_swap_stack(t_stk *stack)
 {
 	if (!stack || stack->size < 2)
