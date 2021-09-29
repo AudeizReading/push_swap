@@ -16,7 +16,7 @@
 //	ft_putendl("sa");
 //}
 
-char	*ft_strcpy(char *dst, char *src)
+/*char	*ft_strcpy(char *dst, char *src)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ char	*ft_strcpy(char *dst, char *src)
 	}
 	dst[i] = 0;
 	return (dst);
-}
+}*/
 
 char	*ft_ltoa(long n)
 {

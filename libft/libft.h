@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:41:48 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/26 15:08:09 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/29 08:34:52 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	ft_swap_tab(void *tab[], int a, int b);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_lnbrcmp(char *s1, char *s2);
 void	ft_long_swap(long *a, long *b);
+char	*ft_strcpy(char *dst, char *src);
 #endif
