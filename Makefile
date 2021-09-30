@@ -54,6 +54,7 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 add_stack\
 	 print_stack\
 	 moves_rotate\
+	 moves_others\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap
