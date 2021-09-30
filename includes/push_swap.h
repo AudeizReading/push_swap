@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/29 12:58:34 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:40:31 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,15 @@ t_stk_elt	*ft_pop_stack(t_stk **stack);
 t_stk_elt	*ft_deq_stack(t_stk **stack);
 
 /* Instructions */
+void		ft_swap_stack(t_stk *stack);
+void		ss(t_stk *a, t_stk *b);
+void		ft_push_stack(t_stk **stack_1, t_stk **stack_2);
+void		ft_rotate_stack(t_stk **stack);
+void		rr(t_stk **a, t_stk **b);
+void		ft_rotate_reverse_stack(t_stk **stack);
+void		rrr(t_stk **a, t_stk **b);
 
 /* Median */
-//t_piv		ft_get_median(int argc, char **argv, char **args);
 t_piv		ft_get_median(char **args, int end);
 
 /* Algos */

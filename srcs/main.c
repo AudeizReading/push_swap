@@ -5,7 +5,7 @@
 **   - algo de tri
 */
 
-void	ft_swap_stack(t_stk *stack)
+/*void	ft_swap_stack(t_stk *stack)
 {
 	if (!stack || stack->size < 2)
 		return ;
@@ -38,7 +38,7 @@ void	ft_push_stack(t_stk **stack_1, t_stk **stack_2)
 		else if (!ft_strcmp((*stack_2)->stk_name, "b"))
 			ft_putendl("pb");
 	}
-}
+}*/
 
 void	ft_rotate_stack(t_stk **stack)
 {
@@ -97,7 +97,7 @@ void	ft_print_top_base_stack(t_stk *a)
 		ft_putendl("-----------------------------------------------------");
 	}
 }
-/*void	ft_sort_three(t_stk *stack)
+void	ft_sort_three(t_stk *stack)
 {
 	long	top;
 	long	mid;
@@ -112,13 +112,11 @@ void	ft_print_top_base_stack(t_stk *a)
 	if (top < mid && top < base && mid < base)
 	{
 		if (ft_strcmp(stack->stk_name, "a"))
-		{
 			return ;
-		}
 		else
 		{
-			ft_swap_stack(&b);
-			ft_rotate_reverse(&b);
+			ft_swap_stack(stack);
+			ft_rotate_reverse_stack(&stack);
 		}
 	}
 	// 3 2 1
@@ -126,21 +124,21 @@ void	ft_print_top_base_stack(t_stk *a)
 	{
 		if (ft_strcmp(stack->stk_name, "a"))
 		{
-			ft_swap_stack(&a);
-			ft_rotate_reverse(&a);
+			ft_swap_stack(stack);
+			ft_rotate_reverse_stack(&stack);
 		}
 		else
 			return ;
 	}
 	// 2 3 1
-	if (top < mid && top > base && mid > base)
-	// 2 1 3
-	if (top > mid && top < base && mid < base)
-	// 1 3 2
-	if (top < mid && top < base && mid > base)
-	// 3 1 2
-	if (top > mid && top > base && mid < base)
-}*/
+//	if (top < mid && top > base && mid > base)
+//	// 2 1 3
+//	if (top > mid && top < base && mid < base)
+//	// 1 3 2
+//	if (top < mid && top < base && mid > base)
+//	// 3 1 2
+//	if (top > mid && top > base && mid < base)
+}
 
 char	**ft_stack_to_tab(t_stk *stack)
 {
