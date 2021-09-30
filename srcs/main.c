@@ -97,6 +97,50 @@ void	ft_print_top_base_stack(t_stk *a)
 		ft_putendl("-----------------------------------------------------");
 	}
 }
+/*void	ft_sort_three(t_stk *stack)
+{
+	long	top;
+	long	mid;
+	long	base;
+
+	if (!stack)
+		return ;
+	top = stack->top->value;
+	mid = stack->top->prev->value;
+	base = stack->top->prev->prev->value;
+	// 1 2 3
+	if (top < mid && top < base && mid < base)
+	{
+		if (ft_strcmp(stack->stk_name, "a"))
+		{
+			return ;
+		}
+		else
+		{
+			ft_swap_stack(&b);
+			ft_rotate_reverse(&b);
+		}
+	}
+	// 3 2 1
+	if (top > mid && top > base && mid > base)
+	{
+		if (ft_strcmp(stack->stk_name, "a"))
+		{
+			ft_swap_stack(&a);
+			ft_rotate_reverse(&a);
+		}
+		else
+			return ;
+	}
+	// 2 3 1
+	if (top < mid && top > base && mid > base)
+	// 2 1 3
+	if (top > mid && top < base && mid < base)
+	// 1 3 2
+	if (top < mid && top < base && mid > base)
+	// 3 1 2
+	if (top > mid && top > base && mid < base)
+}*/
 
 char	**ft_stack_to_tab(t_stk *stack)
 {
@@ -179,34 +223,6 @@ int	main(int argc, char **argv)
 			ft_free_args(argc, argv, args);
 			return (0);
 		}
-		// --------------------TEST STACK----------------------------------
-	//	ft_print_top_base_stack(a);
-	//	ft_swap_stack(a);
-	//	ft_print_top_base_stack(a);
-	//	ft_rotate_reverse_stack(&a);
-	//	ft_print_top_base_stack(a);
-
-	//	ft_push_stack(&a, &b);
-	//	ft_print_top_base_stack(a);
-	//	ft_print_top_base_stack(b);
-
-	//	ft_push_stack(&a, &b);
-	//	ft_push_stack(&a, &b);
-	//	ft_print_top_base_stack(a);
-	//	ft_print_top_base_stack(b);
-
-	//	ft_rotate_stack(&b);
-	//	ft_rotate_reverse_stack(&a);
-	//	ft_rotate_reverse_stack(&a);
-	//	ft_print_top_base_stack(a);
-	//	ft_print_top_base_stack(b);
-
-	//	rrr(&a, &b);
-	//	rrr(&a, &b);
-	//	ss(a, b);
-	//	rr(&a, &b);
-	//	ft_print_top_base_stack(a);
-	//	ft_print_top_base_stack(b);
 		// --------------------MEDIAN--------------------------------------
 		t_piv	pivot;
 
@@ -233,9 +249,6 @@ int	main(int argc, char **argv)
 			i++;
 		}
 
-//		ft_push_stack(&a, &b);
-//		ft_push_stack(&a, &b);
-//		ft_push_stack(&a, &b);
 		// --------------------ALGORITHM-----------------------------------
 		int		size;
 		long	top;
@@ -272,21 +285,9 @@ int	main(int argc, char **argv)
 		if (b->size)
 			ft_print_top_stack(b);
 		while (size--)
-		//while (size)
 		{
 			top = a->top->value;
 			prev = a->top->prev->value;
-		/*	if (top > prev)
-				ft_swap_stack(a);
-			else if (top <= pivot.me)
-			{
-				ft_push_stack(&a, &b);
-				//size--;
-			}
-			else if (top > pivot.me)
-				ft_rotate_stack(&a);
-			else
-				ft_rotate_reverse_stack(&a);*/
 			printf("me: %ld, top: %ld\n", pivot.me, top);
 			if (top <= pivot.me)
 			{
@@ -294,7 +295,6 @@ int	main(int argc, char **argv)
 				{
 					ft_swap_stack(a);
 					ft_push_stack(&a, &b);
-					//ft_rotate_reverse_stack(&a);
 				}
 				ft_push_stack(&a, &b);
 			}
@@ -304,11 +304,7 @@ int	main(int argc, char **argv)
 				{
 					ft_swap_stack(a);
 					size++;
-				//	if (top <= pivot.me)
-				//		ft_push_stack(&a, &b);
-				//	else
-				//		ft_rotate_stack(&a);
-				}/**/
+				}
 				else
 					ft_rotate_stack(&a);
 			}
