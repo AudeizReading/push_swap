@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/30 21:40:31 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/01 12:34:40 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_stk
 	t_stk_elt	*top;
 	t_stk_elt	*base;
 }				t_stk;
-//typedef t_list	t_stack;
 
 /* Errors Handling */
 void	ft_puterr(void);
@@ -65,6 +64,7 @@ void		ft_pop_clear_stk(t_stk **stack);
 void		ft_deq_clear_stk(t_stk **stack);
 t_stk_elt	*ft_pop_stack(t_stk **stack);
 t_stk_elt	*ft_deq_stack(t_stk **stack);
+char		**ft_stack_to_tab(t_stk *stack);
 
 /* Instructions */
 void		ft_swap_stack(t_stk *stack);
@@ -80,6 +80,9 @@ t_piv		ft_get_median(char **args, int end);
 
 /* Algos */
 void		ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
+t_bool		ft_stack_a_is_sort(t_stk *stack);
+t_bool		ft_stack_b_is_sort(t_stk *stack);
+t_bool		ft_stack_is_sort(t_stk *stack);
 
 /* Launch Program */
 int	main(int argc, char **argv);

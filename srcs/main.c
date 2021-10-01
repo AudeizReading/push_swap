@@ -87,7 +87,7 @@ char	**ft_stack_to_tab(t_stk *stack)
 	return (dst);
 }
 
-t_bool	ft_stack_a_is_sort(t_stk *stack)
+/*t_bool	ft_stack_a_is_sort(t_stk *stack)
 {
 	t_stk_elt	*tmp;
 
@@ -103,6 +103,36 @@ t_bool	ft_stack_a_is_sort(t_stk *stack)
 	return (e_true);
 }
 
+t_bool	ft_stack_b_is_sort(t_stk *stack)
+{
+	t_stk_elt	*tmp;
+
+	if (!stack)
+		return (e_false);
+	tmp = stack->top;
+	while (tmp->prev)
+	{
+		if (tmp->value < tmp->prev->value)
+			return (e_false);
+		tmp = tmp->prev;
+	}
+	return (e_true);
+}
+
+t_bool	ft_stack_is_sort(t_stk *stack)
+{
+	if (ft_strcmp(stack->stk_name, "a"))
+	{
+		if (!ft_stack_a_is_sort(stack))
+			return (e_false);
+	}
+	else if (ft_strcmp(stack->stk_name, "b"))
+	{
+		if (!ft_stack_b_is_sort(stack))
+			return (e_false);
+	}
+	return (e_true);
+}*/
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
 {
@@ -123,6 +153,13 @@ int	main(int argc, char **argv)
 
 		a = ft_init_stack("a");
 		b = ft_init_stack("b");
+		if (!a || !b)
+		{
+			if (a)
+				ft_pop_clear_stk(&a);
+			ft_free_args(argc, argv, args);
+			return (-1);
+		}
 		i = 0;
 		while (args[i])
 		{
@@ -200,6 +237,7 @@ int	main(int argc, char **argv)
 			ft_print_top_stack(a);
 		if (b->size)
 			ft_print_top_stack(b);
+		// Attention segfault si reste qu 1 elt dans stack a
 		while (size--)
 		{
 			top = a->top->value;
