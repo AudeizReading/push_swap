@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/01 15:31:11 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/01 21:26:44 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ void		ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
 t_bool		ft_stack_a_is_sort(t_stk *stack);
 t_bool		ft_stack_b_is_sort(t_stk *stack);
 t_bool		ft_stack_is_sort(t_stk *stack);
+t_bool		ft_sort_top_mid_base(t_stk *stack);
+t_bool		ft_sort_base_mid_top(t_stk *stack);
+t_bool		ft_sort_mid_base_top(t_stk *stack);
+t_bool		ft_sort_mid_top_base(t_stk *stack);
+t_bool		ft_sort_top_base_mid(t_stk *stack);
+t_bool		ft_sort_base_top_mid(t_stk *stack);
+void		ft_sort_three(t_stk *stack);
 
 /* Launch Program */
 int	main(int argc, char **argv);

@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:54:45 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/25 17:53:18 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/01 23:00:36 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@ t_bool	ft_is_valid_ps_args(char **argv)
 {
 	char	**p_argv;
 	char	*pp_argv;
+	t_bool	cond_1;
+	t_bool	cond_2;
 
 	p_argv = argv;
 	while (*p_argv)
 	{
 		pp_argv = *p_argv;
+		cond_1 = !ft_isdigit(*pp_argv);
+		cond_2 = *pp_argv != 32 && *pp_argv != 43 && *pp_argv != 45;
 		while (*pp_argv)
 		{
-			// Que faire si 2 espaces a la suite ?
-			if (!ft_isdigit(*pp_argv) && *pp_argv != 32 && *pp_argv != '-')
+			if (cond_1 && cond_2)
 			{
 				ft_puterr();
 				return (e_false);
@@ -72,8 +75,7 @@ t_bool	ft_check_arg_is_int(char **args)
 		return (e_false);
 	while (*args)
 	{
-		value = ft_atol(*args);
-		if (!ft_is_int(value))
+		if (!ft_has_atol(*args, &value) || !ft_is_int(value))
 		{
 			ft_puterr();
 			return (e_false);
@@ -106,6 +108,7 @@ char	**ft_parse_args(int argc, char **argv)
 	return (args);
 }
 
+/* Made this free fn for args bc if argc != 2, args is not malloced */
 void	ft_free_args(int argc, char **argv, char **args)
 {
 	int	i;

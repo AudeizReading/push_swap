@@ -7,47 +7,265 @@
 **   - stk_elt->grp
 */
 
-void	ft_sort_three(t_stk *stack)
+/* 1 2 3 */
+t_bool	ft_sort_top_mid_base(t_stk *stack)
 {
 	long	top;
 	long	mid;
 	long	base;
 
-	if (!stack)
-		return ;
+	if (!stack || stack->size < 3)
+		return (e_false);
 	top = stack->top->value;
 	mid = stack->top->prev->value;
 	base = stack->top->prev->prev->value;
-	// 1 2 3
 	if (top < mid && top < base && mid < base)
 	{
 		if (ft_strcmp(stack->stk_name, "a"))
-			return ;
-		else
+			return (e_true);
+		else if (ft_strcmp(stack->stk_name, "b"))
 		{
 			ft_swap_stack(stack);
 			ft_rotate_reverse_stack(&stack);
+			return (e_true);
 		}
 	}
-	// 3 2 1
+	return (e_false);
+}
+
+/* 3 2 1 */
+t_bool	ft_sort_base_mid_top(t_stk *stack)
+{
+	long	top;
+	long	mid;
+	long	base;
+
+	if (!stack || stack->size < 3)
+		return (e_false);
+	top = stack->top->value;
+	mid = stack->top->prev->value;
+	base = stack->top->prev->prev->value;
 	if (top > mid && top > base && mid > base)
+	{
+		if (ft_strcmp(stack->stk_name, "b"))
+			return (e_true);
+		else if (ft_strcmp(stack->stk_name, "a"))
+		{
+			ft_swap_stack(stack);
+			ft_rotate_reverse_stack(&stack);
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+/* 2 3 1 */
+t_bool	ft_sort_mid_base_top(t_stk *stack)
+{
+	long	top;
+	long	mid;
+	long	base;
+
+	if (!stack || stack->size < 3)
+		return (e_false);
+	top = stack->top->value;
+	mid = stack->top->prev->value;
+	base = stack->top->prev->prev->value;
+	if (top < mid && top > base && mid > base)
 	{
 		if (ft_strcmp(stack->stk_name, "a"))
 		{
-			ft_swap_stack(stack);
-			ft_rotate_reverse_stack(&stack);
+			ft_rotate_stack(&stack);
+			return (e_true);
 		}
-		else
-			return ;
+		else if (ft_strcmp(stack->stk_name, "b"))
+		{
+			ft_swap_stack(stack);
+			return (e_true);
+		}
 	}
-	// 2 3 1
-//	if (top < mid && top > base && mid > base)
-//	// 2 1 3
-//	if (top > mid && top < base && mid < base)
-//	// 1 3 2
-//	if (top < mid && top < base && mid > base)
-//	// 3 1 2
-//	if (top > mid && top > base && mid < base)
+	return (e_false);
+}
+
+/* 2 1 3 */
+t_bool	ft_sort_mid_top_base(t_stk *stack)
+{
+	long	top;
+	long	mid;
+	long	base;
+
+	if (!stack || stack->size < 3)
+		return (e_false);
+	top = stack->top->value;
+	mid = stack->top->prev->value;
+	base = stack->top->prev->prev->value;
+	if (top > mid && top < base && mid < base)
+	{
+		if (ft_strcmp(stack->stk_name, "b"))
+		{
+			ft_rotate_stack(&stack);
+			return (e_true);
+		}
+		else if (ft_strcmp(stack->stk_name, "a"))
+		{
+			ft_swap_stack(stack);
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+/* 1 3 2 */
+t_bool	ft_sort_top_base_mid(t_stk *stack)
+{
+	long	top;
+	long	mid;
+	long	base;
+
+	if (!stack || stack->size < 3)
+		return (e_false);
+	top = stack->top->value;
+	mid = stack->top->prev->value;
+	base = stack->top->prev->prev->value;
+	if (top < mid && top < base && mid > base)
+	{
+		if (ft_strcmp(stack->stk_name, "a"))
+		{
+			ft_rotate_reverse_stack(&stack);
+			ft_swap_stack(stack);
+			return (e_true);
+		}
+		else if (ft_strcmp(stack->stk_name, "b"))
+		{
+			ft_rotate_stack(&stack);
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+/* 3 1 2 */
+t_bool	ft_sort_base_top_mid(t_stk *stack)
+{
+	long	top;
+	long	mid;
+	long	base;
+
+	if (!stack || stack->size < 3)
+		return (e_false);
+	top = stack->top->value;
+	mid = stack->top->prev->value;
+	base = stack->top->prev->prev->value;
+	if (top > mid && top > base && mid < base)
+	{
+		if (ft_strcmp(stack->stk_name, "b"))
+		{
+			ft_rotate_reverse_stack(&stack);
+			ft_swap_stack(stack);
+			return (e_true);
+		}
+		else if (ft_strcmp(stack->stk_name, "a"))
+		{
+			ft_rotate_stack(&stack);
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+void	ft_sort_three(t_stk *stack)
+{
+/*	long	top;
+	long	mid;
+	long	base;*/
+	t_bool	cond_1;
+	t_bool	cond_2;
+	t_bool	cond_3;
+
+	if (!stack || stack->size < 3)
+		return ;
+//	if (ft_sort_top_mid_base || ft_sort_base_mid_top || ft_sort_mid_base_top || ft_sort_mid_top_base || ft_sort_top_base_mid || ft_sort_base_top_mid)
+	cond_1 = ft_sort_top_mid_base(stack) || ft_sort_base_mid_top(stack);
+	cond_2 = ft_sort_mid_base_top(stack) || ft_sort_mid_top_base(stack);
+	cond_3 = ft_sort_top_base_mid(stack) || ft_sort_base_top_mid(stack);
+	if (cond_1 || cond_2 || cond_3)
+	{
+		stack->top->grp = -1;
+		stack->top->prev->grp = -1;
+		stack->top->prev->prev->grp = -1;
+	}
+/*	if (stack->size > 2)
+	{
+		top = stack->top->value;
+		mid = stack->top->prev->value;
+		base = stack->top->prev->prev->value;
+		// 1 2 3
+		// top-mid-base
+		if (top < mid && top < base && mid < base)
+		{
+			if (ft_strcmp(stack->stk_name, "a"))
+				return ;
+			else
+			{
+				ft_swap_stack(stack);
+				ft_rotate_reverse_stack(&stack);
+			}
+		}
+		// 3 2 1
+		// base-mid-top
+		if (top > mid && top > base && mid > base)
+		{
+			if (ft_strcmp(stack->stk_name, "b"))
+				return ;
+			else
+			{
+				ft_swap_stack(stack);
+				ft_rotate_reverse_stack(&stack);
+			}
+		}
+		// 2 3 1
+		// mid-base-top
+		if (top < mid && top > base && mid > base)
+		{
+			if (ft_strcmp(stack->stk_name, "a"))
+				ft_rotate_stack(&stack);
+			else
+				ft_swap_stack(stack);
+		}
+		// 2 1 3
+		// mid-top-base
+		if (top > mid && top < base && mid < base)
+		{
+			if (ft_strcmp(stack->stk_name, "b"))
+				ft_rotate_stack(&stack);
+			else
+				ft_swap_stack(stack);
+		}
+		// 1 3 2
+		// top-base-mid
+		if (top < mid && top < base && mid > base)
+		{
+			if (ft_strcmp(stack->stk_name, "a"))
+			{
+				ft_rotate_reverse_stack(&stack);
+				ft_swap_stack(stack);
+			}
+			else
+				ft_rotate_stack(&stack);
+		}
+		// 3 1 2
+		// base-top-mid
+		if (top > mid && top > base && mid < base)
+		{
+			if (ft_strcmp(stack->stk_name, "b"))
+			{
+				ft_rotate_reverse_stack(&stack);
+				ft_swap_stack(stack);
+			}
+			else
+				ft_rotate_stack(&stack);
+		}
+	}*/
 }
 
 // Si la liste est deja triee en entree -> return 0
@@ -63,7 +281,7 @@ int	main(int argc, char **argv)
 		args = ft_parse_args(argc, argv);
 		if (!args)
 			return (-1);
-		// --------------------INIT STACK----------------------------------
+		// --------------------INIT STACKS---------------------------------
 		t_stk		*a;
 		t_stk		*b;
 		t_stk_elt	*a_elt;
@@ -80,7 +298,13 @@ int	main(int argc, char **argv)
 		i = 0;
 		while (args[i])
 		{
-			a_elt = ft_init_stk_elt(ft_atol(args[i]), 1, a->stk_name);
+			a_elt = ft_init_stk_elt(ft_atol(args[i]), 0, a->stk_name);
+			if (!a_elt)
+			{
+				ft_pop_clear_stk(&a);
+				ft_pop_clear_stk(&b);
+				ft_free_args(argc, argv, args);
+			}
 			ft_stkadd_front(&a, a_elt);
 			i++;
 		}

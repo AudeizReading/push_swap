@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:41:48 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/29 08:38:27 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/01 22:59:16 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,5 @@ int		ft_lnbrcmp(char *s1, char *s2);
 void	ft_long_swap(long *a, long *b);
 char	*ft_strcpy(char *dst, char *src);
 char	*ft_ltoa(long n);
+t_bool	ft_has_atol(char *s, long *atol);
 #endif
