@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:13:54 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/28 16:01:22 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/01 15:32:48 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,14 @@ void	ft_print_elt_stack(t_stk *stack, char *view)
 			ft_putnbr(tmp->grp);
 			ft_putchar(' ');
 			ft_putendl(tmp->stack_name);
-			
 			if (!ft_strcmp(view, "top"))
 				tmp = tmp->prev;
 			else if (!ft_strcmp(view, "base"))
 				tmp = tmp->next;
 		}
 	}
-
-
 }
+
 void	ft_print_top_stack(t_stk *stack)
 {
 	ft_putendl("print depuis le top de la stack");
@@ -67,4 +65,16 @@ void	ft_print_base_stack(t_stk *stack)
 	ft_putlnbr(stack->top->value);
 	ft_putchar('\n');
 	ft_print_elt_stack(stack, "base");
+}
+
+void	ft_print_top_base_stack(t_stk *a)
+{
+	if (a->size > 0)
+	{
+		ft_putendl("---------TOP STACK-----------------------------------");
+		ft_print_top_stack(a);
+		ft_putendl("---------BASE STACK-----------------------------------");
+		ft_print_base_stack(a);
+		ft_putendl("-----------------------------------------------------");
+	}
 }

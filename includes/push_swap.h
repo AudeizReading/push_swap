@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/01 12:34:40 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/01 15:31:11 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_stk_elt	*ft_init_stk_elt(long value, int grp, char *stk_name);
 void		ft_print_elt_stack(t_stk *stack, char *view);
 void		ft_print_top_stack(t_stk *stack);
 void		ft_print_base_stack(t_stk *stack);
+void		ft_print_top_base_stack(t_stk *a);
 void		ft_stkadd_back(t_stk **stack, t_stk_elt *elt);
 void		ft_stkadd_front(t_stk **stack, t_stk_elt *elt);
 void		ft_del_stk_elt(t_stk_elt *elt);

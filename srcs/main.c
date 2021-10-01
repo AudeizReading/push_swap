@@ -2,19 +2,11 @@
 
 /*   TO-DO LIST 
 **   - algo de tri
+**   - improve parsing
+**   - norminette
+**   - stk_elt->grp
 */
 
-void	ft_print_top_base_stack(t_stk *a)
-{
-	if (a->size > 0)
-	{
-		ft_putendl("---------TOP STACK-----------------------------------");
-		ft_print_top_stack(a);
-		ft_putendl("---------BASE STACK-----------------------------------");
-		ft_print_base_stack(a);
-		ft_putendl("-----------------------------------------------------");
-	}
-}
 void	ft_sort_three(t_stk *stack)
 {
 	long	top;
@@ -58,81 +50,6 @@ void	ft_sort_three(t_stk *stack)
 //	if (top > mid && top > base && mid < base)
 }
 
-char	**ft_stack_to_tab(t_stk *stack)
-{
-	char		**dst;
-	t_stk_elt	*tmp;
-	int			i;
-
-	if (!stack)
-		return (NULL);
-	i = 0;
-	dst = (char **)malloc(sizeof(*dst) * (stack->size + 1));
-	if(!dst)
-		return (NULL);
-	tmp = stack->top;
-	while (tmp)
-	{
-		dst[i] = ft_ltoa(tmp->value);
-		if (!dst[i])
-		{
-			while (dst[i--])
-				free(dst[i]);
-			free(dst);
-		}
-		i++;
-		tmp = tmp->prev;
-	}
-	dst[i] = NULL;
-	return (dst);
-}
-
-/*t_bool	ft_stack_a_is_sort(t_stk *stack)
-{
-	t_stk_elt	*tmp;
-
-	if (!stack)
-		return (e_false);
-	tmp = stack->top;
-	while (tmp->prev)
-	{
-		if (tmp->value > tmp->prev->value)
-			return (e_false);
-		tmp = tmp->prev;
-	}
-	return (e_true);
-}
-
-t_bool	ft_stack_b_is_sort(t_stk *stack)
-{
-	t_stk_elt	*tmp;
-
-	if (!stack)
-		return (e_false);
-	tmp = stack->top;
-	while (tmp->prev)
-	{
-		if (tmp->value < tmp->prev->value)
-			return (e_false);
-		tmp = tmp->prev;
-	}
-	return (e_true);
-}
-
-t_bool	ft_stack_is_sort(t_stk *stack)
-{
-	if (ft_strcmp(stack->stk_name, "a"))
-	{
-		if (!ft_stack_a_is_sort(stack))
-			return (e_false);
-	}
-	else if (ft_strcmp(stack->stk_name, "b"))
-	{
-		if (!ft_stack_b_is_sort(stack))
-			return (e_false);
-	}
-	return (e_true);
-}*/
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
 {
@@ -234,7 +151,8 @@ int	main(int argc, char **argv)
 		pivot = ft_get_median(test_stack, a->size);
 	//	printf("\033[33;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 		if (a->size)
-			ft_print_top_stack(a);
+		//	ft_print_top_stack(a);
+			ft_print_top_base_stack(a);
 		if (b->size)
 			ft_print_top_stack(b);
 		// Attention segfault si reste qu 1 elt dans stack a
