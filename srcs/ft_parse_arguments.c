@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:54:45 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/02 17:14:46 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 19:13:11 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,24 @@ t_bool ft_has_duplicate_chars(char **argv)
 
 	st.i = -1;
 	st.j = 0;
-	st.dup = NULL;
-	while (argv[++st.i] && argv[st.i + 1] && !st.dup)
+	while (argv[++st.i] && argv[st.i + 1])
 	{
 		st.j = st.i;
 		st.trim_i = ft_strtrim(argv[st.i], "+");
-		while (argv[st.j + 1] && !st.dup)
+		while (argv[st.j + 1])
 		{
 			st.trim_j = ft_strtrim(argv[st.j + 1], "+");
-			st.dup = ft_strnstr(st.trim_i, st.trim_j, ft_strlen(st.trim_j));
+			if (!ft_strcmp(st.trim_i, st.trim_j))
+			{
+				ft_puterr();
+				free(st.trim_j);
+				free(st.trim_i);
+				return (e_true);
+			}
 			st.j++;
 			free(st.trim_j);
 		}
 		free(st.trim_i);
-		if (st.dup)
-		{
-			ft_puterr();
-			return (e_true);
-		}
 	}
 	return (e_false);
 }
