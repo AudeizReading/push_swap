@@ -28,7 +28,6 @@ MAKE=make
 #                            LIBS PATH
 # -----------------------------------------------------------------------------
 LIBFT_PATH=./libft
-GNL_PATH=./gnl
 
 # -----------------------------------------------------------------------------
 #                            GCC FLAGS
@@ -36,7 +35,6 @@ GNL_PATH=./gnl
 CFLAGS=-Wall -Werror -Wextra
 CHEADERS= -I ./includes
 ALL_FLAGS= $(CHEADERS) $(CFLAGS)
-#LDFLAGS= -L $(LIBFT_PATH) -lft -L $(GNL_PATH) -lgnl 
 LDFLAGS= -L $(LIBFT_PATH) -lft
 
 # -----------------------------------------------------------------------------
@@ -117,7 +115,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) libft
-#	@$(MAKE) gnl
 	@$(ECHO) "$(GRE)"
 	$(CC) $(LDFLAGS) $^ -o $@
 	@$(ECHO) "$(NO_COL)"
@@ -125,11 +122,6 @@ $(NAME): $(OBJ)
 libft:
 	@$(ECHO) "$(YEL)"
 	$(MAKE) -C $(LIBFT_PATH) all
-	@$(ECHO) "$(NO_COL)"
-
-gnl:
-	@$(ECHO) "$(MAG)"
-	$(MAKE) -C $(GNL_PATH) all
 	@$(ECHO) "$(NO_COL)"
 
 test: $(NAME)
@@ -184,7 +176,6 @@ test: $(NAME)
 	
 sani: $(OBJ)
 	@$(MAKE) libft
-#	@$(MAKE) gnl
 	@$(ECHO) "$(GRE)"
 	$(CC) -g -fsanitize=address -fno-omit-frame-pointer -static-libsan $(LDFLAGS) $^ -o $(NAME) 
 	@$(ECHO) "$(NO_COL)"
@@ -229,12 +220,10 @@ sani: $(OBJ)
 #	./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
 #	./$(NAME) $(ARGS_IS_INVALID_INT_600)
 #	./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
-#	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
 
 debug: $(OBJ)
 	@$(MAKE) libft
-#	@$(MAKE) gnl
 	@$(ECHO) "$(BLU)"
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
@@ -279,12 +268,10 @@ debug: $(OBJ)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
 #	valgrind ./$(NAME) $(ARGS_IS_INVALID_INT_600)
 #	valgrind ./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
-#	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
 
 debug-full: $(OBJ)
 	@$(MAKE) libft
-#	@$(MAKE) gnl
 	@$(ECHO) "$(BLU)"
 	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
 	@$(ECHO) "$(NO_COL)"
@@ -329,7 +316,6 @@ debug-full: $(OBJ)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_150)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_INVALID_INT_600)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_INVALID_INT_600)
-#	@$(MAKE) gnlclean
 	@$(MAKE) fclean-debug
 
 %.o: %.c
@@ -347,12 +333,8 @@ libftclean:
 	$(RM) $(LIBFT_PATH)/libft.a
 	@$(ECHO) "$(NO_COL)"
 
-gnlclean:
-	@$(ECHO) "$(RED)"
-	$(RM) $(GNL_PATH)/libgnl.a
-	@$(ECHO) "$(NO_COL)"
 
-fclean: clean libftclean gnlclean
+fclean: clean libftclean 
 	@$(ECHO) "$(RED)"
 	$(RM) $(NAME)
 	@$(ECHO) "$(NO_COL)"
