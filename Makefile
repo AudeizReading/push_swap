@@ -57,6 +57,8 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 moves_others\
 	 stack_is_sort\
 	 convert_stack_to_tab\
+	 sort_three_part_01\
+	 sort_three_part_02\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap
@@ -64,6 +66,11 @@ NAME=push_swap
 # -----------------------------------------------------------------------------
 #                            PUSH_SWAP VARIABLES
 # -----------------------------------------------------------------------------
+
+ARGS_SHUFFLE_3=`ruby -e "puts (1..3).to_a.shuffle.join(' ')"`
+ARGS_SHUFFLE_5=`ruby -e "puts (1..5).to_a.shuffle.join(' ')"`
+ARGS_SHUFFLE_100=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`
+ARGS_SHUFFLE_500=`ruby -e "puts (1..500).to_a.shuffle.join(' ')"`
 ARGS_IS_VALID_1=396773532
 ARGS_IS_STR_VALID_1="396773532"
 ARGS_SORTED_5=1 2 3 4 5
@@ -129,10 +136,20 @@ test: $(NAME)
 #	./$(NAME) "World Hello"
 #	./$(NAME) Hello World
 #	./$(NAME)
-	./$(NAME) $(ARGS_IS_VALID_1)
-	./$(NAME) $(ARGS_IS_STR_VALID_1)
-	./$(NAME) $(ARGS_IS_VALID_15)
-	./$(NAME) $(ARGS_IS_STR_VALID_15)
+	./$(NAME) 1 2 3
+	./$(NAME) 3 2 1
+	./$(NAME) 2 3 1
+	./$(NAME) 2 1 3
+	./$(NAME) 1 3 2
+	./$(NAME) 3 1 2
+#	./$(NAME) $(ARGS_SHUFFLE_3)
+#	./$(NAME) $(ARGS_SHUFFLE_5)
+#	./$(NAME) $(ARGS_SHUFFLE_100)
+#	./$(NAME) $(ARGS_SHUFFLE_500)
+#	./$(NAME) $(ARGS_IS_VALID_1)
+#	./$(NAME) $(ARGS_IS_STR_VALID_1)
+#	./$(NAME) $(ARGS_IS_VALID_15)
+#	./$(NAME) $(ARGS_IS_STR_VALID_15)
 	./$(NAME) $(ARGS_SORTED_5)
 	./$(NAME) $(ARGS_SUBJECT_6)
 #	./$(NAME) $(ARGS_IS_VALID_150)
@@ -174,10 +191,14 @@ sani: $(OBJ)
 #	./$(NAME) "Hello World"
 #	./$(NAME) Hello World
 #	./$(NAME)
-	./$(NAME) $(ARGS_IS_VALID_1)
-	./$(NAME) $(ARGS_IS_STR_VALID_1)
-	./$(NAME) $(ARGS_IS_VALID_15)
-	./$(NAME) $(ARGS_IS_STR_VALID_15)
+	./$(NAME) $(ARGS_SHUFFLE_3)
+	./$(NAME) $(ARGS_SHUFFLE_5)
+#	./$(NAME) $(ARGS_SHUFFLE_100)
+#	./$(NAME) $(ARGS_SHUFFLE_500)
+#	./$(NAME) $(ARGS_IS_VALID_1)
+#	./$(NAME) $(ARGS_IS_STR_VALID_1)
+#	./$(NAME) $(ARGS_IS_VALID_15)
+#	./$(NAME) $(ARGS_IS_STR_VALID_15)
 	./$(NAME) $(ARGS_SORTED_5)
 	./$(NAME) $(ARGS_SUBJECT_6)
 #	./$(NAME) $(ARGS_IS_VALID_150)
@@ -220,10 +241,14 @@ debug: $(OBJ)
 #	valgrind ./$(NAME) "Hello World"
 #	valgrind ./$(NAME) Hello World
 #	valgrind ./$(NAME)
-	valgrind ./$(NAME) $(ARGS_IS_VALID_1)
-	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_1)
-	valgrind ./$(NAME) $(ARGS_IS_VALID_15)
-	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_15)
+	valgrind ./$(NAME) $(ARGS_SHUFFLE_3)
+	valgrind ./$(NAME) $(ARGS_SHUFFLE_5)
+#	valgrind ./$(NAME) $(ARGS_SHUFFLE_100)
+#	valgrind ./$(NAME) $(ARGS_SHUFFLE_500)
+#	valgrind ./$(NAME) $(ARGS_IS_VALID_1)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_1)
+#	valgrind ./$(NAME) $(ARGS_IS_VALID_15)
+#	valgrind ./$(NAME) $(ARGS_IS_STR_VALID_15)
 	valgrind ./$(NAME) $(ARGS_SORTED_5)
 	valgrind ./$(NAME) $(ARGS_SUBJECT_6)
 #	valgrind ./$(NAME) $(ARGS_IS_VALID_150)
@@ -266,10 +291,14 @@ debug-full: $(OBJ)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) "Hello World"
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) Hello World
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_1)
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_1)
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_15)
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_15)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_3)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_5)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_100)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_500)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_1)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_1)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_15)
+#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_15)
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SORTED_5)
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SUBJECT_6)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_150)

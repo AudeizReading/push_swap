@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:41:48 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/02 16:53:32 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:46:58 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,4 @@ char	*ft_strcpy(char *dst, char *src);
 char	*ft_ltoa(long n);
 t_bool	ft_has_atol(char *s, long *atol);
 char	*ft_concat(char *s1, char *s2);
-char	*ft_trim(char *s1, char const *set);
 #endif
