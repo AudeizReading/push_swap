@@ -277,6 +277,13 @@ int	main(int argc, char **argv)
 		int		i;
 		argv++;
 
+		// --------------------TEST PARSE ARGV-----------------------------
+		char	*test_argv;
+
+		test_argv = NULL;
+		while (i < argc)
+		{
+		}
 		// --------------------PARSE ARGV----------------------------------
 		args = ft_parse_args(argc, argv);
 		if (!args)

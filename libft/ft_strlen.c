@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 09:41:54 by alellouc          #+#    #+#             */
-/*   Updated: 2021/03/23 11:14:08 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 08:33:01 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
+	while (!s)
+		return (0);
 	len = 0;
 	while (s[len])
 		len++;

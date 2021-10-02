@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:54:45 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/01 23:00:36 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 08:24:56 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char	**ft_parse_args(int argc, char **argv)
 		return (NULL);
 	if (!ft_is_valid_ps_args(argv))
 		return (NULL);
+	// C'est ici qu'il faut strjoin argv + split
 	if (argc == 2)
 	{
 		args = ft_split(*argv, 32);
