@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/02 15:58:44 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:13:52 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ typedef struct s_piv
 	long	q1;
 	long	q3;
 }				t_piv;
+
+typedef struct s_dup
+{
+	int		i;
+	int		j;
+	char	*dup;
+	char	*trim_i;
+	char	*trim_j;
+}				t_dup;
 
 typedef struct s_stk_elt
 {

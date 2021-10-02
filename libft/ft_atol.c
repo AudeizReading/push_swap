@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 22:08:02 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/01 22:56:48 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:17:00 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_bool	ft_has_atol(char *s, long *atol)
 		*atol = *atol * 10 + (*s - 48);
 		s++;
 	}
+	if (*s)
+		return (e_false);
 	*atol *= polarity;
 	return (e_true);
 }

@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:54:45 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/02 16:31:16 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:14:46 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,24 @@ t_bool	ft_is_valid_ps_args(char **argv)
 
 t_bool ft_has_duplicate_chars(char **argv)
 {
-	int		i;
-	int		j;
-	char	*duplicate;
+	t_dup	st;
 
-	i = -1;
-	j = 0;
-	duplicate = NULL;
-	while (argv[++i] && argv[i + 1] && !duplicate)
+	st.i = -1;
+	st.j = 0;
+	st.dup = NULL;
+	while (argv[++st.i] && argv[st.i + 1] && !st.dup)
 	{
-		j = i;
-		while (argv[j + 1] && !duplicate)
+		st.j = st.i;
+		st.trim_i = ft_strtrim(argv[st.i], "+");
+		while (argv[st.j + 1] && !st.dup)
 		{
-			duplicate = ft_strnstr(argv[i], argv[j + 1], ft_strlen(argv[j + 1]));
-			j++;
+			st.trim_j = ft_strtrim(argv[st.j + 1], "+");
+			st.dup = ft_strnstr(st.trim_i, st.trim_j, ft_strlen(st.trim_j));
+			st.j++;
+			free(st.trim_j);
 		}
-		if (duplicate)
+		free(st.trim_i);
+		if (st.dup)
 		{
 			ft_puterr();
 			return (e_true);
@@ -104,12 +106,7 @@ char	**ft_parse_args(int argc, char **argv)
 	if (!args)
 		return (NULL);
 	free(args_str);
-	if (ft_has_duplicate_chars(args))
-	{
-		ft_free_args(args);
-		return (NULL);
-	}
-	if (!ft_check_arg_is_int(args))
+	if (ft_has_duplicate_chars(args) || !ft_check_arg_is_int(args))
 	{
 		ft_free_args(args);
 		return (NULL);
