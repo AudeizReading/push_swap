@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:53:12 by alellouc          #+#    #+#             */
-/*   Updated: 2021/04/09 22:48:08 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 16:03:46 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	ft_memcpy(dst, s1, len_s1);
 	ft_memcpy((dst + len_s1), s2, len_s2);
+	return (dst);
+}
+
+char	*ft_concat(char *s1, char *s2)
+{
+	char	*dst;
+	size_t	len_s1;
+	size_t	len_s2;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	dst = (char *)ft_calloc((len_s1 + len_s2 + 1), sizeof(*dst));
+	if (dst == NULL)
+		return (NULL);
+	ft_memcpy(dst, s1, len_s1);
+	ft_memcpy((dst + len_s1), s2, len_s2);
+	free((void *)s1);
 	return (dst);
 }

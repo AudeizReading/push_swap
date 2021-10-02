@@ -278,12 +278,22 @@ int	main(int argc, char **argv)
 		argv++;
 
 		// --------------------TEST PARSE ARGV-----------------------------
-		char	*test_argv;
+	/*	char	*test_argv;
 
 		test_argv = NULL;
+		i = 0;
 		while (i < argc)
 		{
+			test_argv = ft_strjoin(test_argv, argv[i]);
+			test_argv = ft_strjoin(test_argv, " ");
+			i++;
 		}
+		//test_argv = ft_strjoin("*****", argv[0]);
+	//	test_argv = ft_strjoin(test_argv, argv[0]);
+	//	test_argv = ft_strjoin(test_argv, " ");
+		ft_putendl("ft_strjoin argv:");
+		ft_putendl(test_argv);
+		ft_putendl("**********************************");*/
 		// --------------------PARSE ARGV----------------------------------
 		args = ft_parse_args(argc, argv);
 		if (!args)
@@ -299,7 +309,7 @@ int	main(int argc, char **argv)
 		{
 			if (a)
 				ft_pop_clear_stk(&a);
-			ft_free_args(argc, argv, args);
+			ft_free_args(args);
 			return (-1);
 		}
 		i = 0;
@@ -310,7 +320,7 @@ int	main(int argc, char **argv)
 			{
 				ft_pop_clear_stk(&a);
 				ft_pop_clear_stk(&b);
-				ft_free_args(argc, argv, args);
+				ft_free_args(args);
 			}
 			ft_stkadd_front(&a, a_elt);
 			i++;
@@ -321,7 +331,7 @@ int	main(int argc, char **argv)
 		{
 			ft_pop_clear_stk(&a);
 			ft_pop_clear_stk(&b);
-			ft_free_args(argc, argv, args);
+			ft_free_args(args);
 			return (0);
 		}
 		// --------------------MEDIAN--------------------------------------
@@ -351,7 +361,7 @@ int	main(int argc, char **argv)
 		}
 
 		// --------------------ALGORITHM-----------------------------------
-		int		size;
+/*		int		size;
 		long	top;
 		long	prev;
 
@@ -415,7 +425,7 @@ int	main(int argc, char **argv)
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
-			ft_print_top_stack(b);
+			ft_print_top_stack(b);*/
 		// --------------------FREE STACK----------------------------------
 		if (a)
 			ft_pop_clear_stk(&a);
@@ -425,14 +435,14 @@ int	main(int argc, char **argv)
 		// On free le tableau genere par split
 		// Et on free le tableau genere pour la mediane
 
-		ft_free_args(argc, argv, args);
+		ft_free_args(args);
 		i = 0;
-		while (test_stack[i])
+	/*	while (test_stack[i])
 		{
 			free(test_stack[i]);
 			i++;
 		}
-		free(test_stack);
+		free(test_stack);*/
 	}
 	else
 	{

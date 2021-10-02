@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/01 21:26:44 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 15:58:44 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool		ft_is_valid_ps_args(char **argv);
 t_bool		ft_has_duplicate_chars(char **argv);
 t_bool		ft_check_arg_is_int(char **args);
 char		**ft_parse_args(int argc, char **argv);
-void		ft_free_args(int argc, char **argv, char **args);
+void		ft_free_args(char **args);
 
 /* Stack handling */
 t_stk		*ft_init_stack(char *stack_name);

@@ -6,13 +6,12 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:54:45 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/02 08:24:56 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/02 16:31:16 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-/* If **argv is a digit or space - In case there is only 1 string of numbers*/
 t_bool	ft_is_valid_ps_args(char **argv)
 {
 	char	**p_argv;
@@ -46,10 +45,10 @@ t_bool ft_has_duplicate_chars(char **argv)
 	int		j;
 	char	*duplicate;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	duplicate = NULL;
-	while (argv[i] && argv[i + 1] && !duplicate)
+	while (argv[++i] && argv[i + 1] && !duplicate)
 	{
 		j = i;
 		while (argv[j + 1] && !duplicate)
@@ -62,7 +61,6 @@ t_bool ft_has_duplicate_chars(char **argv)
 			ft_puterr();
 			return (e_true);
 		}
-		i++;
 	}
 	return (e_false);
 }
@@ -88,37 +86,45 @@ t_bool	ft_check_arg_is_int(char **args)
 char	**ft_parse_args(int argc, char **argv)
 {
 	char	**args;
+	char	*args_str;
+	int		i;
 
 	if (argc < 2)
 		return (NULL);
 	if (!ft_is_valid_ps_args(argv))
 		return (NULL);
-	// C'est ici qu'il faut strjoin argv + split
-	if (argc == 2)
+	i = 0;
+	args_str = NULL;
+	while (i < argc)
 	{
-		args = ft_split(*argv, 32);
-		if (!args)
-			return (NULL);
+		args_str = ft_concat(args_str, argv[i++]);
+		args_str = ft_concat(args_str, " ");
 	}
-	else
-		args = argv;
+	args = ft_split(args_str, 32);
+	if (!args)
+		return (NULL);
+	free(args_str);
 	if (ft_has_duplicate_chars(args))
+	{
+		ft_free_args(args);
 		return (NULL);
+	}
 	if (!ft_check_arg_is_int(args))
+	{
+		ft_free_args(args);
 		return (NULL);
+	}
 	return (args);
 }
 
-/* Made this free fn for args bc if argc != 2, args is not malloced */
-void	ft_free_args(int argc, char **argv, char **args)
+void	ft_free_args(char **args)
 {
 	int	i;
 
-	if (argc == 2)
-	{
-		i = ft_cntwds(*argv, 32);
-		while (i--)
-			free(args[i]);
-		free(args);
-	}
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
+		free(args[i++]);
+	free(args);
 }
