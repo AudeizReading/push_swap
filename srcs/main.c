@@ -61,7 +61,7 @@ t_stk	*ft_tab_to_stack(char **args)
 	return (a);
 }
 
-t_bool	ft_sort_top_prev(t_stk *stack)
+/*t_bool	ft_sort_top_prev(t_stk *stack)
 {
 	long	top;
 	long	prev;
@@ -116,51 +116,45 @@ t_bool	ft_sort_two(t_stk *stack, int grp)
 		return (e_true);
 	}
 	return (e_false);
-}
+}*/
 
-// Trie jusqu'a 6 elts
-void	ft_divide_stack_a(t_stk *a, t_stk *b)
+void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 {
+	int		size;
 	char	**args;
 	t_piv	pivot;
-	long	top;
+
+	size = a->size;
+	args = ft_stack_to_tab(a);
+	pivot = ft_get_median(args, a->size);
+	while (size--)
+	{
+		if (a->top->value >= pivot.me)
+			ft_rotate_stack(&a);
+		else if (a->top->value < pivot.me)
+		{
+			ft_push_stack(&a, &b);
+			b->top->grp = grp;
+		}
+		else if (a->base->value < pivot.me)
+		{
+			ft_rotate_reverse_stack(&a);
+			ft_push_stack(&a, &b);
+			b->top->grp = grp;
+		}
+	}
+	ft_free_args(args);
+}
+
+void	ft_divide_stack_a(t_stk *a, t_stk *b)
+{
 	static int	grp = 1;
-	int		size;
 
 	if (!a)
 		return ;
-	args = ft_stack_to_tab(a);
-	if (!args)
-		return ;
-	top = a->top->value;
-	pivot = ft_get_median(args, a->size);
-	size = a->size;
 	if (a->size > 3)
 	{
-		while (size--)
-		{
-		//	printf("me: %ld, top: %ld\n", pivot.me, top);
-			if (top >= pivot.me)
-			{
-				ft_rotate_stack(&a);
-			}
-			else if (top < pivot.me)
-			{
-				ft_push_stack(&a, &b);
-			//	ft_sort_three(b);
-			//	ft_sort_two(b, grp);
-				b->top->grp = grp;
-			}
-			else if (a->base->value < pivot.me)
-			{
-				ft_rotate_reverse_stack(&a);
-			//	ft_push_stack(&a, &b);
-		//		ft_sort_three(b);
-		//		ft_sort_two(b, grp);
-				b->top->grp = grp;
-			}
-			top = a->top->value;
-		}
+		ft_parse_stack_a(a, b, grp);
 		grp++;
 		ft_divide_stack_a(a, b);
 	}
@@ -168,9 +162,10 @@ void	ft_divide_stack_a(t_stk *a, t_stk *b)
 		ft_sort_two(a, -1);
 	else
 		ft_sort_three(a);
-	ft_free_args(args);
 }
 
+
+// Trie jusqu'a 6 elts
 void	ft_sort_five(t_stk *a, t_stk *b)
 {
 	ft_divide_stack_a(a, b);
@@ -227,23 +222,8 @@ int	main(int argc, char **argv)
 	//	ft_sort_two(a, -1);
 //		ft_sort_three(a);
 		ft_print_top_stack(a);
-		ft_sort_five(a, b);
-		// sort 5 elts
-	/*	ft_divide_stack_a(a, b);
-		if (a->size)
-			ft_print_top_stack(a);
-		if (b->size)
-			ft_print_top_stack(b);
-		if (b->size == 2)
-			ft_sort_two(b, -1);
-		else if (b->size == 3)
-			ft_sort_three(b);
-	//	ft_sort_three(a);
-		while (b->size)
-		{
-			ft_push_stack(&b, &a);
-		}
-		ft_sort_two(a, -1);*/
+	//	ft_sort_five(a, b);
+		ft_divide_stack_a(a, b);
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
