@@ -2,10 +2,214 @@
 
 /*   TO-DO LIST 
 **   - algo de tri
-**   - improve parsing
 **   - norminette
 **   - stk_elt->grp
 */
+
+// Ce n'est pas obligé de set la pos - c'est juste pour le moment
+// Sinon cette fn permet de recalculer la mediane
+// Penser a la renommer si je ne m'en sers pas pour les positions
+t_piv	ft_set_pos_elt_stk(t_stk **stack, char **args)
+{
+	int			i;
+	t_stk_elt	*tmp;
+	t_piv		pivot;
+
+	pivot = ft_get_median(args, (*stack)->size);
+	i = 0;
+	while (args[i])
+	{
+		tmp = (*stack)->top;
+		while (tmp)
+		{
+			if (ft_atol(args[i]) == tmp->value)
+			{
+				tmp->grp = i;
+				break ;
+			}
+			else
+				tmp = tmp->prev;
+		}
+		i++;
+	}
+	return (pivot);
+}
+
+t_stk	*ft_tab_to_stack(char **args)
+{
+	t_stk		*a;
+	t_stk_elt	*a_elt;
+	int			i;
+
+	a = ft_init_stack("a");
+	if (!a)
+	{
+		ft_free_args(args);
+		return (NULL);
+	}
+	i = 0;
+	while (args[i])
+	{
+		a_elt = ft_init_stk_elt(ft_atol(args[i++]), 0, a->stk_name);
+		if (!a_elt)
+		{
+			ft_pop_clear_stk(&a);
+			return (NULL);
+		}
+		ft_stkadd_front(&a, a_elt);
+	}
+	return (a);
+}
+
+t_bool	ft_sort_top_prev(t_stk *stack)
+{
+	long	top;
+	long	prev;
+
+	if (!stack || stack->size < 2)
+		return (e_false);
+	top = stack->top->value;
+	prev = stack->top->prev->value;
+	if (top > prev)
+	{
+		if (!ft_strcmp(stack->stk_name, "a"))
+		{
+			ft_swap_stack(stack);
+			return (e_true);
+		}
+		else if (!ft_strcmp(stack->stk_name, "b"))
+			return (e_true);
+	}
+	return (e_false);
+}
+
+t_bool	ft_sort_prev_top(t_stk *stack)
+{
+	long	top;
+	long	prev;
+
+	if (!stack || stack->size < 2)
+		return (e_false);
+	top = stack->top->value;
+	prev = stack->top->prev->value;
+	if (prev > top)
+	{
+		if (!ft_strcmp(stack->stk_name, "b"))
+		{
+			ft_swap_stack(stack);
+			return (e_true);
+		}
+		else if (!ft_strcmp(stack->stk_name, "a"))
+			return (e_true);
+	}
+	return (e_false);
+}
+
+t_bool	ft_sort_two(t_stk *stack, int grp)
+{
+	if (!stack || stack->size < 2)
+		return (e_false);
+	if (ft_sort_top_prev(stack) || ft_sort_prev_top(stack))
+	{
+		stack->top->grp = grp;
+		stack->top->prev->grp = grp;
+		return (e_true);
+	}
+	return (e_false);
+}
+
+// Trie jusqu'a 6 elts
+void	ft_divide_stack_a(t_stk *a, t_stk *b)
+{
+	char	**args;
+	t_piv	pivot;
+	long	top;
+	long	prev;
+/*	int		size;
+
+	if (!a)
+		return ;
+	args = ft_stack_to_tab(a);
+	if (!args)
+		return ;
+	pivot = ft_set_pos_elt_stk(&a, args);
+	size = a->size;
+	while (size--)
+	{
+		top = a->top->value;
+		prev = a->top->prev->value;
+		if (top <= pivot.me)
+		{
+			if (top > prev)
+			{
+				ft_swap_stack(a);
+				ft_push_stack(&a, &b);
+			}
+			ft_push_stack(&a, &b);
+		}
+		else
+		{
+			printf("me: %ld, top: %ld\n", pivot.me, top);
+			if (top > prev)
+			{
+				ft_swap_stack(a);
+			}
+			else
+				ft_rotate_stack(&a);
+		}
+	}*/
+	if (!a)
+		return ;
+	args = ft_stack_to_tab(a);
+	if (!args)
+		return ;
+	top = a->top->value;
+	prev = a->top->prev->value;
+	pivot = ft_get_median(args, a->size);
+	if (a->size > 3)
+	{
+		if (top >= pivot.me)
+		{
+			ft_rotate_stack(&a);
+		}
+		if (top < pivot.me)
+		{
+			ft_push_stack(&a, &b);
+			ft_sort_prev_top(b);
+			ft_sort_three(b);
+			if (b->size % 3 == 0)
+			{
+				printf("me: %ld, top: %ld\n", pivot.me, b->top->value);
+				ft_sort_three(b);
+			}
+		//	ft_sort_prev_top(b);
+		}
+		if (a->base->value < pivot.me)
+		{
+			ft_rotate_reverse_stack(&a);
+			ft_push_stack(&a, &b);
+			ft_sort_prev_top(b);
+			ft_sort_three(b);
+			if (b->size % 3 == 0)
+			{
+				printf("me: %ld, b->top: %ld\n", pivot.me, b->top->value);
+				ft_sort_three(b);
+			}
+		//	ft_sort_prev_top(b);
+		}
+		ft_free_args(args);
+//	if (a->size > 3)
+		ft_divide_stack_a(a, b);
+	}
+	else if (a->size == 2)
+		ft_sort_two(a, -1);
+	else
+		ft_sort_three(a);
+	while (b->size)
+	{
+		ft_push_stack(&b, &a);
+	}
+}
 
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
@@ -23,9 +227,8 @@ int	main(int argc, char **argv)
 		// --------------------INIT STACKS---------------------------------
 		t_stk		*a;
 		t_stk		*b;
-		t_stk_elt	*a_elt;
 
-		a = ft_init_stack("a");
+		a = ft_tab_to_stack(args);
 		b = ft_init_stack("b");
 		if (!a || !b)
 		{
@@ -33,19 +236,6 @@ int	main(int argc, char **argv)
 				ft_pop_clear_stk(&a);
 			ft_free_args(args);
 			return (-1);
-		}
-		i = 0;
-		while (args[i])
-		{
-			a_elt = ft_init_stk_elt(ft_atol(args[i]), 0, a->stk_name);
-			if (!a_elt)
-			{
-				ft_pop_clear_stk(&a);
-				ft_pop_clear_stk(&b);
-				ft_free_args(args);
-			}
-			ft_stkadd_front(&a, a_elt);
-			i++;
 		}
 		// --------------------QUIT IF STACK SIZE < 2----------------------
 		// --------------------CHECK A IS SORTED---------------------------
@@ -59,98 +249,19 @@ int	main(int argc, char **argv)
 		// --------------------MEDIAN--------------------------------------
 		t_piv	pivot;
 
-		pivot = ft_get_median(args, a->size);
+		pivot = ft_set_pos_elt_stk(&a, args);
 		// --------------------DISPLAY-------------------------------------
 		printf("\033[36;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-		i = 0;
-	//	ft_putendl("Tableau args trié");
-		while (args[i])
-		{
-		//	ft_putendl(args[i]);
-			t_stk_elt	*tmp;
-			tmp = a->top;
-			while (tmp)
-			{
-				if (ft_atol(args[i]) == tmp->value)
-				{
-					// Mets la valeur de grp à la pos triée
-					tmp->grp = i;
-					break ;
-				}
-				else
-					tmp = tmp->prev;
-			}
-			i++;
-		}
 
 		// --------------------ALGORITHM-----------------------------------
-		ft_sort_three(a);
+	//	ft_sort_two(a, -1);
+//		ft_sort_three(a);
 		ft_print_top_stack(a);
-/*		int		size;
-		long	top;
-		long	prev;
-
-		size = a->size;
-	//	ft_print_top_base_stack(a);
-	//	ft_print_top_base_stack(b);
-		char	**test_stack = ft_stack_to_tab(a);
-		i = 0;
-		// recup stack et conversion en tab de tab de char pour trouver la mediane de la stack
-		while (test_stack[i])
-		{
-			t_stk_elt	*tmp;
-
-		//	printf("\033[33m%s\033[0m\n", test_stack[i]);
-			tmp = a->top;
-			while (tmp)
-			{
-				if (ft_atol(args[i]) == tmp->value)
-				{
-					tmp->grp = i;
-					break ;
-				}
-				else
-					tmp = tmp->prev;
-			}
-			i++;
-		}
-		pivot = ft_get_median(test_stack, a->size);
-	//	printf("\033[33;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-		if (a->size)
-		//	ft_print_top_stack(a);
-			ft_print_top_base_stack(a);
-		if (b->size)
-			ft_print_top_stack(b);
-		// Attention segfault si reste qu 1 elt dans stack a
-		while (size--)
-		{
-			top = a->top->value;
-			prev = a->top->prev->value;
-			printf("me: %ld, top: %ld\n", pivot.me, top);
-			if (top <= pivot.me)
-			{
-				if (top > prev)
-				{
-					ft_swap_stack(a);
-					ft_push_stack(&a, &b);
-				}
-				ft_push_stack(&a, &b);
-			}
-			else
-			{
-				if (top > prev)
-				{
-					ft_swap_stack(a);
-					size++;
-				}
-				else
-					ft_rotate_stack(&a);
-			}
-		}
+		ft_divide_stack_a(a, b);
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
-			ft_print_top_stack(b);*/
+			ft_print_top_stack(b);
 		// --------------------FREE STACK----------------------------------
 		if (a)
 			ft_pop_clear_stk(&a);
@@ -162,12 +273,6 @@ int	main(int argc, char **argv)
 
 		ft_free_args(args);
 		i = 0;
-	/*	while (test_stack[i])
-		{
-			free(test_stack[i]);
-			i++;
-		}
-		free(test_stack);*/
 	}
 	else
 	{
