@@ -124,93 +124,63 @@ void	ft_divide_stack_a(t_stk *a, t_stk *b)
 	char	**args;
 	t_piv	pivot;
 	long	top;
-	long	prev;
-/*	int		size;
+	static int	grp = 1;
+	int		size;
 
-	if (!a)
-		return ;
-	args = ft_stack_to_tab(a);
-	if (!args)
-		return ;
-	pivot = ft_set_pos_elt_stk(&a, args);
-	size = a->size;
-	while (size--)
-	{
-		top = a->top->value;
-		prev = a->top->prev->value;
-		if (top <= pivot.me)
-		{
-			if (top > prev)
-			{
-				ft_swap_stack(a);
-				ft_push_stack(&a, &b);
-			}
-			ft_push_stack(&a, &b);
-		}
-		else
-		{
-			printf("me: %ld, top: %ld\n", pivot.me, top);
-			if (top > prev)
-			{
-				ft_swap_stack(a);
-			}
-			else
-				ft_rotate_stack(&a);
-		}
-	}*/
 	if (!a)
 		return ;
 	args = ft_stack_to_tab(a);
 	if (!args)
 		return ;
 	top = a->top->value;
-	prev = a->top->prev->value;
 	pivot = ft_get_median(args, a->size);
+	size = a->size;
 	if (a->size > 3)
 	{
-		if (top >= pivot.me)
+		while (size--)
 		{
-			ft_rotate_stack(&a);
-		}
-		if (top < pivot.me)
-		{
-			ft_push_stack(&a, &b);
-			ft_sort_prev_top(b);
-			ft_sort_three(b);
-			if (b->size % 3 == 0)
+		//	printf("me: %ld, top: %ld\n", pivot.me, top);
+			if (top >= pivot.me)
 			{
-				printf("me: %ld, top: %ld\n", pivot.me, b->top->value);
-				ft_sort_three(b);
+				ft_rotate_stack(&a);
 			}
-		//	ft_sort_prev_top(b);
-		}
-		if (a->base->value < pivot.me)
-		{
-			ft_rotate_reverse_stack(&a);
-			ft_push_stack(&a, &b);
-			ft_sort_prev_top(b);
-			ft_sort_three(b);
-			if (b->size % 3 == 0)
+			else if (top < pivot.me)
 			{
-				printf("me: %ld, b->top: %ld\n", pivot.me, b->top->value);
-				ft_sort_three(b);
+				ft_push_stack(&a, &b);
+			//	ft_sort_three(b);
+			//	ft_sort_two(b, grp);
+				b->top->grp = grp;
 			}
-		//	ft_sort_prev_top(b);
+			else if (a->base->value < pivot.me)
+			{
+				ft_rotate_reverse_stack(&a);
+			//	ft_push_stack(&a, &b);
+		//		ft_sort_three(b);
+		//		ft_sort_two(b, grp);
+				b->top->grp = grp;
+			}
+			top = a->top->value;
 		}
-		ft_free_args(args);
-//	if (a->size > 3)
+		grp++;
 		ft_divide_stack_a(a, b);
 	}
 	else if (a->size == 2)
 		ft_sort_two(a, -1);
 	else
 		ft_sort_three(a);
-	while (b->size)
-	{
-		ft_push_stack(&b, &a);
-	}
+	ft_free_args(args);
 }
 
+void	ft_sort_five(t_stk *a, t_stk *b)
+{
+	ft_divide_stack_a(a, b);
+	if (b->size == 2)
+		ft_sort_two(b, -1);
+	else if (b->size == 3)
+		ft_sort_three(b);
+	while (b->size)
+		ft_push_stack(&b, &a);
+}/**/
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
 {
@@ -257,7 +227,23 @@ int	main(int argc, char **argv)
 	//	ft_sort_two(a, -1);
 //		ft_sort_three(a);
 		ft_print_top_stack(a);
-		ft_divide_stack_a(a, b);
+		ft_sort_five(a, b);
+		// sort 5 elts
+	/*	ft_divide_stack_a(a, b);
+		if (a->size)
+			ft_print_top_stack(a);
+		if (b->size)
+			ft_print_top_stack(b);
+		if (b->size == 2)
+			ft_sort_two(b, -1);
+		else if (b->size == 3)
+			ft_sort_three(b);
+	//	ft_sort_three(a);
+		while (b->size)
+		{
+			ft_push_stack(&b, &a);
+		}
+		ft_sort_two(a, -1);*/
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)

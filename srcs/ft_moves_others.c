@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 21:41:33 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/30 21:41:56 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/03 21:31:47 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_push_stack(t_stk **stack_1, t_stk **stack_2)
 	if ((*stack_1)->size > 0)
 	{
 		p_stack = ft_pop_stack(stack_1);
+		free(p_stack->stack_name);
 		p_stack->stack_name = ft_strdup((*stack_2)->stk_name);
 		// Groupe ?
 		ft_stkadd_back(stack_2, p_stack);
