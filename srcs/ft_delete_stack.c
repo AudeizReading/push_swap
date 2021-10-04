@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:04:30 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/03 21:21:35 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/04 12:57:26 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void		ft_pop_clear_stk(t_stk **stack)
 	free(*stack);
 }
 
+/* Clean in base order the stack (top to base) */
 void		ft_deq_clear_stk(t_stk **stack)
 {
 	t_stk_elt	*tmp;
@@ -57,6 +58,7 @@ void		ft_deq_clear_stk(t_stk **stack)
 	free(*stack);
 }
 
+/* Keep value of grp, don't delete it here, need for the sort */
 t_stk_elt	*ft_pop_stack(t_stk **stack)
 {
 	t_stk_elt	*elt_pop;
@@ -71,7 +73,6 @@ t_stk_elt	*ft_pop_stack(t_stk **stack)
 		elt_pop->prev = NULL;
 		free(elt_pop->stack_name);
 		elt_pop->stack_name = NULL;
-		elt_pop->grp = 0;
 	}
 	else
 		(*stack)->top = NULL;
@@ -80,6 +81,7 @@ t_stk_elt	*ft_pop_stack(t_stk **stack)
 	return (elt_pop);
 }
 
+/* Keep value of grp, don't delete it here, need for the sort */
 t_stk_elt	*ft_deq_stack(t_stk **stack)
 {
 	t_stk_elt	*elt_deq;
@@ -94,7 +96,6 @@ t_stk_elt	*ft_deq_stack(t_stk **stack)
 		elt_deq->next = NULL;
 		free(elt_deq->stack_name);
 		elt_deq->stack_name = NULL;
-		elt_deq->grp = 0;
 	}
 	else
 		(*stack)->base = NULL;

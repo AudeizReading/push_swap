@@ -61,63 +61,6 @@ t_stk	*ft_tab_to_stack(char **args)
 	return (a);
 }
 
-/*t_bool	ft_sort_top_prev(t_stk *stack)
-{
-	long	top;
-	long	prev;
-
-	if (!stack || stack->size < 2)
-		return (e_false);
-	top = stack->top->value;
-	prev = stack->top->prev->value;
-	if (top > prev)
-	{
-		if (!ft_strcmp(stack->stk_name, "a"))
-		{
-			ft_swap_stack(stack);
-			return (e_true);
-		}
-		else if (!ft_strcmp(stack->stk_name, "b"))
-			return (e_true);
-	}
-	return (e_false);
-}
-
-t_bool	ft_sort_prev_top(t_stk *stack)
-{
-	long	top;
-	long	prev;
-
-	if (!stack || stack->size < 2)
-		return (e_false);
-	top = stack->top->value;
-	prev = stack->top->prev->value;
-	if (prev > top)
-	{
-		if (!ft_strcmp(stack->stk_name, "b"))
-		{
-			ft_swap_stack(stack);
-			return (e_true);
-		}
-		else if (!ft_strcmp(stack->stk_name, "a"))
-			return (e_true);
-	}
-	return (e_false);
-}
-
-t_bool	ft_sort_two(t_stk *stack, int grp)
-{
-	if (!stack || stack->size < 2)
-		return (e_false);
-	if (ft_sort_top_prev(stack) || ft_sort_prev_top(stack))
-	{
-		stack->top->grp = grp;
-		stack->top->prev->grp = grp;
-		return (e_true);
-	}
-	return (e_false);
-}*/
-
 void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 {
 	int		size;
@@ -126,7 +69,7 @@ void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 
 	size = a->size;
 	args = ft_stack_to_tab(a);
-	pivot = ft_get_median(args, a->size);
+	pivot = ft_get_median(args, size);
 	while (size--)
 	{
 		if (a->top->value >= pivot.me)
@@ -146,12 +89,13 @@ void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	ft_free_args(args);
 }
 
-void	ft_divide_stack_a(t_stk *a, t_stk *b)
+//void	ft_divide_stack_a(t_stk *a, t_stk *b)
+int	ft_divide_stack_a(t_stk *a, t_stk *b)
 {
 	static int	grp = 1;
 
 	if (!a)
-		return ;
+		return (grp);
 	if (a->size > 3)
 	{
 		ft_parse_stack_a(a, b, grp);
@@ -162,6 +106,7 @@ void	ft_divide_stack_a(t_stk *a, t_stk *b)
 		ft_sort_two(a, -1);
 	else
 		ft_sort_three(a);
+	return (grp);
 }
 
 
@@ -175,16 +120,15 @@ void	ft_sort_five(t_stk *a, t_stk *b)
 		ft_sort_three(b);
 	while (b->size)
 		ft_push_stack(&b, &a);
-}/**/
+}
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
 {
 	if (argc > 1)
 	{
 		char	**args;
-		int		i;
-		argv++;
 
+		argv++;
 		// --------------------PARSE ARGV----------------------------------
 		args = ft_parse_args(argc, argv);
 		if (!args)
@@ -211,19 +155,13 @@ int	main(int argc, char **argv)
 			ft_free_args(args);
 			return (0);
 		}
-		// --------------------MEDIAN--------------------------------------
-		t_piv	pivot;
-
-		pivot = ft_set_pos_elt_stk(&a, args);
-		// --------------------DISPLAY-------------------------------------
-		printf("\033[36;1mmin: %ld, q1: %ld, me: %ld, q3: %ld, max: %ld\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-
 		// --------------------ALGORITHM-----------------------------------
 	//	ft_sort_two(a, -1);
 //		ft_sort_three(a);
 		ft_print_top_stack(a);
 	//	ft_sort_five(a, b);
-		ft_divide_stack_a(a, b);
+		printf("retour divide stack a, grp: %d\n", ft_divide_stack_a(a, b));
+		ft_push_stack(&b, &a);
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
@@ -235,10 +173,7 @@ int	main(int argc, char **argv)
 			ft_pop_clear_stk(&b);
 		// --------------------FREE ARGS-----------------------------------
 		// On free le tableau genere par split
-		// Et on free le tableau genere pour la mediane
-
 		ft_free_args(args);
-		i = 0;
 	}
 	else
 	{
