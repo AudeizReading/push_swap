@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:26:50 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/01 15:27:00 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:33:47 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ t_bool	ft_stack_b_is_sort(t_stk *stack)
 
 t_bool	ft_stack_is_sort(t_stk *stack)
 {
-	if (ft_strcmp(stack->stk_name, "a"))
+	if (!ft_strcmp(stack->stk_name, "a"))
 	{
 		if (!ft_stack_a_is_sort(stack))
 			return (e_false);
 	}
-	else if (ft_strcmp(stack->stk_name, "b"))
+	else if (!ft_strcmp(stack->stk_name, "b"))
 	{
 		if (!ft_stack_b_is_sort(stack))
 			return (e_false);

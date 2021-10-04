@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 21:41:33 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/30 21:57:10 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:06:23 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_rotate_stack(t_stk **stack)
 	if ((*stack)->size > 1)
 	{
 		p_stack = ft_pop_stack(stack);
-		// Groupe ?
 		p_stack->stack_name = ft_strdup((*stack)->stk_name);
 		ft_stkadd_front(stack, p_stack);
 		if (!ft_strcmp((*stack)->stk_name, "a"))
@@ -42,7 +41,6 @@ void	ft_rotate_reverse_stack(t_stk **stack)
 	if ((*stack)->size > 1)
 	{
 		p_stack = ft_deq_stack(stack);
-		// Groupe ?
 		p_stack->stack_name = ft_strdup((*stack)->stk_name);
 		ft_stkadd_back(stack, p_stack);
 		if (!ft_strcmp((*stack)->stk_name, "a"))

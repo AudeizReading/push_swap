@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/03 22:17:50 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:21:42 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,12 @@ t_bool		ft_sort_mid_base_top(t_stk *stack);
 t_bool		ft_sort_mid_top_base(t_stk *stack);
 t_bool		ft_sort_top_base_mid(t_stk *stack);
 t_bool		ft_sort_base_top_mid(t_stk *stack);
-void		ft_sort_three(t_stk *stack);
+//void		ft_sort_three(t_stk *stack);
+t_bool		ft_sort_three(t_stk *stack);
 t_bool		ft_sort_top_prev(t_stk *stack);
 t_bool		ft_sort_prev_top(t_stk *stack);
 t_bool		ft_sort_two(t_stk *stack, int grp);
+//t_bool		ft_sort_two(t_stk *stack);
 
 /* Launch Program */
 int	main(int argc, char **argv);

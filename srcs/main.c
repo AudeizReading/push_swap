@@ -156,12 +156,23 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		// --------------------ALGORITHM-----------------------------------
+		t_stk_elt	*tmp;
 	//	ft_sort_two(a, -1);
 //		ft_sort_three(a);
 		ft_print_top_stack(a);
 	//	ft_sort_five(a, b);
 		printf("retour divide stack a, grp: %d\n", ft_divide_stack_a(a, b));
 		ft_push_stack(&b, &a);
+		tmp = a->top;
+		if (ft_stack_is_sort(a))
+		{
+			while (tmp)
+			{
+				tmp->grp = -1;
+				printf("grp: %d\n", tmp->grp);
+				tmp = tmp->prev;
+			}
+		}
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)

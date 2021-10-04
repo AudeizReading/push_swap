@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 18:14:23 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/03 20:55:43 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:09:35 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_bool	ft_sort_top_mid_base(t_stk *stack)
 		return (e_false);
 	top = stack->top->value;
 	mid = stack->top->prev->value;
-	//base = stack->top->prev->prev->value;
 	base = stack->base->value;
 	if (top < mid && top < base && mid < base)
 	{
@@ -50,7 +49,6 @@ t_bool	ft_sort_base_mid_top(t_stk *stack)
 		return (e_false);
 	top = stack->top->value;
 	mid = stack->top->prev->value;
-	//base = stack->top->prev->prev->value;
 	base = stack->base->value;
 	if (top > mid && top > base && mid > base)
 	{
@@ -77,7 +75,6 @@ t_bool	ft_sort_mid_base_top(t_stk *stack)
 		return (e_false);
 	top = stack->top->value;
 	mid = stack->top->prev->value;
-//	base = stack->top->prev->prev->value;
 	base = stack->base->value;
 	if (top < mid && top > base && mid > base)
 	{
