@@ -58,6 +58,7 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 sort_three_part_01\
 	 sort_three_part_02\
 	 sort_two\
+	 divide_stack_a\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap

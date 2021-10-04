@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:43:27 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/01 15:43:39 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:18:37 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,30 @@ char	**ft_stack_to_tab(t_stk *stack)
 	}
 	dst[i] = NULL;
 	return (dst);
+}
+
+t_stk	*ft_tab_to_stack(char **args)
+{
+	t_stk		*a;
+	t_stk_elt	*a_elt;
+	int			i;
+
+	a = ft_init_stack("a");
+	if (!a)
+	{
+		ft_free_args(args);
+		return (NULL);
+	}
+	i = 0;
+	while (args[i])
+	{
+		a_elt = ft_init_stk_elt(ft_atol(args[i++]), 0, a->stk_name);
+		if (!a_elt)
+		{
+			ft_pop_clear_stk(&a);
+			return (NULL);
+		}
+		ft_stkadd_front(&a, a_elt);
+	}
+	return (a);
 }

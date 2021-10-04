@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/04 13:21:42 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:39:31 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		ft_deq_clear_stk(t_stk **stack);
 t_stk_elt	*ft_pop_stack(t_stk **stack);
 t_stk_elt	*ft_deq_stack(t_stk **stack);
 char		**ft_stack_to_tab(t_stk *stack);
+t_stk		*ft_tab_to_stack(char **args);
 
 /* Instructions */
 void		ft_swap_stack(t_stk *stack);
@@ -98,12 +99,14 @@ t_bool		ft_sort_mid_base_top(t_stk *stack);
 t_bool		ft_sort_mid_top_base(t_stk *stack);
 t_bool		ft_sort_top_base_mid(t_stk *stack);
 t_bool		ft_sort_base_top_mid(t_stk *stack);
-//void		ft_sort_three(t_stk *stack);
 t_bool		ft_sort_three(t_stk *stack);
 t_bool		ft_sort_top_prev(t_stk *stack);
 t_bool		ft_sort_prev_top(t_stk *stack);
-t_bool		ft_sort_two(t_stk *stack, int grp);
-//t_bool		ft_sort_two(t_stk *stack);
+t_bool		ft_sort_two(t_stk *stack);
+void		ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n);
+t_piv		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
+t_stk		*ft_divide_stack_a(t_stk *a, t_stk *b);
+void		ft_sort_five(t_stk *a, t_stk *b);
 
 /* Launch Program */
 int	main(int argc, char **argv);

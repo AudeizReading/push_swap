@@ -35,33 +35,14 @@ t_piv	ft_set_pos_elt_stk(t_stk **stack, char **args)
 	return (pivot);
 }
 
-t_stk	*ft_tab_to_stack(char **args)
+/*void	ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n)
 {
-	t_stk		*a;
-	t_stk_elt	*a_elt;
-	int			i;
-
-	a = ft_init_stack("a");
-	if (!a)
-	{
-		ft_free_args(args);
-		return (NULL);
-	}
-	i = 0;
-	while (args[i])
-	{
-		a_elt = ft_init_stk_elt(ft_atol(args[i++]), 0, a->stk_name);
-		if (!a_elt)
-		{
-			ft_pop_clear_stk(&a);
-			return (NULL);
-		}
-		ft_stkadd_front(&a, a_elt);
-	}
-	return (a);
+	ft_push_stack(&a, &b);
+	b->top->grp = grp;
+	(*n)++;
 }
 
-void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
+t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 {
 	int		size;
 	char	**args;
@@ -70,57 +51,51 @@ void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	size = a->size;
 	args = ft_stack_to_tab(a);
 	pivot = ft_get_median(args, size);
+	pivot.q1 = 0;
 	while (size--)
 	{
 		if (a->top->value >= pivot.me)
 			ft_rotate_stack(&a);
 		else if (a->top->value < pivot.me)
 		{
-			ft_push_stack(&a, &b);
-			b->top->grp = grp;
+			ft_a_inf_med(a, b, grp, &pivot.q1);
 		}
 		else if (a->base->value < pivot.me)
 		{
 			ft_rotate_reverse_stack(&a);
-			ft_push_stack(&a, &b);
-			b->top->grp = grp;
+			ft_a_inf_med(a, b, grp, &pivot.q1);
 		}
 	}
 	ft_free_args(args);
+	return (pivot);
 }
 
-//void	ft_divide_stack_a(t_stk *a, t_stk *b)
-int	ft_divide_stack_a(t_stk *a, t_stk *b)
+t_stk	*ft_divide_stack_a(t_stk *a, t_stk *b)
 {
 	static int	grp = 1;
+	t_piv		pivot;
+	static t_stk	*med;
+	t_stk_elt		*elt;
 
+	if (!med)
+		med = ft_init_stack("med");
 	if (!a)
-		return (grp);
+		return (med);
 	if (a->size > 3)
 	{
-		ft_parse_stack_a(a, b, grp);
+		pivot = ft_parse_stack_a(a, b, grp);
+		elt = ft_init_stk_elt(pivot.q1, grp, med->stk_name);
+		ft_stkadd_back(&med, elt);
 		grp++;
 		ft_divide_stack_a(a, b);
 	}
 	else if (a->size == 2)
-		ft_sort_two(a, -1);
+		ft_sort_two(a);
 	else
 		ft_sort_three(a);
-	return (grp);
-}
+	return (med);
+}*/
 
-
-// Trie jusqu'a 6 elts
-void	ft_sort_five(t_stk *a, t_stk *b)
-{
-	ft_divide_stack_a(a, b);
-	if (b->size == 2)
-		ft_sort_two(b, -1);
-	else if (b->size == 3)
-		ft_sort_three(b);
-	while (b->size)
-		ft_push_stack(&b, &a);
-}
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
 {
@@ -156,28 +131,77 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		// --------------------ALGORITHM-----------------------------------
-		t_stk_elt	*tmp;
-	//	ft_sort_two(a, -1);
+	//	ft_sort_two(a);
 //		ft_sort_three(a);
+//		ft_sort_five(a, b);
 		ft_print_top_stack(a);
-	//	ft_sort_five(a, b);
-		printf("retour divide stack a, grp: %d\n", ft_divide_stack_a(a, b));
-		ft_push_stack(&b, &a);
+		t_stk	*med;
+
+		med = ft_divide_stack_a(a, b);
+		if (med)
+			ft_print_top_stack(med);
+		
+		if (ft_stack_b_is_sort(b))
+		{
+			while (b->size)
+				ft_push_stack(&b, &a);
+		}
+/*	*/	else
+		{
+			// premier palier de b
+			// trie jusquau 2 premiers groupes de b
+			while (med->top->prev && b->top && med->top->value < 4)
+			{
+				while (med->top->grp == b->top->grp)
+				{
+					if (b->top->value < b->top->prev->value)
+						ft_swap_stack(b);
+					ft_push_stack(&b, &a);
+					if (a->top->value > a->top->prev->value)
+						ft_swap_stack(a);
+				}
+				if (med->top->prev)
+					med->top = med->top->prev;
+			}
+			t_stk		*st_me;
+			t_stk_elt	*elt;
+			t_stk_elt	*tmp;
+
+			st_me = ft_init_stack("st_me");
+			elt = b->top;
+			while (med->top->value)
+			{
+				printf("value: %ld\n", med->top->value);
+				printf("elt: %ld\n", elt->value);
+				tmp = ft_init_stk_elt(elt->value, elt->grp, elt->stack_name);
+				ft_stkadd_back(&st_me, tmp);
+				elt = elt->prev;
+				med->top->value--;
+			}
+			if (st_me)
+				ft_print_top_stack(st_me);
+			if (st_me)
+				ft_pop_clear_stk(&st_me);
+		}
+
+		// set le grp a -1 si c'est sort
+	/*	t_stk_elt	*tmp;
 		tmp = a->top;
 		if (ft_stack_is_sort(a))
 		{
 			while (tmp)
 			{
 				tmp->grp = -1;
-				printf("grp: %d\n", tmp->grp);
 				tmp = tmp->prev;
 			}
-		}
+		}*/
 		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
 			ft_print_top_stack(b);
 		// --------------------FREE STACK----------------------------------
+	//	if (med)
+	//		ft_pop_clear_stk(&med);
 		if (a)
 			ft_pop_clear_stk(&a);
 		if (b)
