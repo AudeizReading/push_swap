@@ -45,9 +45,16 @@ t_stk	*ft_get_grp_of_stk(t_stk *stack, long value)
 		return (NULL);
 	grp = ft_init_stack("grp");
 	elt = stack->top;
-	while (value)
+	if (!value)
+		return (NULL);
+	while (value && stack->size >= value)
 	{
 		tmp = ft_init_stk_elt(elt->value, elt->grp, elt->stack_name);
+		if (!tmp)
+		{
+			ft_pop_clear_stk(&grp);
+			return (NULL);
+		}
 		ft_stkadd_back(&grp, tmp);
 		elt = elt->prev;
 		value--;
@@ -64,6 +71,8 @@ t_piv	ft_get_median_grp_of_stk(t_stk *stack, long value)
 	st_me = ft_get_grp_of_stk(stack, value);
 	tab_st = ft_stack_to_tab(st_me);
 	tab_me = ft_get_median(tab_st, st_me->size);
+	if (!st_me || !tab_st)
+		return ((t_piv){0, 0, 0, 0, 0});
 	ft_pop_clear_stk(&st_me);
 	ft_free_args(tab_st);
 	return (tab_me);
@@ -87,19 +96,54 @@ t_bool	ft_remains_grp_in_stack(t_stk *stack, int grp)
 
 void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 {
-	t_stk	*med;
-	t_stk_elt	*p_med;
+	t_stk		*med;
+	static t_stk_elt	*p_med;
+	t_piv		tab_me;
 
 	med = ft_divide_stack_a(a, b);
 	p_med = med->top;
+	tab_me = ft_get_median_grp_of_stk(b, p_med->value);
 	if (b->size > 3)
 	{
-		while (ft_remains_grp_in_stack(b, p_med->grp))
+		while (ft_remains_grp_in_stack(b, p_med->grp) && p_med->value)
 		{
-			if (b->top->grp == p_med->grp)
-			ft_push_stack(&b, &a);
+		//	t_stk *test_me;
+
+		//	test_me = ft_get_grp_of_stk(b, p_med->value);
+			tab_me = ft_get_median_grp_of_stk(b, p_med->value);
+		//	if (test_me)
+		//		ft_print_top_stack(test_me);
+			printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value);
+			printf("mediane: %ld, min: %ld, max: %ld, groupe: %d, p_med->value: %ld\n", tab_me.me, tab_me.min, tab_me.max, p_med->grp, p_med->value);
+			if (b->top->grp == p_med->grp && b->top->value >= tab_me.me)
+			{
+				ft_push_stack(&b, &a);
+				ft_sort_two(a);
+				p_med->value--;
+			}
+			else if (b->top->grp == p_med->grp && b->top->value < tab_me.me)
+			{
+				ft_rotate_stack(&b);
+			//	p_med->value++;
+				ft_sort_two(a);
+			}
+			else if (b->base->grp == p_med->grp && b->base->value >= tab_me.me)
+			{
+				ft_rotate_reverse_stack(&b);
+				ft_push_stack(&b, &a);
+				ft_sort_two(a);
+				//p_med->value--;
+			//	ft_sort_two(a);
+			}
+			else
+				break ;
+			if (!ft_remains_grp_in_stack(b, p_med->grp) && p_med->prev)
+			{
+				p_med = p_med->prev;
+				tab_me = ft_get_median_grp_of_stk(b, p_med->value);
+			}
 		}
-		//ft_divide_stack_b_v2(b, a);
+	//	ft_divide_stack_b_v2(b, a);
 	}
 	else if (b->size == 2)
 	{
@@ -278,8 +322,12 @@ int	main(int argc, char **argv)
 				ft_push_stack(&b, &a);
 		}*/
 	//	while(!ft_stack_is_sort(a))
-			ft_divide_stack_b_v2(b, a);
-		//ft_divide_stack_b_v2(b, a);
+			//ft_divide_stack_b_v2(b, a);
+	//	t_stk	*med;
+
+	//	med = ft_divide_stack_a(a, b);
+	//	ft_divide_stack_b_v2(b, a, med);
+		ft_divide_stack_b_v2(b, a);
 	/*	t_stk	*med;
 
 		med = ft_divide_stack_a(a, b);
