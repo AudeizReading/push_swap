@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:16:56 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/05 12:08:24 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:31:18 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n)
 	ft_push_stack(&a, &b);
 	b->top->grp = grp;
 	(*n)++;
-	// reflechir comment ne pas ce sert de sort two si size a de depart = 5 (-efficace)
+	// reflechir comment ne pas se servir de sort two si size a de depart = 5 (-efficace)
 //	ft_sort_two(b);
 }
 
@@ -51,8 +51,8 @@ t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 
 t_stk	*ft_divide_stack_a(t_stk *a, t_stk *b)
 {
-	static int	grp = 1;
-	t_piv		pivot;
+	static int		grp = 1;
+	t_piv			pivot;
 	static t_stk	*med;
 	t_stk_elt		*elt;
 
