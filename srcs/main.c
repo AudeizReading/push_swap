@@ -157,20 +157,22 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a, t_stk *med)
 {
 //	t_stk		*med;
 	t_stk		*stk_med;
-	static t_stk_elt	*p_med;
+	t_stk_elt	*p_med;
 	t_piv		pivot;
 	t_stk		*stk_grp = NULL;
 	char		**stk_args;
 	int			i;
 
 //	med = NULL;
-	i = 0;
 //	if (!ft_stack_is_sort(a))
 //		med = ft_divide_stack_a(a, b);
 	p_med = med->top;
 	stk_med = ft_get_grp_stk(b);
 	if (stk_med)
 		ft_print_top_stack(stk_med);
+//	while (stk_med->top)
+//		stk_med->top = stk_med->top->prev;
+	i = 0;
 	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
@@ -186,33 +188,31 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a, t_stk *med)
 		//	if (stk_grp)
 		//		ft_print_top_stack(stk_grp);
 			printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); printf("mediane: %ld, min: %ld, max: %ld, groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, p_med->grp, p_med->value, stk_grp->size);
-			ft_sort_three(b);
+		//	ft_sort_three(b);
 			
 	/*		if (p_med->value > 4)
 			{
 				printf("\033[32mJe vais galerer a trier cette stack\033[0m\n");
-			//	ft_divide_stack_b_v2(b, a);
 				break ;
 			}
 			else
 			{*/
-			if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
-			//if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
+			//if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
+			if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
 			{
 				ft_push_stack(&b, &a);
 				ft_sort_two(a);
 			}
-			else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
-			//else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
+		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
+			else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
 			{
 				ft_rotate_stack(&b);
 				ft_sort_two(a);
 			}
-			else if (b->base->value >= pivot.me)
-			//else if (b->base->value >= pivot.q3)
+		//	else if (b->base->value >= pivot.me)
+			else if (b->base->value >= pivot.q3)
 			{
 				ft_rotate_reverse_stack(&b);
-			//	b->top->grp++;
 				ft_push_stack(&b, &a);
 				ft_sort_two(a);
 			}
@@ -222,9 +222,8 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a, t_stk *med)
 			if (!ft_remains_grp_in_stack(b, p_med->grp) && p_med->prev)
 			{
 				p_med = p_med->prev;
-			//	i = 0;
+				i = 0;
 			}
-			p_med = p_med->prev;
 			ft_pop_clear_stk(&stk_grp);
 			ft_free_args(stk_args);
 		}
@@ -253,7 +252,8 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a, t_stk *med)
 	}*/
 //	free(elt);
 //	free(p_med);
-	ft_pop_clear_stk(&med);
+//	ft_pop_clear_stk(&stk_med);
+//	ft_pop_clear_stk(&med);
 }
 
 // maybe not need get the name for the other fn
