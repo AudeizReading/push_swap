@@ -191,24 +191,25 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 	//	while (ft_remains_grp_in_stack(b, p_med->grp))
 	//	{
 		//	ft_sort_three(b);
-		//	if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
-			if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
+			if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
+		//	if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
 		//	if (b->top->value >= pivot.q3)
 			{
-				if (ft_sort_two(b) && b->top->grp == p_med->grp)
-					ft_push_stack(&b, &a);
+			//	if (ft_sort_two(b) && b->top->grp == p_med->grp)
+			//		ft_push_stack(&b, &a);
 				ft_push_stack(&b, &a);
 			}
-		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
-			else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
-			//else if (b->top->value < pivot.q3)
+			else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
+		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
+		//	else if (b->top->value < pivot.q3)
 			{
 				ft_rotate_stack(&b);
 			//	ft_sort_two(a);
 			}
 		//	else if (b->base->value >= pivot.me)
-			else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
-			//else if (b->base->grp == p_med->grp && b->base->value >= pivot.me)
+			//else if (b->base->value >= pivot.q3)
+		//	else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
+			else if (b->base->grp == p_med->grp && b->base->value >= pivot.me)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_push_stack(&b, &a);
