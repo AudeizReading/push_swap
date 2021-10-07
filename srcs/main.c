@@ -190,12 +190,12 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 	{
 	//	while (ft_remains_grp_in_stack(b, p_med->grp))
 	//	{
-		if (stk_grp->size > 4)
-		//	pivot.q3 /= 3;
-			pivot.me /= 2;
-	//		if (!ft_sort_three(b))
-	//			ft_sort_two(b);
-			if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
+			if (!ft_sort_three(b))
+				ft_sort_two(b);
+			if (!ft_sort_three(a))
+				ft_sort_two(a);
+			if (b->top->grp == p_med->grp && b->top->value == pivot.max)
+			//if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
 		//	if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
 		//	if (b->top->value >= pivot.q3)
 			{
@@ -203,7 +203,8 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 			//		ft_push_stack(&b, &a);
 				ft_push_stack(&b, &a);
 			}
-			else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
+			else if (b->top->grp == p_med->grp && b->top->value < pivot.max)
+			//else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
 		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
 		//	else if (b->top->value < pivot.q3)
 			{
@@ -213,7 +214,8 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 		//	else if (b->base->value >= pivot.me)
 			//else if (b->base->value >= pivot.q3)
 		//	else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
-			else if (b->base->grp == p_med->grp && b->base->value >= pivot.me)
+			else if (b->base->grp == p_med->grp && b->base->value == pivot.max)
+			//else if (b->base->grp == p_med->grp && b->base->value >= pivot.me)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_push_stack(&b, &a);
