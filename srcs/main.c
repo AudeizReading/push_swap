@@ -133,7 +133,7 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 		return (NULL);
 	while (tmp)
 	{
-		//printf("tmp: value [%ld] grp [%d] name [%s]\n", tmp->value, tmp->grp, tmp->stack_name);
+	//	printf("tmp: value [%ld] grp [%d] name [%s]\n", tmp->value, tmp->grp, tmp->stack_name);
 		if (tmp->grp == grp)
 		{
 			elt_grp = ft_init_stk_elt(tmp->value, tmp->grp, stk_grp->stk_name);
@@ -168,11 +168,14 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 //		med = ft_divide_stack_a(a, b);
 //	p_med = med->top;
 	stk_med = ft_get_grp_stk(b);
-	if (stk_med)
-		ft_print_top_stack(stk_med);
+//	if (stk_med)
+//		ft_print_top_stack(stk_med);
 	p_med = stk_med->top;
 //	while (stk_med->top)
 //		stk_med->top = stk_med->top->prev;
+	stk_grp = ft_get_stk_4_med(b, p_med->grp);
+	stk_args = ft_stack_to_tab(stk_grp);
+	pivot = ft_get_median(stk_args, stk_grp->size);
 	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
@@ -182,12 +185,13 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 	{
 	//	while (ft_remains_grp_in_stack(b, p_med->grp))
 	//	{
-			stk_grp = ft_get_stk_4_med(b, p_med->grp);
-			stk_args = ft_stack_to_tab(stk_grp);
-			pivot = ft_get_median(stk_args, stk_grp->size);
-		//	if (stk_grp)
-		//		ft_print_top_stack(stk_grp);
-			printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); printf("mediane: %ld, min: %ld, max: %ld, groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, p_med->grp, p_med->value, stk_grp->size);
+		//	stk_grp = ft_get_stk_4_med(b, p_med->grp);
+		//	stk_args = ft_stack_to_tab(stk_grp);
+		//	pivot = ft_get_median(stk_args, stk_grp->size);
+			if (stk_grp)
+				ft_print_top_stack(stk_grp);
+			printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); 
+			printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld,  groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3, p_med->grp, p_med->value, stk_grp->size);
 		//	ft_sort_three(b);
 			
 	/*		if (p_med->value > 4)
@@ -197,26 +201,33 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 			}
 			else
 			{*/
-			//if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
-			if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
+			if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
+			//if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
 		//	if (b->top->value >= pivot.q3)
 			{
+			/*	if (b->top->value < b->top->prev->value)
+				{
+					ft_swap_stack(b);
+					ft_push_stack(&b, &a);
+				}*/
+				if (ft_sort_two(b))
+					ft_push_stack(&b, &a);
 				ft_push_stack(&b, &a);
-				ft_sort_two(a);
+			//	ft_sort_two(a);
 			}
-		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
-			else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
+			else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
+		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
 			//else if (b->top->value < pivot.q3)
 			{
 				ft_rotate_stack(&b);
-				ft_sort_two(a);
+			//	ft_sort_two(a);
 			}
-		//	else if (b->base->value >= pivot.me)
-			else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
+			else if (b->base->value >= pivot.me)
+		//	else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_push_stack(&b, &a);
-				ft_sort_two(a);
+			//	ft_sort_two(a);
 			}
 		//	else
 		//		break ;
@@ -234,13 +245,13 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 	}
 	else if (b->size == 2)
 	{
-		ft_sort_three(b);
+		ft_sort_two(b);
 		while (b->size)
 			ft_push_stack(&b, &a);
 	}
 	else if (b->size == 3)
 	{
-		ft_sort_two(b);
+		ft_sort_three(b);
 		while (b->size)
 			ft_push_stack(&b, &a);
 	}
@@ -382,7 +393,7 @@ int	main(int argc, char **argv)
 			ft_print_top_stack(b);
 		// --------------------FREE STACK----------------------------------
 		if (med)
-//			ft_pop_clear_stk(&med);
+			ft_pop_clear_stk(&med);
 		if (a)
 			ft_pop_clear_stk(&a);
 		if (b)

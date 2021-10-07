@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:16:56 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/06 22:09:11 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/07 12:07:35 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n)
 {
+//	if (ft_sort_two(a))
+//		ft_push_stack(&a, &b);
 	ft_push_stack(&a, &b);
 	b->top->grp = grp;
 	(*n)++;
 	// reflechir comment ne pas se servir de sort two si size a de depart = 5 (-efficace)
-	ft_sort_three(b);
+	if(!ft_sort_three(b))
+		ft_sort_two(b);
 }
 
 t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
@@ -34,21 +37,27 @@ t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	pivot.q3 = 0;
 	while (size--)
 	{
-		ft_sort_three(a);
-		//if (a->top->value >= pivot.me)
+		//ft_sort_three(a);
+		if (b->size)
+			printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); 
+		printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld\n", pivot.me,
+		pivot.min, pivot.max, pivot.q1, pivot.q3);
 		if (a->top->value > pivot.q1)
+		//if (a->top->value >= pivot.me)
 		{
 			ft_rotate_stack(&a);
-			ft_sort_three(a);
+		//	ft_sort_three(a);
 		}
 	//	else if (a->top->value < pivot.me)
 		else if (a->top->value <= pivot.q1)
 		{
 			//ft_a_inf_med(a, b, grp, &pivot.q1);
+	//		if (ft_sort_two(a))
+	//			ft_push_stack(&a, &b);
 			ft_a_inf_med(a, b, grp, &pivot.q3);
 		}
-	//	else if (a->base->value < pivot.me)
-		else if (a->base->value <= pivot.q1)
+		else if (a->base->value < pivot.me)
+	//	else if (a->base->value <= pivot.q1)
 		{
 			ft_rotate_reverse_stack(&a);
 			//ft_a_inf_med(a, b, grp, &pivot.q1);
