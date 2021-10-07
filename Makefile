@@ -69,6 +69,7 @@ NAME=push_swap
 
 ARGS_SHUFFLE_3=`ruby -e "puts (1..3).to_a.shuffle.join(' ')"`
 ARGS_SHUFFLE_5=`ruby -e "puts (1..5).to_a.shuffle.join(' ')"`
+ARGS_SHUFFLE_15=`ruby -e "puts (1..15).to_a.shuffle.join(' ')"`
 ARGS_SHUFFLE_100=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`
 ARGS_SHUFFLE_500=`ruby -e "puts (1..500).to_a.shuffle.join(' ')"`
 ARGS_IS_VALID_1=396773532
@@ -130,22 +131,23 @@ test: $(NAME)
 #	./$(NAME) "World Hello"
 #	./$(NAME) Hello World
 #	./$(NAME)
-	./$(NAME) 1 2 3
-	./$(NAME) 3 2 1
-	./$(NAME) 2 3 1
-	./$(NAME) 2 1 3
-	./$(NAME) 1 3 2
-	./$(NAME) 3 1 2
+#	./$(NAME) 1 2 3
+#	./$(NAME) 3 2 1
+#	./$(NAME) 2 3 1
+#	./$(NAME) 2 1 3
+#	./$(NAME) 1 3 2
+#	./$(NAME) 3 1 2
 #	./$(NAME) $(ARGS_SHUFFLE_3)
 #	./$(NAME) $(ARGS_SHUFFLE_5)
+	./$(NAME) $(ARGS_SHUFFLE_15)
 #	./$(NAME) $(ARGS_SHUFFLE_100)
-	./$(NAME) $(ARGS_SHUFFLE_500)
+#	./$(NAME) $(ARGS_SHUFFLE_500)
 #	./$(NAME) $(ARGS_IS_VALID_1)
 #	./$(NAME) $(ARGS_IS_STR_VALID_1)
 #	./$(NAME) $(ARGS_IS_VALID_15)
 #	./$(NAME) $(ARGS_IS_STR_VALID_15)
-	./$(NAME) $(ARGS_SORTED_5)
-	./$(NAME) $(ARGS_SUBJECT_6)
+#	./$(NAME) $(ARGS_SORTED_5)
+#	./$(NAME) $(ARGS_SUBJECT_6)
 #	./$(NAME) $(ARGS_IS_VALID_150)
 #	./$(NAME) $(ARGS_IS_STR_VALID_150)
 #	./$(NAME) $(ARGS_IS_VALID_600)
@@ -154,7 +156,7 @@ test: $(NAME)
 #	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_15)
 #	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_150)
 #	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_150)
-	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
+#	./$(NAME) $(ARGS_IS_VALID_MULTI_SPACE_600)
 #	./$(NAME) $(ARGS_IS_STR_VALID_MULTI_SPACE_600)
 #	./$(NAME) $(ARGS_IS_INVALID_CHAR_15)
 #	./$(NAME) $(ARGS_IS_STR_INVALID_CHAR_15)

@@ -174,8 +174,13 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 //	while (stk_med->top)
 //		stk_med->top = stk_med->top->prev;
 	stk_grp = ft_get_stk_4_med(b, p_med->grp);
+	ft_putendl("------------------------------------------------------------------------");
+	if (stk_grp)
+		ft_print_top_stack(stk_grp);
 	stk_args = ft_stack_to_tab(stk_grp);
 	pivot = ft_get_median(stk_args, stk_grp->size);
+	printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); 
+	printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld,  groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3, p_med->grp, p_med->value, stk_grp->size);
 	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
@@ -185,45 +190,25 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 	{
 	//	while (ft_remains_grp_in_stack(b, p_med->grp))
 	//	{
-		//	stk_grp = ft_get_stk_4_med(b, p_med->grp);
-		//	stk_args = ft_stack_to_tab(stk_grp);
-		//	pivot = ft_get_median(stk_args, stk_grp->size);
-			if (stk_grp)
-				ft_print_top_stack(stk_grp);
-			printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); 
-			printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld,  groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3, p_med->grp, p_med->value, stk_grp->size);
 		//	ft_sort_three(b);
-			
-	/*		if (p_med->value > 4)
-			{
-				printf("\033[32mJe vais galerer a trier cette stack\033[0m\n");
-				break ;
-			}
-			else
-			{*/
-			if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
-			//if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
+		//	if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
+			if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
 		//	if (b->top->value >= pivot.q3)
 			{
-			/*	if (b->top->value < b->top->prev->value)
-				{
-					ft_swap_stack(b);
-					ft_push_stack(&b, &a);
-				}*/
-				if (ft_sort_two(b))
+				if (ft_sort_two(b) && b->top->grp == p_med->grp)
 					ft_push_stack(&b, &a);
 				ft_push_stack(&b, &a);
-			//	ft_sort_two(a);
 			}
-			else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
-		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
+		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
+			else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
 			//else if (b->top->value < pivot.q3)
 			{
 				ft_rotate_stack(&b);
 			//	ft_sort_two(a);
 			}
-			else if (b->base->value >= pivot.me)
-		//	else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
+		//	else if (b->base->value >= pivot.me)
+			else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
+			//else if (b->base->grp == p_med->grp && b->base->value >= pivot.me)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_push_stack(&b, &a);
@@ -236,12 +221,11 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 			{
 				p_med = p_med->prev;
 			}
+	//		printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld,  groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3, p_med->grp, p_med->value, stk_grp->size);
 			ft_divide_stack_b_v2(b, a);
 			ft_pop_clear_stk(&stk_grp);
 			ft_free_args(stk_args);
 	//	}
-	//	if (b->size)
-		//	ft_divide_stack_b_v2(b, a, med);
 	}
 	else if (b->size == 2)
 	{

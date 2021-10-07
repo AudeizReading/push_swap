@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:16:56 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/07 12:07:35 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/07 14:49:05 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	while (size--)
 	{
 		//ft_sort_three(a);
-		if (b->size)
-			printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); 
-		printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld\n", pivot.me,
-		pivot.min, pivot.max, pivot.q1, pivot.q3);
+	//	if (b->size)
+	//		printf("a->top->value: %ld, a->base->value: %ld\nb->top->value: %ld, b->base->value: %ld\n", a->top->value, a->base->value, b->top->value, b->base->value); 
+	//	printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3);
 		if (a->top->value > pivot.q1)
 		//if (a->top->value >= pivot.me)
 		{
@@ -56,8 +55,8 @@ t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	//			ft_push_stack(&a, &b);
 			ft_a_inf_med(a, b, grp, &pivot.q3);
 		}
-		else if (a->base->value < pivot.me)
-	//	else if (a->base->value <= pivot.q1)
+	//	else if (a->base->value < pivot.me)
+		else if (a->base->value <= pivot.q1)
 		{
 			ft_rotate_reverse_stack(&a);
 			//ft_a_inf_med(a, b, grp, &pivot.q1);
