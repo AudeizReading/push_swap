@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/07 16:50:46 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/07 19:28:09 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ t_piv	ft_get_median(char **args, int end)
 	//pivot.q1 = ft_atol(p_args[2]);
 	//pivot.q3 = ft_atol(p_args[(end - 2)]);
 	pivot.max = ft_atol(p_args[end]);
-//	printf("\033[33mend: [%d], min: [%ld], q1: [%ld], me: [%ld], q3: [%ld], max: [%ld]\033[0m\n", end, pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+	printf("\033[33mend: [%d], min: [%ld], q1: [%ld], me: [%ld], q3: [%ld], max: [%ld]\033[0m\n", end, pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 	return (pivot);
 }

@@ -179,8 +179,8 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 //		ft_print_top_stack(stk_grp);
 	stk_args = ft_stack_to_tab(stk_grp);
 	pivot = ft_get_median(stk_args, stk_grp->size);
-//	printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); 
-//	printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld,  groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3, p_med->grp, p_med->value, stk_grp->size);
+	printf("b->top->value: %ld, b->base->value: %ld\na->top->value: %ld, a->base->value: %ld\n", b->top->value, b->base->value, a->top->value, a->base->value); 
+	printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld,  groupe: %d, p_med->value: %ld stk_grp->size: %d\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3, p_med->grp, p_med->value, stk_grp->size);
 	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
@@ -190,18 +190,21 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 	{
 	//	while (ft_remains_grp_in_stack(b, p_med->grp))
 	//	{
-			if (!ft_sort_three(b))
-				ft_sort_two(b);
-		//	if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
-			if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
+		if (stk_grp->size > 4)
+		//	pivot.q3 /= 3;
+			pivot.me /= 2;
+	//		if (!ft_sort_three(b))
+	//			ft_sort_two(b);
+			if (b->top->grp == p_med->grp && b->top->value >= pivot.me)
+		//	if (b->top->grp == p_med->grp && b->top->value >= pivot.q3)
 		//	if (b->top->value >= pivot.q3)
 			{
 			//	if (ft_sort_two(b) && b->top->grp == p_med->grp)
 			//		ft_push_stack(&b, &a);
 				ft_push_stack(&b, &a);
 			}
-		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
-			else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
+			else if (b->top->grp == p_med->grp && b->top->value < pivot.me)
+		//	else if (b->top->grp == p_med->grp && b->top->value < pivot.q3)
 		//	else if (b->top->value < pivot.q3)
 			{
 				ft_rotate_stack(&b);
@@ -209,8 +212,8 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 			}
 		//	else if (b->base->value >= pivot.me)
 			//else if (b->base->value >= pivot.q3)
-			else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
-		//	else if (b->base->grp == p_med->grp && b->base->value >= pivot.me)
+		//	else if (b->base->grp == p_med->grp && b->base->value >= pivot.q3)
+			else if (b->base->grp == p_med->grp && b->base->value >= pivot.me)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_push_stack(&b, &a);
@@ -344,7 +347,7 @@ int	main(int argc, char **argv)
 	//	ft_sort_two(a);
 //		ft_sort_three(a);
 //		ft_sort_five(a, b);
-//		ft_print_top_stack(a);
+		ft_print_top_stack(a);
 	//	ft_push_swap(a, b);
 	/*	while (!ft_stack_is_sort(a))
 		{
@@ -359,6 +362,10 @@ int	main(int argc, char **argv)
 		t_stk	*med;
 
 		med = ft_divide_stack_a(a, b);
+		if (a->size)
+			ft_print_top_stack(a);
+		if (b->size)
+			ft_print_top_stack(b);
 		ft_divide_stack_b_v2(b, a);
 		//ft_divide_stack_b_v2(b, a, med);
 
@@ -373,10 +380,10 @@ int	main(int argc, char **argv)
 				tmp = tmp->prev;
 			}
 		}*/
-/*		if (a->size)
+		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
-			ft_print_top_stack(b);*/
+			ft_print_top_stack(b);
 		// --------------------FREE STACK----------------------------------
 		if (med)
 			ft_pop_clear_stk(&med);
