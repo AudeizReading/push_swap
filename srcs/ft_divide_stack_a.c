@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:16:56 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/07 14:49:05 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:09:09 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n)
 	b->top->grp = grp;
 	(*n)++;
 	// reflechir comment ne pas se servir de sort two si size a de depart = 5 (-efficace)
-	if(!ft_sort_three(b))
-		ft_sort_two(b);
+//	if(!ft_sort_three(b))
+//		ft_sort_two(b);
 }
 
 t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
@@ -37,7 +37,8 @@ t_piv	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	pivot.q3 = 0;
 	while (size--)
 	{
-		//ft_sort_three(a);
+		if (!ft_sort_three(b))
+			ft_sort_two(b);
 	//	if (b->size)
 	//		printf("a->top->value: %ld, a->base->value: %ld\nb->top->value: %ld, b->base->value: %ld\n", a->top->value, a->base->value, b->top->value, b->base->value); 
 	//	printf("mediane: %ld, min: %ld, max: %ld, q1: %ld, q3: %ld\n", pivot.me, pivot.min, pivot.max, pivot.q1, pivot.q3);
