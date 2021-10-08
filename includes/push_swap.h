@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/04 16:39:31 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/08 09:07:27 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,12 @@ t_bool		ft_sort_three(t_stk *stack);
 t_bool		ft_sort_top_prev(t_stk *stack);
 t_bool		ft_sort_prev_top(t_stk *stack);
 t_bool		ft_sort_two(t_stk *stack);
-void		ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n);
-t_piv		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
-t_stk		*ft_divide_stack_a(t_stk *a, t_stk *b);
+//void		ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n);
+void		ft_a_inf_med(t_stk *a, t_stk *b, int grp);
+//t_piv		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
+void		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
+//t_stk		*ft_divide_stack_a(t_stk *a, t_stk *b);
+void		ft_divide_stack_a(t_stk *a, t_stk *b);
 void		ft_sort_five(t_stk *a, t_stk *b);
 
 /* Launch Program */

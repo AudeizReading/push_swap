@@ -78,6 +78,8 @@ t_piv	ft_get_median_grp_of_stk(t_stk *stack, long value)
 	return (tab_me);
 }*/
 
+// Recupere dans une liste chainee les valeurs des diff grp crees via la stack A
+// (membre grp) et le nombre d'elts par grp (membre valeur)
 t_stk	*ft_get_grp_stk(t_stk *stack)
 {
 	t_stk		*grp;
@@ -103,6 +105,7 @@ t_stk	*ft_get_grp_stk(t_stk *stack)
 	return (grp);
 }
 
+// Check si il reste un elt du grp dans la stack
 t_bool	ft_remains_grp_in_stack(t_stk *stack, int grp)
 {
 	t_stk_elt	*tmp;
@@ -119,6 +122,8 @@ t_bool	ft_remains_grp_in_stack(t_stk *stack, int grp)
 	return (e_false);
 }
 
+// recupere le groupe dans une liste chainee afin de pouvoir en calculer la
+//	mediane
 t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 {
 	t_stk		*stk_grp;
@@ -142,7 +147,6 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 				ft_pop_clear_stk(&stk_grp);
 				return (NULL);
 			}
-			//ft_stkadd_back(&stk_grp, elt_grp);
 			ft_stkadd_front(&stk_grp, elt_grp);
 		}
 		tmp = tmp->prev;
@@ -152,27 +156,55 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 	return (stk_grp);
 }
 
-//void	ft_divide_stack_b_v2(t_stk *b, t_stk *a, t_stk_elt *p_med)
-//void	ft_divide_stack_b_v2(t_stk *b, t_stk *a, t_stk *med)
+void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
+{
+	t_piv		pivot;
+	t_stk		*info_grp;
+	t_stk		*current_grp;
+	char		**current_grp_tab;
+	t_stk_elt	*info;
+	int			size_current_grp;
+
+	// Ne pas oublier de checker le retour de ces elts !!!!!
+	info_grp = ft_get_grp_stk(b);
+	info = info_grp->top;
+	current_grp = ft_get_stk_4_med(b, info->grp);
+	size_current_grp = current_grp->size;
+	current_grp_tab = ft_stack_to_tab(current_grp);
+	pivot = ft_get_median(current_grp_tab, size_current_grp);
+
+	// Debogage
+	if (info_grp && current_grp)
+	{
+		ft_putendl("\033[36;1m--------------------------------------------------------------------------------");
+		ft_print_top_stack(info_grp);
+		ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+		ft_print_top_stack(current_grp);
+		ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
+		printf("me: [%ld], q1: [%ld], q3: [%ld], min: [%ld], max: [%ld]\n", pivot.me, pivot.q1, pivot.q3, pivot.min, pivot.max);
+		ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+		ft_print_top_stack(a);
+		ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+		ft_print_top_stack(b);
+		ft_putendl("\033[0m");
+	}
+	ft_pop_clear_stk(&info_grp);
+	ft_pop_clear_stk(&current_grp);
+	ft_free_args(current_grp_tab);
+}
+
 void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 {
-//	t_stk		*med;
 	t_stk		*stk_med;
-	static t_stk_elt	*p_med;
+	t_stk_elt	*p_med;
 	t_piv		pivot;
 	t_stk		*stk_grp = NULL;
 	char		**stk_args;
 
-//	med = NULL;
-//	if (!ft_stack_is_sort(a))
-//		med = ft_divide_stack_a(a, b);
-//	p_med = med->top;
 	stk_med = ft_get_grp_stk(b);
 //	if (stk_med)
 //		ft_print_top_stack(stk_med);
 	p_med = stk_med->top;
-//	while (stk_med->top)
-//		stk_med->top = stk_med->top->prev;
 	stk_grp = ft_get_stk_4_med(b, p_med->grp);
 //	ft_putendl("------------------------------------------------------------------------");
 //	if (stk_grp)
@@ -246,15 +278,6 @@ void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
 		while (b->size)
 			ft_push_stack(&b, &a);
 	}
-/*	while (p_med->prev)
-	{
-		t_stk_elt	*tmp;
-
-		tmp = p_med->prev;
-		free(p_med);
-		p_med = tmp;
-	}*/
-//	free(elt);
 //	free(p_med);
 //	ft_pop_clear_stk(&stk_med);
 //	ft_pop_clear_stk(&med);
@@ -349,7 +372,7 @@ int	main(int argc, char **argv)
 	//	ft_sort_two(a);
 //		ft_sort_three(a);
 //		ft_sort_five(a, b);
-		ft_print_top_stack(a);
+//		ft_print_top_stack(a);
 	//	ft_push_swap(a, b);
 	/*	while (!ft_stack_is_sort(a))
 		{
@@ -361,14 +384,16 @@ int	main(int argc, char **argv)
 			while (b->size)
 				ft_push_stack(&b, &a);
 		}*/
-		t_stk	*med;
+	//	t_stk	*med;
 
-		med = ft_divide_stack_a(a, b);
-		if (a->size)
-			ft_print_top_stack(a);
-		if (b->size)
-			ft_print_top_stack(b);
-		ft_divide_stack_b_v2(b, a);
+	//	med = ft_divide_stack_a(a, b);
+		ft_divide_stack_a(a, b);
+//		if (a->size)
+//			ft_print_top_stack(a);
+//		if (b->size)
+//			ft_print_top_stack(b);
+	//	ft_divide_stack_b_v2(b, a);
+		ft_divide_stack_b_v3(b, a);
 		//ft_divide_stack_b_v2(b, a, med);
 
 		// set le grp a -1 si c'est sort
@@ -382,13 +407,13 @@ int	main(int argc, char **argv)
 				tmp = tmp->prev;
 			}
 		}*/
-		if (a->size)
+/*		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
-			ft_print_top_stack(b);
+			ft_print_top_stack(b);*/
 		// --------------------FREE STACK----------------------------------
-		if (med)
-			ft_pop_clear_stk(&med);
+	//	if (med)
+	//		ft_pop_clear_stk(&med);
 		if (a)
 			ft_pop_clear_stk(&a);
 		if (b)

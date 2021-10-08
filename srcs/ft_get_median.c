@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/07 19:28:09 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/08 09:13:37 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ t_piv	ft_get_median(char **args, int end)
 //		end--;
 	ft_qsort_tab((void **)p_args, 0, end, (int (*) (void *, void *)) ft_lnbrcmp);
 	pivot.min = ft_atol(p_args[0]);
+	pivot.q1 = ft_atol(p_args[end / 4]);
 	pivot.me = ft_atol(p_args[end / 2]);
+	pivot.q3 = ft_atol(p_args[(3 * end) / 4]);
+	pivot.max = ft_atol(p_args[end]);
 //	pivot.q1 = ft_atol(p_args[2]);
 //	pivot.q3 = ft_atol(p_args[end - 1]);
 //	printf("end %d\n", end);
-	if (end > 3)
+/*	if (end > 3)
 	{
 	//	end /= 3;
 	//	pivot.q1 = ft_atol(p_args[end/2]);
@@ -52,8 +55,7 @@ t_piv	ft_get_median(char **args, int end)
 //		pivot.q3 = ft_atol(p_args[(3 * end) / 4]);
 	}
 	//pivot.q1 = ft_atol(p_args[2]);
-	//pivot.q3 = ft_atol(p_args[(end - 2)]);
-	pivot.max = ft_atol(p_args[end]);
-	printf("\033[33mend: [%d], min: [%ld], q1: [%ld], me: [%ld], q3: [%ld], max: [%ld]\033[0m\n", end, pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+	//pivot.q3 = ft_atol(p_args[(end - 2)]);*/
+//	printf("\033[33mend: [%d], min: [%ld], q1: [%ld], me: [%ld], q3: [%ld], max: [%ld]\033[0m\n", end, pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
 	return (pivot);
 }
