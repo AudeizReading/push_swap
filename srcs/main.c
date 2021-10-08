@@ -191,6 +191,12 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 		// Ne pas oublier de checker le retour de ces elts !!!!!
 		// Init les donnees dont on a besoin
 		info_grp = ft_get_grp_stk(b);
+		if (b->base->grp > info_grp->top->grp)
+		{
+			printf("swap de la pos des grp dans la stack info_grp ? \n");
+			ft_swap(&info_grp->top->value, &info_grp->base->value);
+			ft_swap(&info_grp->top->grp, &info_grp->base->grp);
+		}
 		info = info_grp->top;
 		current_grp = ft_get_stk_4_med(b, info->grp);
 		size_current_grp = current_grp->size;
@@ -217,7 +223,12 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 		// algo
 		while (size_current_grp-- && b->size > 3)
 		{
-			if (b->top->value > pivot.me || current_grp->size == 1 || ft_stack_b_is_sort(current_grp))
+			if ((b->base->grp > info->grp  && b->base->value > b->top->value)|| b->base->value > pivot.me)
+			{
+				ft_rotate_reverse_stack(&b);
+				ft_push_stack(&b, &a);
+			}
+			else if (b->top->value > pivot.me || current_grp->size == 1 || ft_stack_b_is_sort(current_grp))
 			{
 				ft_push_stack(&b, &a);
 			}
@@ -226,10 +237,12 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 				ft_rotate_stack(&b);
 				b->base->grp++;
 			}
-			else if (b->base->value > pivot.me)
-			{
-				ft_rotate_reverse_stack(&b);
-			}
+			//else if (b->base->value > pivot.me)
+	//		else if (b->base->grp > info->grp || b->base->value > pivot.me)
+	//		{
+	//			ft_rotate_reverse_stack(&b);
+	//			ft_push_stack(&b, &a);
+	//		}
 		}
 
 		// Debogage
