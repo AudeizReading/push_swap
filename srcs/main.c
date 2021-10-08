@@ -165,29 +165,94 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 	t_stk_elt	*info;
 	int			size_current_grp;
 
-	// Ne pas oublier de checker le retour de ces elts !!!!!
-	info_grp = ft_get_grp_stk(b);
-	info = info_grp->top;
-	current_grp = ft_get_stk_4_med(b, info->grp);
-	size_current_grp = current_grp->size;
-	current_grp_tab = ft_stack_to_tab(current_grp);
-	pivot = ft_get_median(current_grp_tab, size_current_grp);
+	if (!b->size)
+		return ;
+	info_grp = NULL;
+	info = NULL;
+	current_grp = NULL;
+	current_grp_tab = NULL;
 
-	// Debogage
-	if (info_grp && current_grp)
+	if (ft_stack_is_sort(b))
 	{
-		ft_putendl("\033[36;1m--------------------------------------------------------------------------------");
-		ft_print_top_stack(info_grp);
-		ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-		ft_print_top_stack(current_grp);
-		ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
-		printf("me: [%ld], q1: [%ld], q3: [%ld], min: [%ld], max: [%ld]\n", pivot.me, pivot.q1, pivot.q3, pivot.min, pivot.max);
-		ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-		ft_print_top_stack(a);
-		ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-		ft_print_top_stack(b);
-		ft_putendl("\033[0m");
+		while (b->size)
+			ft_push_stack(&b, &a);
 	}
+	else if ((ft_stack_is_sort(a) && !b->size))
+		return ;
+	else if (b->size < 4)
+	{
+		if (!ft_sort_three(b))
+			ft_sort_two(b);
+		while (b->size)
+			ft_push_stack(&b, &a);
+	}
+	else if (b->size > 3)
+	{
+		// Ne pas oublier de checker le retour de ces elts !!!!!
+		// Init les donnees dont on a besoin
+		info_grp = ft_get_grp_stk(b);
+		info = info_grp->top;
+		current_grp = ft_get_stk_4_med(b, info->grp);
+		size_current_grp = current_grp->size;
+		current_grp_tab = ft_stack_to_tab(current_grp);
+		pivot = ft_get_median(current_grp_tab, size_current_grp);
+
+		// Debogage
+		if (info_grp && current_grp)
+		{
+			ft_putendl("\033[36;1m----------------------------BEFORE ALGO-----------------------------------------");
+			ft_print_top_stack(info_grp);
+			ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+			ft_print_top_stack(current_grp);
+			ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
+			printf("me: [%ld], q1: [%ld], q3: [%ld], min: [%ld], max: [%ld]\n", pivot.me, pivot.q1, pivot.q3, pivot.min, pivot.max);
+			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+			ft_print_top_stack(a);
+			ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+			if (b->size)
+				ft_print_top_stack(b);
+			ft_putendl("\033[0m");
+		}
+
+		// algo
+		while (size_current_grp-- && b->size > 3)
+		{
+			if (b->top->value > pivot.me || current_grp->size == 1 || ft_stack_b_is_sort(current_grp))
+			{
+				ft_push_stack(&b, &a);
+			}
+			else if (b->top->value <= pivot.me)
+			{
+				ft_rotate_stack(&b);
+				b->base->grp++;
+			}
+			else if (b->base->value > pivot.me)
+			{
+				ft_rotate_reverse_stack(&b);
+			}
+		}
+
+		// Debogage
+		if (info_grp && current_grp)
+		{
+			ft_putendl("\033[36;1m----------------------------AFTER ALGO------------------------------------------");
+			ft_print_top_stack(info_grp);
+			ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+			ft_print_top_stack(current_grp);
+			ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
+			printf("me: [%ld], q1: [%ld], q3: [%ld], min: [%ld], max: [%ld]\n", pivot.me, pivot.q1, pivot.q3, pivot.min, pivot.max);
+			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+			ft_print_top_stack(a);
+			ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+			if (b->size)
+				ft_print_top_stack(b);
+			ft_putendl("\033[0m");
+		}
+		info = info->prev;
+		ft_divide_stack_b_v3(b, a);
+	}
+
+	// free elts
 	ft_pop_clear_stk(&info_grp);
 	ft_pop_clear_stk(&current_grp);
 	ft_free_args(current_grp_tab);
@@ -388,12 +453,13 @@ int	main(int argc, char **argv)
 
 	//	med = ft_divide_stack_a(a, b);
 		ft_divide_stack_a(a, b);
-//		if (a->size)
-//			ft_print_top_stack(a);
+/*		if (a->size)
+			ft_print_top_stack(a);
+		if (b->size)
+			ft_print_top_stack(b);*/
+//		ft_divide_stack_b_v2(b, a);
 //		if (b->size)
-//			ft_print_top_stack(b);
-	//	ft_divide_stack_b_v2(b, a);
-		ft_divide_stack_b_v3(b, a);
+			ft_divide_stack_b_v3(b, a);
 		//ft_divide_stack_b_v2(b, a, med);
 
 		// set le grp a -1 si c'est sort
