@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/08 09:13:37 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/09 13:05:06 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ t_piv	ft_get_median(char **args, int end)
 //		end--;
 	ft_qsort_tab((void **)p_args, 0, end, (int (*) (void *, void *)) ft_lnbrcmp);
 	pivot.min = ft_atol(p_args[0]);
-	pivot.q1 = ft_atol(p_args[end / 4]);
+//	if (end > 3)
+//		pivot.q1 = ft_atol(p_args[2]);
+//	else
+		pivot.q1 = ft_atol(p_args[end / 4]);
 	pivot.me = ft_atol(p_args[end / 2]);
 	pivot.q3 = ft_atol(p_args[(3 * end) / 4]);
 	pivot.max = ft_atol(p_args[end]);

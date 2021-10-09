@@ -78,6 +78,234 @@ t_piv	ft_get_median_grp_of_stk(t_stk *stack, long value)
 	return (tab_me);
 }*/
 
+// 1 2 3
+t_bool ft_sort_top_prev_pprev(t_stk *src, t_stk *dst)
+{
+	long	top;
+	long	prev;
+	long	pprev;
+
+	if (!src->size || !dst->size/* || src->size < 3 || dst->size < 3*/)
+		return (e_false);
+	top = src->top->value;
+	prev = src->top->prev->value;
+	pprev = src->top->prev->prev->value;
+	if (top < prev && top < pprev && prev < pprev)
+	{
+		if (!ft_strcmp(src->stk_name, "a"))
+		{
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			return (e_true);
+		}
+		else if (!ft_strcmp(src->stk_name, "b"))
+		{
+			ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
+			printf("blue\n");
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(dst);
+			ft_push_stack(&src, &dst);
+			ft_putendl("\033[0m");
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+// 3 2 1
+t_bool ft_sort_pprev_prev_top(t_stk *src, t_stk *dst)
+{
+	long	top;
+	long	prev;
+	long	pprev;
+
+	if (!src->size || !dst->size/* || src->size < 3 || dst->size < 3*/)
+		return (e_false);
+	top = src->top->value;
+	prev = src->top->prev->value;
+	pprev = src->top->prev->prev->value;
+	if (top > prev && top > pprev && prev > pprev)
+	{
+		if (!ft_strcmp(src->stk_name, "b"))
+		{
+			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+			printf("yellow\n");
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_putendl("\033[0m");
+			return (e_true);
+		}
+		else if (!ft_strcmp(src->stk_name, "a"))
+		{
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(dst);
+			ft_push_stack(&src, &dst);
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+// 2 1 3
+t_bool ft_sort_prev_top_pprev(t_stk *src, t_stk *dst)
+{
+	long	top;
+	long	prev;
+	long	pprev;
+
+	if (!src->size || !dst->size/* || src->size < 3 || dst->size < 3*/)
+		return (e_false);
+	top = src->top->value;
+	prev = src->top->prev->value;
+	pprev = src->top->prev->prev->value;
+	if (top > prev && top < pprev && prev < pprev)
+	{
+		if (!ft_strcmp(src->stk_name, "a"))
+		{
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			return (e_true);
+		}
+		else if (!ft_strcmp(src->stk_name, "b"))
+		{
+			ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+			printf("vert\n");
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(dst);
+			ft_push_stack(&src, &dst);
+			ft_putendl("\033[0m");
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+// 2 3 1
+t_bool ft_sort_pprev_top_prev(t_stk *src, t_stk *dst)
+{
+	long	top;
+	long	prev;
+	long	pprev;
+
+	if (!src->size || !dst->size/* || src->size < 3 || dst->size < 3*/)
+		return (e_false);
+	top = src->top->value;
+	prev = src->top->prev->value;
+	pprev = src->top->prev->prev->value;
+	if (top < prev && top > pprev && prev > pprev)
+	{
+		if (!ft_strcmp(src->stk_name, "b"))
+		{
+			ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+			printf("rouge\n");
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_putendl("\033[0m");
+			return (e_true);
+		}
+		else if (!ft_strcmp(src->stk_name, "a"))
+		{
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(dst);
+			ft_push_stack(&src, &dst);
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+// 1 3 2
+t_bool ft_sort_top_pprev_prev(t_stk *src, t_stk *dst)
+{
+	long	top;
+	long	prev;
+	long	pprev;
+
+	if (!src->size || !dst->size/* || src->size < 3 || dst->size < 3*/)
+		return (e_false);
+	top = src->top->value;
+	prev = src->top->prev->value;
+	pprev = src->top->prev->prev->value;
+	if (top < prev && top < pprev && pprev < prev)
+	{
+		if (!ft_strcmp(src->stk_name, "a"))
+		{
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			return (e_true);
+		}
+		else if (!ft_strcmp(src->stk_name, "b"))
+		{
+			ft_putendl("\033[41;37;1m-----------------------------------------------------------------------------");
+			printf("bg rouge fg white\n");
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_putendl("\033[0m");
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
+// 3 1 2
+t_bool ft_sort_prev_pprev_top(t_stk *src, t_stk *dst)
+{
+	long	top;
+	long	prev;
+	long	pprev;
+
+	if (!src->size || !dst->size/* || src->size < 3 || dst->size < 3*/)
+		return (e_false);
+	top = src->top->value;
+	prev = src->top->prev->value;
+	pprev = src->top->prev->prev->value;
+	if (top > prev && top > pprev && pprev > prev)
+	{
+		if (!ft_strcmp(src->stk_name, "b"))
+		{
+			ft_putendl("\033[36;1m--------------------------------------------------------------------------------");
+			printf("cyan\n");
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			ft_putendl("\033[0m");
+			return (e_true);
+		}
+		else if (!ft_strcmp(src->stk_name, "a"))
+		{
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_swap_stack(src);
+			ft_push_stack(&src, &dst);
+			ft_push_stack(&src, &dst);
+			return (e_true);
+		}
+	}
+	return (e_false);
+}
+
 // Recupere dans une liste chainee les valeurs des diff grp crees via la stack A
 // (membre grp) et le nombre d'elts par grp (membre valeur)
 t_stk	*ft_get_grp_stk(t_stk *stack)
@@ -156,6 +384,24 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 	return (stk_grp);
 }
 
+int		ft_find_highest_grp(t_stk *b)
+{
+	t_stk_elt	*tmp;
+	int			grp;
+
+	if (!b || !b->size)
+		return (-1);
+	tmp = b->top;
+	grp = -1;
+	while (tmp)
+	{
+		if (grp < tmp->grp)
+			grp = tmp->grp;
+		tmp = tmp->prev;
+	}
+	return (grp);
+}
+
 void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 {
 	t_piv		pivot;
@@ -164,14 +410,39 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 	char		**current_grp_tab;
 	t_stk_elt	*info;
 	int			size_current_grp;
+	int			size;
 
 	if (!b->size)
 		return ;
-	info_grp = NULL;
-	info = NULL;
-	current_grp = NULL;
-	current_grp_tab = NULL;
-
+	info_grp = ft_get_grp_stk(b);
+	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+	if (info_grp->size)
+		ft_print_top_stack(info_grp);
+	ft_putendl("\033[0m");
+//	if (b->base->grp > info_grp->top->grp && b->base->value > b->top->value)
+//	{
+//		ft_swap(&info_grp->top->value, &info_grp->base->value);
+//		ft_swap(&info_grp->top->grp, &info_grp->base->grp);
+//	}
+	info = info_grp->top;
+	current_grp = ft_get_stk_4_med(b, info->grp);
+	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+	if (current_grp->size)
+		ft_print_top_stack(current_grp);
+	ft_putendl("\033[0m");
+	size_current_grp = current_grp->size;
+	current_grp_tab = ft_stack_to_tab(current_grp);
+	pivot = ft_get_median(current_grp_tab, size_current_grp);
+	size = size_current_grp;
+	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+	if (a->size)
+		ft_print_top_stack(a);
+	ft_putendl("\033[0m");
+	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+	if (b->size)
+		ft_print_top_stack(b);
+	ft_putendl("\033[0m");
 	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
@@ -188,84 +459,60 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 	}
 	else if (b->size > 3)
 	{
-		// Ne pas oublier de checker le retour de ces elts !!!!!
-		// Init les donnees dont on a besoin
-		info_grp = ft_get_grp_stk(b);
-		if (b->base->grp > info_grp->top->grp)
+		if (current_grp->size > 3)
 		{
-			printf("swap de la pos des grp dans la stack info_grp ? \n");
-			ft_swap(&info_grp->top->value, &info_grp->base->value);
-			ft_swap(&info_grp->top->grp, &info_grp->base->grp);
-		}
-		info = info_grp->top;
-		current_grp = ft_get_stk_4_med(b, info->grp);
-		size_current_grp = current_grp->size;
-		current_grp_tab = ft_stack_to_tab(current_grp);
-		pivot = ft_get_median(current_grp_tab, size_current_grp);
-
-		// Debogage
-		if (info_grp && current_grp)
-		{
-			ft_putendl("\033[36;1m----------------------------BEFORE ALGO-----------------------------------------");
-			ft_print_top_stack(info_grp);
-			ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-			ft_print_top_stack(current_grp);
-			ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
-			printf("me: [%ld], q1: [%ld], q3: [%ld], min: [%ld], max: [%ld]\n", pivot.me, pivot.q1, pivot.q3, pivot.min, pivot.max);
-			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-			ft_print_top_stack(a);
-			ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-			if (b->size)
-				ft_print_top_stack(b);
-			ft_putendl("\033[0m");
-		}
-
-		// algo
-		while (size_current_grp-- && b->size > 3)
-		{
-			if ((b->base->grp > info->grp  && b->base->value > b->top->value)|| b->base->value > pivot.me)
+			while (size--)
+			{
+				ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
+				printf("c'est ici qu'il faut que je divise les groupes trop grands grace a la mediane \n");
+				if (b->top->value > pivot.me || b->top->value == pivot.max)
+					ft_push_stack(&b, &a);
+				else if (b->top->value <= pivot.me)
+				{
+					ft_rotate_stack(&b);
+					b->base->grp++;
+				}
+				ft_putendl("");
+				if (a->size)
+					ft_print_top_stack(a);
+				ft_putendl("");
+				if (b->size)
+					ft_print_top_stack(b);
+				ft_putendl("\033[0m");
+			}
+			size = size_current_grp / 2;
+			if ((size_current_grp % 2))
+				size++;
+			// si c'est le dernier groupe pas besoin
+			while (size-- && info->prev)
 			{
 				ft_rotate_reverse_stack(&b);
-				ft_push_stack(&b, &a);
 			}
-			else if (b->top->value > pivot.me || current_grp->size == 1 || ft_stack_b_is_sort(current_grp))
-			{
-				ft_push_stack(&b, &a);
-			}
-			else if (b->top->value <= pivot.me)
-			{
-				ft_rotate_stack(&b);
-				b->base->grp++;
-			}
-			//else if (b->base->value > pivot.me)
-	//		else if (b->base->grp > info->grp || b->base->value > pivot.me)
-	//		{
-	//			ft_rotate_reverse_stack(&b);
-	//			ft_push_stack(&b, &a);
-	//		}
+			// faudrait faire une fn qui checke si le groupe pose sur A est trie pour pas repushe sur b inutilement
 		}
-
-		// Debogage
-		if (info_grp && current_grp)
+		else
 		{
-			ft_putendl("\033[36;1m----------------------------AFTER ALGO------------------------------------------");
-			ft_print_top_stack(info_grp);
-			ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-			ft_print_top_stack(current_grp);
-			ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
-			printf("me: [%ld], q1: [%ld], q3: [%ld], min: [%ld], max: [%ld]\n", pivot.me, pivot.q1, pivot.q3, pivot.min, pivot.max);
-			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-			ft_print_top_stack(a);
-			ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-			if (b->size)
-				ft_print_top_stack(b);
-			ft_putendl("\033[0m");
+			if (current_grp->size == 1)
+				ft_push_stack(&b, &a);
+			else if (current_grp->size == 2)
+			{
+				ft_sort_two(b);
+				ft_push_stack(&b, &a);
+				ft_push_stack(&b, &a);
+			}
+			else
+			{
+				if (ft_sort_top_prev_pprev(b, a) || ft_sort_top_pprev_prev(b, a) || ft_sort_prev_pprev_top(b, a) || ft_sort_prev_top_pprev(b, a) || ft_sort_pprev_top_prev(b, a) || ft_sort_pprev_prev_top(b, a))
+				{
+				}
+			}
 		}
-		info = info->prev;
+	//	if (!ft_remains_grp_in_stack(b, info->grp) && info->prev)
+	//		info = info->prev;
 		ft_divide_stack_b_v3(b, a);
 	}
 
-	// free elts
+		// free elts
 	ft_pop_clear_stk(&info_grp);
 	ft_pop_clear_stk(&current_grp);
 	ft_free_args(current_grp_tab);
@@ -377,7 +624,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	{
 		if (b->top->value < pivot.me)
 			ft_rotate_stack(&b);
-		else if (a->top->value >= pivot.me)
+		else if (b->top->value >= pivot.me)
 		{
 			ft_push_stack(&b, &a);
 			ft_sort_two(a);
@@ -401,14 +648,12 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 
 void	ft_push_swap(t_stk *a, t_stk *b)
 {
-	//if (!ft_stack_is_sort(a))
-	if (!ft_stack_is_sort(a))
+	while (!ft_stack_is_sort(a))
 	{
 		ft_divide_stack_a(a, b);
-		ft_divide_stack_b(b, a);
+		ft_divide_stack_b_v3(b, a);
 		while (b->size)
 			ft_push_stack(&b, &a);
-	//	ft_push_swap(a, b);
 	}
 }
 
@@ -450,7 +695,7 @@ int	main(int argc, char **argv)
 	//	ft_sort_two(a);
 //		ft_sort_three(a);
 //		ft_sort_five(a, b);
-//		ft_print_top_stack(a);
+		ft_print_top_stack(a);
 	//	ft_push_swap(a, b);
 	/*	while (!ft_stack_is_sort(a))
 		{
@@ -465,15 +710,27 @@ int	main(int argc, char **argv)
 	//	t_stk	*med;
 
 	//	med = ft_divide_stack_a(a, b);
+//		ft_push_swap(a, b);
 		ft_divide_stack_a(a, b);
-/*		if (a->size)
+//		if (a->size)
+//			ft_print_top_stack(a);
+//		if (b->size)
+//			ft_print_top_stack(b);
+//		ft_divide_stack_b(b, a);
+		ft_divide_stack_b_v3(b, a);
+//		ft_sort_top_prev_pprev(b, a);
+//		ft_sort_top_pprev_prev(b, a);
+//		ft_sort_prev_pprev_top(b, a);
+//		ft_sort_prev_top_pprev(b, a);
+//		ft_sort_pprev_top_prev(b, a);
+//		ft_sort_pprev_prev_top(b, a);
+		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
-			ft_print_top_stack(b);*/
+			ft_print_top_stack(b);
 //		ft_divide_stack_b_v2(b, a);
 //		if (b->size)
-			ft_divide_stack_b_v3(b, a);
-		//ft_divide_stack_b_v2(b, a, med);
+//			ft_divide_stack_b_v3(b, a);
 
 		// set le grp a -1 si c'est sort
 	/*	t_stk_elt	*tmp;
