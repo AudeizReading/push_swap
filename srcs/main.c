@@ -554,7 +554,7 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 					while (i-- && info->prev)
 					{
 						ft_rotate_reverse_stack(&a);
-					//	ft_sort_two(a);
+						ft_sort_two(a);
 					}
 				}
 			}
