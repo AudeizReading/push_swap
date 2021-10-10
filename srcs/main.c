@@ -476,6 +476,13 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 					b->base->grp += 1000;
 					i++;
 				}
+				else if (b->base->value >= pivot.q3)
+				{
+					ft_rotate_reverse_stack(&b);
+					ft_push_stack(&b, &a);
+					ft_sort_two(a);
+					i--;
+				}
 			//	ft_putendl("");
 			//	if (a->size)
 			//		ft_print_top_stack(a);
@@ -487,7 +494,7 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 			while (i-- && info->prev)
 			{
 				ft_rotate_reverse_stack(&b);
-			//	ft_sort_two(b);
+				ft_sort_two(b);
 			}
 			// mettre les grps a 0 si tries dans a!
 			if (!ft_stack_is_sort(a))
@@ -535,8 +542,15 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 							ft_rotate_stack(&a);
 							i++;
 						}
+						else if (a->base->value >= pivot.q3)
+						{
+							ft_rotate_reverse_stack(&a);
+							ft_push_stack(&a, &b);
+							ft_sort_two(b);
+							i--;
+						}
 					}
-					size = i;
+					//size = i;
 					while (i-- && info->prev)
 					{
 						ft_rotate_reverse_stack(&a);
