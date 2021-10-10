@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:16:56 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/10 17:58:52 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/10 19:47:28 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	ft_a_inf_med(t_stk *a, t_stk *b, int grp)
 {
 	ft_push_stack(&a, &b);
 	b->top->grp = grp;
-	if(!ft_sort_three(b))
-		ft_sort_two(b);
 }
 
 void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
@@ -31,15 +29,18 @@ void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	pivot = ft_get_median(args, size);
 	while (size--)
 	{
-		if (a->top->value >= pivot.me)
+	//	if (a->top->value >= pivot.me)
+		if (a->top->value > pivot.q1)
 		{
 			ft_rotate_stack(&a);
 		}
-		else if (a->top->value < pivot.me)
+//		else if (a->top->value < pivot.me)
+		else if (a->top->value <= pivot.q1)
 		{
 			ft_a_inf_med(a, b, grp);
 		}
-		else if (a->base->value < pivot.me)
+//		else if (a->base->value < pivot.me)
+		else if (a->base->value <= pivot.q1)
 		{
 			ft_rotate_reverse_stack(&a);
 			ft_a_inf_med(a, b, grp);

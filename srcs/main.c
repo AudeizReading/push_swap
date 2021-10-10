@@ -423,11 +423,6 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 //	if (info_grp->size)
 //		ft_print_top_stack(info_grp);
 //	ft_putendl("\033[0m");
-//	if (b->base->grp > info_grp->top->grp && b->base->value > b->top->value)
-//	{
-//		ft_swap(&info_grp->top->value, &info_grp->base->value);
-//		ft_swap(&info_grp->top->grp, &info_grp->base->grp);
-//	}
 	info = info_grp->top;
 	current_grp = ft_get_stk_4_med(b, info->grp);
 //	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
@@ -447,14 +442,14 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 //	if (b->size)
 //		ft_print_top_stack(b);
 //	ft_putendl("\033[0m");
-	if (ft_stack_is_sort(b) && !ft_strcmp(b->stk_name, "b"))
+	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
 			ft_push_stack(&b, &a);
 	}
 	else if ((ft_stack_is_sort(a) && !b->size))
 		return ;
-	else if (b->size < 4 && b->top->grp)
+	else if (b->size < 4)
 	{
 		if (!ft_sort_three(b))
 			ft_sort_two(b);
@@ -470,13 +465,12 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 			while (size--)
 			{
 			//	ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
-		//		printf("c'est ici qu'il faut que je divise les groupes trop grands grace a la mediane \n");
-				if (b->top->value > pivot.q3 || b->top->value == pivot.max)
+				if (b->top->value >= pivot.q3)
 				{
 					ft_push_stack(&b, &a);
 					ft_sort_two(a);
 				}
-				else if (b->top->value <= pivot.q3)
+				else if (b->top->value < pivot.q3)
 				{
 					ft_rotate_stack(&b);
 					b->base->grp += 1000;
@@ -490,19 +484,15 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 			//		ft_print_top_stack(b);
 			//	ft_putendl("\033[0m");
 			}
-		//	size = 3 * (size_current_grp / 4);
-			//size = size_current_grp / 2;
-		//	if ((size_current_grp % 2))
-		//		size++;
 			while (i-- && info->prev)
 			{
 				ft_rotate_reverse_stack(&b);
+			//	ft_sort_two(b);
 			}
 			// mettre les grps a 0 si tries dans a!
-	//		if (!ft_stack_is_sort(a))
-	//		{
-				//if (a->top->grp && current_grp->size > 3)
-				while (a->top->grp && current_grp->size > 3)
+			if (!ft_stack_is_sort(a))
+			{
+				while (current_grp->size > 3)
 				{
 					ft_pop_clear_stk(&info_grp);
 					info_grp = ft_get_grp_stk(a);
@@ -534,13 +524,13 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 					i = 0;
 					while (size--)
 					{
-						if (a->top->value <= pivot.me || a->top->value == pivot.min)
+						if (a->top->value <= pivot.me)
 						{
 							ft_push_stack(&a, &b);
 							ft_sort_two(b);
 
 						}
-						else if (a->top->value > pivot.min)
+						else if (a->top->value > pivot.me)
 						{
 							ft_rotate_stack(&a);
 							i++;
@@ -550,34 +540,10 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 					while (i-- && info->prev)
 					{
 						ft_rotate_reverse_stack(&a);
-					}
-		//		}
-		/*i = 0;
-				while (size--)
-				{
-					if (a->top->value <= pivot.me || a->top->value == pivot.min)
-					{
-						ft_push_stack(&a, &b);
-
-					}
-					else if (a->top->value > pivot.me)
-					{
-						ft_rotate_stack(&a);
-						i++;
+					//	ft_sort_two(a);
 					}
 				}
-				while (i--)
-				{
-					ft_rotate_reverse_stack(&a);
-				}*/
-				//	ft_pop_clear_stk(&info_grp);
-				//	ft_pop_clear_stk(&current_grp);
-				//	ft_free_args(current_grp_tab);
-			//		if (!ft_stack_is_sort(a))
-			//			printf("faut que je trouve un moyen de diviser la partie encore sur A\n");
-					//	ft_divide_stack_b_v3(a, b);
 			}
-			// faudrait faire une fn qui checke si le groupe pose sur A est trie pour pas repushe sur b inutilement
 		}
 		else
 		{
@@ -597,11 +563,6 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 				}
 			}
 		}
-	//	if (!ft_remains_grp_in_stack(b, info->grp) && info->prev)
-	//		info = info->prev;
-	//	ft_pop_clear_stk(&info_grp);
-	//	ft_pop_clear_stk(&current_grp);
-	//	ft_free_args(current_grp_tab);
 		ft_divide_stack_b_v3(b, a);
 	}
 	else

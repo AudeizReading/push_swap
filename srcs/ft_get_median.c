@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/10 18:01:47 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/10 21:14:00 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ t_piv	ft_get_median(char **args, int end)
 		end = 0;
 	ft_qsort_tab((void **)p_args, 0, end, (int (*) (void *, void *)) ft_lnbrcmp);
 	pivot.min = ft_atol(p_args[0]);
-	pivot.q1 = ft_atol(p_args[end / 4]);
+	pivot.q1 = ft_atol(p_args[(1 * end) / 7]);
+	pivot.q3 = ft_atol(p_args[(5 * end) / 7]);
 	pivot.me = ft_atol(p_args[end / 2]);
-	pivot.q3 = ft_atol(p_args[(92115 * end) / 100000]);
 	pivot.max = ft_atol(p_args[end]);
+	// rendement 1/7 5/7 950 8300
+	// rendement 3/14 11/14 855 9600
+	// rendement 3/13 5/7 840 9000
 	return (pivot);
 }
