@@ -419,34 +419,34 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 	if (!b->size)
 		return ;
 	info_grp = ft_get_grp_stk(b);
-	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-	if (info_grp->size)
-		ft_print_top_stack(info_grp);
-	ft_putendl("\033[0m");
-	if (b->base->grp > info_grp->top->grp && b->base->value > b->top->value)
-	{
-		ft_swap(&info_grp->top->value, &info_grp->base->value);
-		ft_swap(&info_grp->top->grp, &info_grp->base->grp);
-	}
+//	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+//	if (info_grp->size)
+//		ft_print_top_stack(info_grp);
+//	ft_putendl("\033[0m");
+//	if (b->base->grp > info_grp->top->grp && b->base->value > b->top->value)
+//	{
+//		ft_swap(&info_grp->top->value, &info_grp->base->value);
+//		ft_swap(&info_grp->top->grp, &info_grp->base->grp);
+//	}
 	info = info_grp->top;
 	current_grp = ft_get_stk_4_med(b, info->grp);
-	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-	if (current_grp->size)
-		ft_print_top_stack(current_grp);
-	ft_putendl("\033[0m");
+//	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+//	if (current_grp->size)
+//		ft_print_top_stack(current_grp);
+//	ft_putendl("\033[0m");
 	size_current_grp = current_grp->size;
 	current_grp_tab = ft_stack_to_tab(current_grp);
 	pivot = ft_get_median(current_grp_tab, size_current_grp);
 	size = size_current_grp;
-	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-	if (a->size)
-		ft_print_top_stack(a);
-	ft_putendl("\033[0m");
-	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-	if (b->size)
-		ft_print_top_stack(b);
-	ft_putendl("\033[0m");
+//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+//	if (a->size)
+//		ft_print_top_stack(a);
+//	ft_putendl("\033[0m");
+//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+//	if (b->size)
+//		ft_print_top_stack(b);
+//	ft_putendl("\033[0m");
 	if (ft_stack_is_sort(b) && !ft_strcmp(b->stk_name, "b"))
 	{
 		while (b->size)
@@ -469,23 +469,26 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 			i = 0;
 			while (size--)
 			{
-				ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
+			//	ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
 		//		printf("c'est ici qu'il faut que je divise les groupes trop grands grace a la mediane \n");
 				if (b->top->value > pivot.q3 || b->top->value == pivot.max)
+				{
 					ft_push_stack(&b, &a);
+					ft_sort_two(a);
+				}
 				else if (b->top->value <= pivot.q3)
 				{
 					ft_rotate_stack(&b);
 					b->base->grp += 1000;
 					i++;
 				}
-				ft_putendl("");
-				if (a->size)
-					ft_print_top_stack(a);
-				ft_putendl("");
-				if (b->size)
-					ft_print_top_stack(b);
-				ft_putendl("\033[0m");
+			//	ft_putendl("");
+			//	if (a->size)
+			//		ft_print_top_stack(a);
+			//	ft_putendl("");
+			//	if (b->size)
+			//		ft_print_top_stack(b);
+			//	ft_putendl("\033[0m");
 			}
 		//	size = 3 * (size_current_grp / 4);
 			//size = size_current_grp / 2;
@@ -498,44 +501,46 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 			// mettre les grps a 0 si tries dans a!
 	//		if (!ft_stack_is_sort(a))
 	//		{
-				if (a->top->grp)
+				//if (a->top->grp && current_grp->size > 3)
+				while (a->top->grp && current_grp->size > 3)
 				{
 					ft_pop_clear_stk(&info_grp);
 					info_grp = ft_get_grp_stk(a);
-					ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-					if (info_grp->size)
-						ft_print_top_stack(info_grp);
-					ft_putendl("\033[0m");
+			//		ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+			//		if (info_grp->size)
+			//			ft_print_top_stack(info_grp);
+			//		ft_putendl("\033[0m");
 					info = info_grp->top;
 					ft_pop_clear_stk(&current_grp);
 					current_grp = ft_get_stk_4_med(a, info->grp);
-					ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-					if (current_grp->size)
-						ft_print_top_stack(current_grp);
-					ft_putendl("\033[0m");
+			//		ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+			//		if (current_grp->size)
+			//			ft_print_top_stack(current_grp);
+			//		ft_putendl("\033[0m");
 					size_current_grp = current_grp->size;
 					ft_free_args(current_grp_tab);
 					current_grp_tab = ft_stack_to_tab(current_grp);
 					pivot = ft_get_median(current_grp_tab, size_current_grp);
 					size = size_current_grp;
-					printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-					ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-					if (a->size)
-						ft_print_top_stack(a);
-					ft_putendl("\033[0m");
-					ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-					if (b->size)
-						ft_print_top_stack(b);
-					ft_putendl("\033[0m");
+				//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+				//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+				//	if (a->size)
+				//		ft_print_top_stack(a);
+				//	ft_putendl("\033[0m");
+				//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+				//	if (b->size)
+				//		ft_print_top_stack(b);
+				//	ft_putendl("\033[0m");
 					i = 0;
 					while (size--)
 					{
 						if (a->top->value <= pivot.me || a->top->value == pivot.min)
 						{
 							ft_push_stack(&a, &b);
+							ft_sort_two(b);
 
 						}
-						else if (a->top->value > pivot.me)
+						else if (a->top->value > pivot.min)
 						{
 							ft_rotate_stack(&a);
 							i++;
@@ -568,8 +573,9 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 				//	ft_pop_clear_stk(&info_grp);
 				//	ft_pop_clear_stk(&current_grp);
 				//	ft_free_args(current_grp_tab);
-					if (!ft_stack_a_is_sort(a))
-						ft_divide_stack_b_v3(a, b);
+			//		if (!ft_stack_is_sort(a))
+			//			printf("faut que je trouve un moyen de diviser la partie encore sur A\n");
+					//	ft_divide_stack_b_v3(a, b);
 			}
 			// faudrait faire une fn qui checke si le groupe pose sur A est trie pour pas repushe sur b inutilement
 		}
@@ -587,6 +593,7 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 			{
 				if (ft_sort_top_prev_pprev(b, a) || ft_sort_top_pprev_prev(b, a) || ft_sort_prev_pprev_top(b, a) || ft_sort_prev_top_pprev(b, a) || ft_sort_pprev_top_prev(b, a) || ft_sort_pprev_prev_top(b, a))
 				{
+					//printf("est ce que c'est legitime ?\n");
 				}
 			}
 		}
