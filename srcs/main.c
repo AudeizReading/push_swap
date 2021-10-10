@@ -101,15 +101,15 @@ t_bool ft_sort_top_prev_pprev(t_stk *src, t_stk *dst)
 		}
 		else if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
-			printf("blue\n");
+			//ft_putendl("\033[34;1m--------------------------------------------------------------------------------");
+			//printf("blue\n");
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(dst);
 			ft_push_stack(&src, &dst);
-			ft_putendl("\033[0m");
+			//ft_putendl("\033[0m");
 			return (e_true);
 		}
 	}
@@ -132,12 +132,12 @@ t_bool ft_sort_pprev_prev_top(t_stk *src, t_stk *dst)
 	{
 		if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-			printf("yellow\n");
+		//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+		//	printf("yellow\n");
 			ft_push_stack(&src, &dst);
 			ft_push_stack(&src, &dst);
 			ft_push_stack(&src, &dst);
-			ft_putendl("\033[0m");
+	//		ft_putendl("\033[0m");
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "a"))
@@ -178,14 +178,14 @@ t_bool ft_sort_prev_top_pprev(t_stk *src, t_stk *dst)
 		}
 		else if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-			printf("vert\n");
+	//		ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+	//		printf("vert\n");
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(dst);
 			ft_push_stack(&src, &dst);
-			ft_putendl("\033[0m");
+		//	ft_putendl("\033[0m");
 			return (e_true);
 		}
 	}
@@ -208,13 +208,13 @@ t_bool ft_sort_pprev_top_prev(t_stk *src, t_stk *dst)
 	{
 		if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-			printf("rouge\n");
+		//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+	//		printf("rouge\n");
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_push_stack(&src, &dst);
 			ft_push_stack(&src, &dst);
-			ft_putendl("\033[0m");
+	//		ft_putendl("\033[0m");
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "a"))
@@ -254,14 +254,14 @@ t_bool ft_sort_top_pprev_prev(t_stk *src, t_stk *dst)
 		}
 		else if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_putendl("\033[41;37;1m-----------------------------------------------------------------------------");
-			printf("bg rouge fg white\n");
+	//		ft_putendl("\033[41;37;1m-----------------------------------------------------------------------------");
+//			printf("bg rouge fg white\n");
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_push_stack(&src, &dst);
-			ft_putendl("\033[0m");
+	//		ft_putendl("\033[0m");
 			return (e_true);
 		}
 	}
@@ -284,13 +284,13 @@ t_bool ft_sort_prev_pprev_top(t_stk *src, t_stk *dst)
 	{
 		if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_putendl("\033[36;1m--------------------------------------------------------------------------------");
-			printf("cyan\n");
+	//		ft_putendl("\033[36;1m--------------------------------------------------------------------------------");
+	//		printf("cyan\n");
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_push_stack(&src, &dst);
-			ft_putendl("\033[0m");
+	//		ft_putendl("\033[0m");
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "a"))
@@ -313,8 +313,11 @@ t_stk	*ft_get_grp_stk(t_stk *stack)
 	t_stk		*grp;
 	t_stk_elt	*elt;
 	t_stk_elt	*tmp;
+	char		*grp_name;
 	
-	grp = ft_init_stack("grp");
+	grp_name = ft_strjoin("grp ", stack->stk_name);
+	//grp = ft_init_stack("grp");
+	grp = ft_init_stack(grp_name);
 	if (!grp || !stack)
 		return (NULL);
 	tmp = stack->top;
@@ -328,6 +331,7 @@ t_stk	*ft_get_grp_stk(t_stk *stack)
 		grp->base->value++;
 		tmp = tmp->prev;
 	}
+	free(grp_name);
 	if (!grp->size)
 		return (NULL);
 	return (grp);
@@ -419,11 +423,11 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 	if (info_grp->size)
 		ft_print_top_stack(info_grp);
 	ft_putendl("\033[0m");
-//	if (b->base->grp > info_grp->top->grp && b->base->value > b->top->value)
-//	{
-//		ft_swap(&info_grp->top->value, &info_grp->base->value);
-//		ft_swap(&info_grp->top->grp, &info_grp->base->grp);
-//	}
+	if (b->base->grp > info_grp->top->grp && b->base->value > b->top->value)
+	{
+		ft_swap(&info_grp->top->value, &info_grp->base->value);
+		ft_swap(&info_grp->top->grp, &info_grp->base->grp);
+	}
 	info = info_grp->top;
 	current_grp = ft_get_stk_4_med(b, info->grp);
 	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
@@ -443,14 +447,14 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 	if (b->size)
 		ft_print_top_stack(b);
 	ft_putendl("\033[0m");
-	if (ft_stack_is_sort(b))
+	if (ft_stack_is_sort(b) && !ft_strcmp(b->stk_name, "b"))
 	{
 		while (b->size)
 			ft_push_stack(&b, &a);
 	}
 	else if ((ft_stack_is_sort(a) && !b->size))
 		return ;
-	else if (b->size < 4)
+	else if (b->size < 4 && b->top->grp)
 	{
 		if (!ft_sort_three(b))
 			ft_sort_two(b);
@@ -461,16 +465,19 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 	{
 		if (current_grp->size > 3)
 		{
+			int	i;
+			i = 0;
 			while (size--)
 			{
 				ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
-				printf("c'est ici qu'il faut que je divise les groupes trop grands grace a la mediane \n");
-				if (b->top->value > pivot.me || b->top->value == pivot.max)
+		//		printf("c'est ici qu'il faut que je divise les groupes trop grands grace a la mediane \n");
+				if (b->top->value > pivot.q3 || b->top->value == pivot.max)
 					ft_push_stack(&b, &a);
-				else if (b->top->value <= pivot.me)
+				else if (b->top->value <= pivot.q3)
 				{
 					ft_rotate_stack(&b);
-					b->base->grp++;
+					b->base->grp += 1000;
+					i++;
 				}
 				ft_putendl("");
 				if (a->size)
@@ -480,13 +487,89 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 					ft_print_top_stack(b);
 				ft_putendl("\033[0m");
 			}
-			size = size_current_grp / 2;
-			if ((size_current_grp % 2))
-				size++;
-			// si c'est le dernier groupe pas besoin
-			while (size-- && info->prev)
+		//	size = 3 * (size_current_grp / 4);
+			//size = size_current_grp / 2;
+		//	if ((size_current_grp % 2))
+		//		size++;
+			while (i-- && info->prev)
 			{
 				ft_rotate_reverse_stack(&b);
+			}
+			// mettre les grps a 0 si tries dans a!
+	//		if (!ft_stack_is_sort(a))
+	//		{
+				if (a->top->grp)
+				{
+					ft_pop_clear_stk(&info_grp);
+					info_grp = ft_get_grp_stk(a);
+					ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+					if (info_grp->size)
+						ft_print_top_stack(info_grp);
+					ft_putendl("\033[0m");
+					info = info_grp->top;
+					ft_pop_clear_stk(&current_grp);
+					current_grp = ft_get_stk_4_med(a, info->grp);
+					ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+					if (current_grp->size)
+						ft_print_top_stack(current_grp);
+					ft_putendl("\033[0m");
+					size_current_grp = current_grp->size;
+					ft_free_args(current_grp_tab);
+					current_grp_tab = ft_stack_to_tab(current_grp);
+					pivot = ft_get_median(current_grp_tab, size_current_grp);
+					size = size_current_grp;
+					printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+					ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+					if (a->size)
+						ft_print_top_stack(a);
+					ft_putendl("\033[0m");
+					ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+					if (b->size)
+						ft_print_top_stack(b);
+					ft_putendl("\033[0m");
+					i = 0;
+					while (size--)
+					{
+						if (a->top->value <= pivot.me || a->top->value == pivot.min)
+						{
+							ft_push_stack(&a, &b);
+
+						}
+						else if (a->top->value > pivot.me)
+						{
+							ft_rotate_stack(&a);
+							i++;
+						}
+					}
+					size = i;
+					while (i-- && info->prev)
+					{
+						ft_rotate_reverse_stack(&a);
+					}
+		//		}
+		/*i = 0;
+				while (size--)
+				{
+					if (a->top->value <= pivot.me || a->top->value == pivot.min)
+					{
+						ft_push_stack(&a, &b);
+
+					}
+					else if (a->top->value > pivot.me)
+					{
+						ft_rotate_stack(&a);
+						i++;
+					}
+				}
+				while (i--)
+				{
+					ft_rotate_reverse_stack(&a);
+				}*/
+				//	ft_pop_clear_stk(&info_grp);
+				//	ft_pop_clear_stk(&current_grp);
+				//	ft_free_args(current_grp_tab);
+					if (!ft_stack_a_is_sort(a))
+						ft_divide_stack_b_v3(a, b);
 			}
 			// faudrait faire une fn qui checke si le groupe pose sur A est trie pour pas repushe sur b inutilement
 		}
@@ -509,13 +592,21 @@ void	ft_divide_stack_b_v3(t_stk *b, t_stk *a)
 		}
 	//	if (!ft_remains_grp_in_stack(b, info->grp) && info->prev)
 	//		info = info->prev;
+	//	ft_pop_clear_stk(&info_grp);
+	//	ft_pop_clear_stk(&current_grp);
+	//	ft_free_args(current_grp_tab);
 		ft_divide_stack_b_v3(b, a);
 	}
+	else
+		return ;
 
 		// free elts
-	ft_pop_clear_stk(&info_grp);
-	ft_pop_clear_stk(&current_grp);
-	ft_free_args(current_grp_tab);
+	if (info_grp)
+		ft_pop_clear_stk(&info_grp);
+	if (current_grp)
+		ft_pop_clear_stk(&current_grp);
+	if (current_grp_tab)
+		ft_free_args(current_grp_tab);
 }
 
 void	ft_divide_stack_b_v2(t_stk *b, t_stk *a)
@@ -695,7 +786,7 @@ int	main(int argc, char **argv)
 	//	ft_sort_two(a);
 //		ft_sort_three(a);
 //		ft_sort_five(a, b);
-		ft_print_top_stack(a);
+//		ft_print_top_stack(a);
 	//	ft_push_swap(a, b);
 	/*	while (!ft_stack_is_sort(a))
 		{
@@ -724,10 +815,10 @@ int	main(int argc, char **argv)
 //		ft_sort_prev_top_pprev(b, a);
 //		ft_sort_pprev_top_prev(b, a);
 //		ft_sort_pprev_prev_top(b, a);
-		if (a->size)
+/*		if (a->size)
 			ft_print_top_stack(a);
 		if (b->size)
-			ft_print_top_stack(b);
+			ft_print_top_stack(b);*/
 //		ft_divide_stack_b_v2(b, a);
 //		if (b->size)
 //			ft_divide_stack_b_v3(b, a);
