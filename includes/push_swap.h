@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 15:37:12 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:44:01 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void		rrr(t_stk **a, t_stk **b);
 
 /* Median */
 t_piv		ft_get_median(char **args, int end);
+t_stk		*ft_get_grp_stk(t_stk *stack);
+t_stk		*ft_get_stk_4_med(t_stk *stack, int grp);
 
 /* Sorting Elts */
 t_bool		ft_stack_a_is_sort(t_stk *stack);

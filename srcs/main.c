@@ -6,65 +6,6 @@
 **   - breaking by mates
 */
 
-// Recupere dans une liste chainee les valeurs des diff grp crees via la stack A
-// (membre grp) et le nombre d'elts par grp (membre valeur)
-t_stk	*ft_get_grp_stk(t_stk *stack)
-{
-	t_stk		*grp;
-	t_stk_elt	*elt;
-	t_stk_elt	*tmp;
-	
-	grp = ft_init_stack("grp");
-	if (!grp || !stack)
-		return (NULL);
-	tmp = stack->top;
-	while (tmp)
-	{
-		if (tmp->next == NULL || tmp->grp != tmp->next->grp)
-		{
-			elt = ft_init_stk_elt(0, tmp->grp, grp->stk_name);
-			ft_stkadd_front(&grp, elt);
-		}
-		grp->base->value++;
-		tmp = tmp->prev;
-	}
-	if (!grp->size)
-		return (NULL);
-	return (grp);
-}
-
-// recupere le groupe dans une liste chainee afin de pouvoir en calculer la
-//	mediane
-t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
-{
-	t_stk		*stk_grp;
-	t_stk_elt	*elt_grp;
-	t_stk_elt	*tmp;
-
-	if (!stack || !stack->size || !grp)
-		return (NULL);
-	tmp = stack->top;
-	stk_grp = ft_init_stack("stk_4_med");
-	if (!stk_grp)
-		return (NULL);
-	while (tmp)
-	{
-		if (tmp->grp == grp)
-		{
-			elt_grp = ft_init_stk_elt(tmp->value, tmp->grp, stk_grp->stk_name);
-			if (!elt_grp)
-			{
-				ft_pop_clear_stk(&stk_grp);
-				return (NULL);
-			}
-			ft_stkadd_front(&stk_grp, elt_grp);
-		}
-		tmp = tmp->prev;
-	}
-	if (!stk_grp->size)
-		return (NULL);
-	return (stk_grp);
-}
 
 void	ft_divide_stack_b(t_stk *b, t_stk *a)
 {
@@ -72,19 +13,15 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	t_stk		*info_grp;
 	t_stk		*current_grp;
 	char		**current_grp_tab;
-	t_stk_elt	*info;
-	int			size_current_grp;
 	int			size;
 
 	if (!b->size)
 		return ;
 	info_grp = ft_get_grp_stk(b);
-	info = info_grp->top;
-	current_grp = ft_get_stk_4_med(b, info->grp);
-	size_current_grp = current_grp->size;
+	current_grp = ft_get_stk_4_med(b, info_grp->top->grp);
 	current_grp_tab = ft_stack_to_tab(current_grp);
-	pivot = ft_get_median(current_grp_tab, size_current_grp);
-	size = size_current_grp;
+	pivot = ft_get_median(current_grp_tab, current_grp->size);
+	size = current_grp->size;
 	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
@@ -126,7 +63,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 					i--;
 				}
 			}
-			while (i-- && info->prev)
+			while (i-- && info_grp->top->prev)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_sort_two(b);
@@ -137,14 +74,12 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 				{
 					ft_pop_clear_stk(&info_grp);
 					info_grp = ft_get_grp_stk(a);
-					info = info_grp->top;
 					ft_pop_clear_stk(&current_grp);
-					current_grp = ft_get_stk_4_med(a, info->grp);
-					size_current_grp = current_grp->size;
+					current_grp = ft_get_stk_4_med(a, info_grp->top->grp);
 					ft_free_args(current_grp_tab);
 					current_grp_tab = ft_stack_to_tab(current_grp);
-					pivot = ft_get_median(current_grp_tab, size_current_grp);
-					size = size_current_grp;
+	pivot = ft_get_median(current_grp_tab, current_grp->size);
+	size = current_grp->size;
 					i = 0;
 					while (size--)
 					{
@@ -167,7 +102,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 							i--;
 						}
 					}
-					while (i-- && info->prev)
+					while (i-- && info_grp->top->prev)
 					{
 						ft_rotate_reverse_stack(&a);
 						ft_sort_two(a);
@@ -183,14 +118,9 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 			{
 				ft_sort_two(b);
 				ft_push_stack_nb(b, a, 2);
-			//	ft_push_stack(&b, &a);
-			//	ft_push_stack(&b, &a);
 			}
 			else
 			{
-				//if (ft_sort_t_p_pp(b, a) || ft_sort_t_pp_p(b, a) || ft_sort_p_pp_t(b, a) || ft_sort_p_t_pp(b, a) || ft_sort_pp_t_p(b, a) || ft_sort_pp_p_t(b, a))
-				//{
-				//}
 				if (!ft_sort_3_elts_side_by_side(b, a))
 					return ;
 			}
