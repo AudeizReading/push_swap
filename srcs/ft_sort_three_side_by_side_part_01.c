@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:28:58 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 15:38:16 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/11 15:48:14 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_push_stack_nb(t_stk *src, t_stk *dst, int nb)
 		ft_push_stack(&src, &dst);
 }
 
+/* tgl is for toggle -> thank you the norm*/
 void	ft_swap_bef_push_stack(t_stk *src, t_stk *dst, t_bool tgl, int nb)
 {
 	if (!src->size || !dst->size)
@@ -49,153 +50,6 @@ void	ft_sort_231_or_213(t_stk *src, t_stk *dst)
 	ft_swap_bef_push_stack(src, dst, e_true, 1);
 }
 
-/* 1 2 3 */
-t_bool ft_sort_t_p_pp(t_stk *src, t_stk *dst)
-{
-	long	top;
-	long	prev;
-	long	pprev;
-
-	if (!src->size || !dst->size)
-		return (e_false);
-	top = src->top->value;
-	prev = src->top->prev->value;
-	pprev = src->top->prev->prev->value;
-	if (top < prev && top < pprev && prev < pprev)
-	{
-		if (!ft_strcmp(src->stk_name, "a"))
-		{
-			ft_push_stack_nb(src, dst, 3);
-			return (e_true);
-		}
-		else if (!ft_strcmp(src->stk_name, "b"))
-		{
-			ft_sort_descending_order(src, dst);
-			return (e_true);
-		}
-	}
-	return (e_false);
-}
-
-/* 3 2 1 */
-t_bool ft_sort_pp_p_t(t_stk *src, t_stk *dst)
-{
-	long	top;
-	long	prev;
-	long	pprev;
-
-	if (!src->size || !dst->size)
-		return (e_false);
-	top = src->top->value;
-	prev = src->top->prev->value;
-	pprev = src->top->prev->prev->value;
-	if (top > prev && top > pprev && prev > pprev)
-	{
-		if (!ft_strcmp(src->stk_name, "b"))
-		{
-			ft_push_stack_nb(src, dst, 3);
-			return (e_true);
-		}
-		else if (!ft_strcmp(src->stk_name, "a"))
-		{
-			ft_sort_descending_order(src, dst);
-			return (e_true);
-		}
-	}
-	return (e_false);
-}
-
-/* 2 1 3 */
-t_bool ft_sort_p_t_pp(t_stk *src, t_stk *dst)
-{
-	long	top;
-	long	prev;
-	long	pprev;
-
-	if (!src->size || !dst->size)
-		return (e_false);
-	top = src->top->value;
-	prev = src->top->prev->value;
-	pprev = src->top->prev->prev->value;
-	if (top > prev && top < pprev && prev < pprev)
-	{
-		if (!ft_strcmp(src->stk_name, "a"))
-		{
-			ft_swap_bef_push_stack(src, dst, e_false, 3);
-			return (e_true);
-		}
-		else if (!ft_strcmp(src->stk_name, "b"))
-		{
-			ft_sort_231_or_213(src, dst);
-		/*	ft_push_stack(&src, &dst);
-			ft_swap_bef_push_stack(src, dst, e_false, 1);
-			ft_swap_bef_push_stack(src, dst, e_true, 1);*/
-			return (e_true);
-		}
-	}
-	return (e_false);
-}
-
-/* 2 3 1 */
-t_bool ft_sort_pp_t_p(t_stk *src, t_stk *dst)
-{
-	long	top;
-	long	prev;
-	long	pprev;
-
-	if (!src->size || !dst->size)
-		return (e_false);
-	top = src->top->value;
-	prev = src->top->prev->value;
-	pprev = src->top->prev->prev->value;
-	if (top < prev && top > pprev && prev > pprev)
-	{
-		if (!ft_strcmp(src->stk_name, "b"))
-		{
-			ft_swap_bef_push_stack(src, dst, e_false, 3);
-			return (e_true);
-		}
-		else if (!ft_strcmp(src->stk_name, "a"))
-		{
-			ft_sort_231_or_213(src, dst);
-			/*ft_push_stack(&src, &dst);
-			ft_swap_bef_push_stack(src, dst, e_false, 1);
-			ft_swap_bef_push_stack(src, dst, e_true, 1);*/
-			return (e_true);
-		}
-	}
-	return (e_false);
-}
-
-/* 1 3 2 */
-t_bool ft_sort_t_pp_p(t_stk *src, t_stk *dst)
-{
-	long	top;
-	long	prev;
-	long	pprev;
-
-	if (!src->size || !dst->size)
-		return (e_false);
-	top = src->top->value;
-	prev = src->top->prev->value;
-	pprev = src->top->prev->prev->value;
-	if (top < prev && top < pprev && pprev < prev)
-	{
-		if (!ft_strcmp(src->stk_name, "a"))
-		{
-			ft_push_stack(&src, &dst);
-			ft_swap_bef_push_stack(src, dst, e_false, 2);
-			return (e_true);
-		}
-		else if (!ft_strcmp(src->stk_name, "b"))
-		{
-			ft_swap_bef_push_stack(src, dst, e_false, 1);
-			ft_swap_bef_push_stack(src, dst, e_false, 2);
-			return (e_true);
-		}
-	}
-	return (e_false);
-}
 
 /* 3 1 2 */
 t_bool ft_sort_p_pp_t(t_stk *src, t_stk *dst)
