@@ -6,6 +6,14 @@
 **   - breaking by mates
 */
 
+void	ft_push_stack_nb(t_stk *src, t_stk *dst, int nb)
+{
+	if (!nb)
+		return ;
+	while (nb--)
+		ft_push_stack(&src, &dst);
+}
+
 // 1 2 3
 t_bool ft_sort_top_prev_pprev(t_stk *src, t_stk *dst)
 {
@@ -22,9 +30,7 @@ t_bool ft_sort_top_prev_pprev(t_stk *src, t_stk *dst)
 	{
 		if (!ft_strcmp(src->stk_name, "a"))
 		{
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 3);
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "b"))
@@ -57,9 +63,7 @@ t_bool ft_sort_pprev_prev_top(t_stk *src, t_stk *dst)
 	{
 		if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 3);
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "a"))
@@ -93,9 +97,7 @@ t_bool ft_sort_prev_top_pprev(t_stk *src, t_stk *dst)
 		if (!ft_strcmp(src->stk_name, "a"))
 		{
 			ft_swap_stack(src);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 3);
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "b"))
@@ -128,9 +130,7 @@ t_bool ft_sort_pprev_top_prev(t_stk *src, t_stk *dst)
 		if (!ft_strcmp(src->stk_name, "b"))
 		{
 			ft_swap_stack(src);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 3);
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "a"))
@@ -162,10 +162,8 @@ t_bool ft_sort_top_pprev_prev(t_stk *src, t_stk *dst)
 	{
 		if (!ft_strcmp(src->stk_name, "a"))
 		{
-			ft_push_stack(&src, &dst);
-			ft_swap_stack(src);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 3);
+			ft_swap_stack(dst);
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "b"))
@@ -173,8 +171,7 @@ t_bool ft_sort_top_pprev_prev(t_stk *src, t_stk *dst)
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(src);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 2);
 			return (e_true);
 		}
 	}
@@ -197,10 +194,8 @@ t_bool ft_sort_prev_pprev_top(t_stk *src, t_stk *dst)
 	{
 		if (!ft_strcmp(src->stk_name, "b"))
 		{
-			ft_push_stack(&src, &dst);
-			ft_swap_stack(src);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 3);
+			ft_swap_stack(dst);
 			return (e_true);
 		}
 		else if (!ft_strcmp(src->stk_name, "a"))
@@ -208,8 +203,7 @@ t_bool ft_sort_prev_pprev_top(t_stk *src, t_stk *dst)
 			ft_swap_stack(src);
 			ft_push_stack(&src, &dst);
 			ft_swap_stack(src);
-			ft_push_stack(&src, &dst);
-			ft_push_stack(&src, &dst);
+			ft_push_stack_nb(src, dst, 2);
 			return (e_true);
 		}
 	}
@@ -242,23 +236,6 @@ t_stk	*ft_get_grp_stk(t_stk *stack)
 		return (NULL);
 	return (grp);
 }
-
-/*// Check si il reste un elt du grp dans la stack
-t_bool	ft_remains_grp_in_stack(t_stk *stack, int grp)
-{
-	t_stk_elt	*tmp;
-
-	if (!stack)
-		return (e_false);
-	tmp = stack->top;
-	while (tmp)
-	{
-		if (tmp->grp == grp)
-			return (e_true);
-		tmp = tmp->prev;
-	}
-	return (e_false);
-}*/
 
 // recupere le groupe dans une liste chainee afin de pouvoir en calculer la
 //	mediane
@@ -306,29 +283,12 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	if (!b->size)
 		return ;
 	info_grp = ft_get_grp_stk(b);
-//	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-//	if (info_grp->size)
-//		ft_print_top_stack(info_grp);
-//	ft_putendl("\033[0m");
 	info = info_grp->top;
 	current_grp = ft_get_stk_4_med(b, info->grp);
-//	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-//	if (current_grp->size)
-//		ft_print_top_stack(current_grp);
-//	ft_putendl("\033[0m");
 	size_current_grp = current_grp->size;
 	current_grp_tab = ft_stack_to_tab(current_grp);
 	pivot = ft_get_median(current_grp_tab, size_current_grp);
 	size = size_current_grp;
-//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-//	if (a->size)
-//		ft_print_top_stack(a);
-//	ft_putendl("\033[0m");
-//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-//	if (b->size)
-//		ft_print_top_stack(b);
-//	ft_putendl("\033[0m");
 	if (ft_stack_is_sort(b))
 	{
 		while (b->size)
@@ -340,8 +300,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	{
 		if (!ft_sort_three(b))
 			ft_sort_two(b);
-		while (b->size)
-			ft_push_stack(&b, &a);
+		ft_push_stack_nb(b, a, b->size);
 	}
 	else if (b->size > 3)
 	{
@@ -351,7 +310,6 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 			i = 0;
 			while (size--)
 			{
-			//	ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
 				if (b->top->value >= pivot.q3)
 				{
 					ft_push_stack(&b, &a);
@@ -370,51 +328,26 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 					ft_sort_two(a);
 					i--;
 				}
-			//	ft_putendl("");
-			//	if (a->size)
-			//		ft_print_top_stack(a);
-			//	ft_putendl("");
-			//	if (b->size)
-			//		ft_print_top_stack(b);
-			//	ft_putendl("\033[0m");
 			}
 			while (i-- && info->prev)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_sort_two(b);
 			}
-			// mettre les grps a 0 si tries dans a!
 			if (!ft_stack_is_sort(a))
 			{
 				while (current_grp->size > 3)
 				{
 					ft_pop_clear_stk(&info_grp);
 					info_grp = ft_get_grp_stk(a);
-			//		ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-			//		if (info_grp->size)
-			//			ft_print_top_stack(info_grp);
-			//		ft_putendl("\033[0m");
 					info = info_grp->top;
 					ft_pop_clear_stk(&current_grp);
 					current_grp = ft_get_stk_4_med(a, info->grp);
-			//		ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-			//		if (current_grp->size)
-			//			ft_print_top_stack(current_grp);
-			//		ft_putendl("\033[0m");
 					size_current_grp = current_grp->size;
 					ft_free_args(current_grp_tab);
 					current_grp_tab = ft_stack_to_tab(current_grp);
 					pivot = ft_get_median(current_grp_tab, size_current_grp);
 					size = size_current_grp;
-				//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-				//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-				//	if (a->size)
-				//		ft_print_top_stack(a);
-				//	ft_putendl("\033[0m");
-				//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-				//	if (b->size)
-				//		ft_print_top_stack(b);
-				//	ft_putendl("\033[0m");
 					i = 0;
 					while (size--)
 					{
@@ -437,7 +370,6 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 							i--;
 						}
 					}
-					//size = i;
 					while (i-- && info->prev)
 					{
 						ft_rotate_reverse_stack(&a);
@@ -453,8 +385,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 			else if (current_grp->size == 2)
 			{
 				ft_sort_two(b);
-				ft_push_stack(&b, &a);
-				ft_push_stack(&b, &a);
+				ft_push_stack_nb(b, a, 2);
 			}
 			else
 			{
@@ -483,6 +414,48 @@ void	ft_push_swap(t_stk *a, t_stk *b)
 	ft_divide_stack_a(a, b);
 	ft_divide_stack_b(b, a);
 }
+//	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+//	if (info_grp->size)
+//		ft_print_top_stack(info_grp);
+//	ft_putendl("\033[0m");
+//	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+//	if (current_grp->size)
+//		ft_print_top_stack(current_grp);
+//	ft_putendl("\033[0m");
+//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+//	if (a->size)
+//		ft_print_top_stack(a);
+//	ft_putendl("\033[0m");
+//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+//	if (b->size)
+//		ft_print_top_stack(b);
+//	ft_putendl("\033[0m");
+			//	ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
+			//	ft_putendl("");
+			//	if (a->size)
+			//		ft_print_top_stack(a);
+			//	ft_putendl("");
+			//	if (b->size)
+			//		ft_print_top_stack(b);
+			//	ft_putendl("\033[0m");
+			//		ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
+			//		if (info_grp->size)
+			//			ft_print_top_stack(info_grp);
+			//		ft_putendl("\033[0m");
+			//		ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
+			//		if (current_grp->size)
+			//			ft_print_top_stack(current_grp);
+			//		ft_putendl("\033[0m");
+			//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
+			//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+			//	if (a->size)
+			//		ft_print_top_stack(a);
+			//	ft_putendl("\033[0m");
+			//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+			//	if (b->size)
+			//		ft_print_top_stack(b);
+			//	ft_putendl("\033[0m");
 
 // Si la liste est deja triee en entree -> return 0
 int	main(int argc, char **argv)
