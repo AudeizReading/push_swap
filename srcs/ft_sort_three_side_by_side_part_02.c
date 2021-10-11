@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:49 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 15:46:04 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/11 15:52:29 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* value. Thank you the norm */
 
 /* 1 2 3 */
-t_bool ft_sort_t_p_pp(t_stk *src, t_stk *dst)
+t_bool	ft_sort_t_p_pp(t_stk *src, t_stk *dst)
 {
 	long	top;
 	long	prev;
@@ -44,7 +44,7 @@ t_bool ft_sort_t_p_pp(t_stk *src, t_stk *dst)
 }
 
 /* 3 2 1 */
-t_bool ft_sort_pp_p_t(t_stk *src, t_stk *dst)
+t_bool	ft_sort_pp_p_t(t_stk *src, t_stk *dst)
 {
 	long	top;
 	long	prev;
@@ -72,7 +72,7 @@ t_bool ft_sort_pp_p_t(t_stk *src, t_stk *dst)
 }
 
 /* 2 1 3 */
-t_bool ft_sort_p_t_pp(t_stk *src, t_stk *dst)
+t_bool	ft_sort_p_t_pp(t_stk *src, t_stk *dst)
 {
 	long	top;
 	long	prev;
@@ -100,7 +100,7 @@ t_bool ft_sort_p_t_pp(t_stk *src, t_stk *dst)
 }
 
 /* 2 3 1 */
-t_bool ft_sort_pp_t_p(t_stk *src, t_stk *dst)
+t_bool	ft_sort_pp_t_p(t_stk *src, t_stk *dst)
 {
 	long	top;
 	long	prev;
@@ -128,7 +128,7 @@ t_bool ft_sort_pp_t_p(t_stk *src, t_stk *dst)
 }
 
 /* 1 3 2 */
-t_bool ft_sort_t_pp_p(t_stk *src, t_stk *dst)
+t_bool	ft_sort_t_pp_p(t_stk *src, t_stk *dst)
 {
 	long	top;
 	long	prev;
