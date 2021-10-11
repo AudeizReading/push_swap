@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/08 09:07:27 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/11 15:37:12 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ void		rrr(t_stk **a, t_stk **b);
 /* Median */
 t_piv		ft_get_median(char **args, int end);
 
-/* Algos */
-void		ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
+/* Sorting Elts */
 t_bool		ft_stack_a_is_sort(t_stk *stack);
 t_bool		ft_stack_b_is_sort(t_stk *stack);
 t_bool		ft_stack_is_sort(t_stk *stack);
@@ -103,13 +102,24 @@ t_bool		ft_sort_three(t_stk *stack);
 t_bool		ft_sort_top_prev(t_stk *stack);
 t_bool		ft_sort_prev_top(t_stk *stack);
 t_bool		ft_sort_two(t_stk *stack);
-//void		ft_a_inf_med(t_stk *a, t_stk *b, int grp, long *n);
-void		ft_a_inf_med(t_stk *a, t_stk *b, int grp);
-//t_piv		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
-void		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
-//t_stk		*ft_divide_stack_a(t_stk *a, t_stk *b);
-void		ft_divide_stack_a(t_stk *a, t_stk *b);
 void		ft_sort_five(t_stk *a, t_stk *b);
+void		ft_push_stack_nb(t_stk *src, t_stk *dst, int nb);
+void		ft_swap_bef_push_stack(t_stk *src, t_stk *dst, t_bool tgl, int nb);
+void		ft_sort_descending_order(t_stk *src, t_stk *dst);
+void		ft_sort_231_or_213(t_stk *src, t_stk *dst);
+t_bool		ft_sort_t_p_pp(t_stk *src, t_stk *dst);
+t_bool		ft_sort_pp_p_t(t_stk *src, t_stk *dst);
+t_bool		ft_sort_p_t_pp(t_stk *src, t_stk *dst);
+t_bool		ft_sort_pp_t_p(t_stk *src, t_stk *dst);
+t_bool		ft_sort_t_pp_p(t_stk *src, t_stk *dst);
+t_bool		ft_sort_p_pp_t(t_stk *src, t_stk *dst);
+t_bool		ft_sort_3_elts_side_by_side(t_stk *src, t_stk *dst);
+
+/* Algos */
+void		ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
+void		ft_a_inf_med(t_stk *a, t_stk *b, int grp);
+void		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
+void		ft_divide_stack_a(t_stk *a, t_stk *b);
 
 /* Launch Program */
 int	main(int argc, char **argv);
