@@ -228,11 +228,27 @@ t_bool	ft_sort_3_elts_side_by_side(t_stk *src, t_stk *dst)
 
 	if (!src || !dst || src->size < 3)
 		return (e_false);
-	cond_1 = ft_sort_t_p_pp(src, dst) || ft_sort_pp_p_t(src, dst);
-	cond_2 = ft_sort_pp_t_p(src, dst) || ft_sort_p_t_pp(src, dst);
-	cond_3 = ft_sort_p_pp_t(src, dst) || ft_sort_t_pp_p(src, dst);
+	cond_1 = ft_sort_t_p_pp(src, dst) || ft_sort_t_pp_p(src, dst);
+	cond_2 = ft_sort_p_pp_t(src, dst) || ft_sort_p_t_pp(src, dst);
+	cond_3 = ft_sort_pp_t_p(src, dst) || ft_sort_pp_p_t(src, dst);
+	//cond_1 = ft_sort_t_p_pp(src, dst) || ft_sort_pp_p_t(src, dst);
+	//cond_2 = ft_sort_pp_t_p(src, dst) || ft_sort_p_t_pp(src, dst);
+	//cond_3 = ft_sort_p_pp_t(src, dst) || ft_sort_t_pp_p(src, dst);
+	printf("pourquoi ca plante ?\n");
+	printf("cond_1 (t_p_pp et t_pp_p) [%d]\n", cond_1);
+	printf("cond_2 (p_pp_t et p_t_pp) [%d]\n", cond_2);
+	printf("cond_3 (pp_t_p et pp_p_t) [%d]\n", cond_3);
+//	printf("t_p_pp [%d]\n", ft_sort_t_p_pp(src, dst));
+//	printf("t_pp_p [%d]\n", ft_sort_t_pp_p(src, dst));
+//	printf("p_pp_t [%d]\n", ft_sort_p_pp_t(src, dst));
+//	printf("p_t_pp [%d]\n", ft_sort_p_t_pp(src, dst));
+//	printf("pp_p_t [%d]\n", ft_sort_pp_p_t(src, dst));
+//	printf("pp_t_p [%d]\n", ft_sort_pp_t_p(src, dst));
+	//if (ft_sort_t_p_pp(src, dst) || ft_sort_t_pp_p(src, dst) || ft_sort_p_pp_t(src, dst) || ft_sort_p_t_pp(src, dst) || ft_sort_pp_t_p(src, dst) || ft_sort_pp_p_t(src, dst))
 	if (cond_1 || cond_2 || cond_3)
+	{
 		return (e_true);
+	}
 	return (e_false);
 }
 
@@ -417,12 +433,11 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 			}
 			else
 			{
-				if (ft_sort_t_p_pp(b, a) || ft_sort_t_pp_p(b, a) || ft_sort_p_pp_t(b, a) || ft_sort_p_t_pp(b, a) || ft_sort_pp_t_p(b, a) || ft_sort_pp_p_t(b, a))
-				{
-					//printf("est ce que c'est legitime ?\n");
-				}
-				/*if (!ft_sort_3_elts_side_by_side(b, a))
-					return ;*/
+				//if (ft_sort_t_p_pp(b, a) || ft_sort_t_pp_p(b, a) || ft_sort_p_pp_t(b, a) || ft_sort_p_t_pp(b, a) || ft_sort_pp_t_p(b, a) || ft_sort_pp_p_t(b, a))
+				//{
+				//}
+				ft_sort_3_elts_side_by_side(b, a) ;
+				//	return ;
 			}
 		}
 		ft_divide_stack_b(b, a);
@@ -523,6 +538,12 @@ int	main(int argc, char **argv)
 		}
 		// --------------------ALGORITHM-----------------------------------
 		ft_push_swap(a, b);
+		if (a->size && ft_stack_is_sort(a))
+			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+		else if (!ft_stack_is_sort(a))
+			ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+		ft_print_top_stack(a);
+		ft_putendl("\033[0m");
 		// --------------------FREE STACK----------------------------------
 		if (a)
 			ft_pop_clear_stk(&a);
