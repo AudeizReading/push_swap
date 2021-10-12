@@ -141,17 +141,15 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	if (!b->size)
 		return ;
 	current_grp = ft_get_stk_4_med(b, b->top->grp);
+	if (!current_grp)
+		return ;
 	if (ft_stack_is_sort(b))
-	{
 		while (b->size)
 			ft_push_stack(&b, &a);
-	}
 	else if ((ft_stack_is_sort(a) && !b->size))
 		return ;
 	else if (b->size < 4)
-	{
 		ft_sort_little_stack(b, a);
-	}
 	else if (b->size > 3)
 	{
 		ft_sort_big_stack(b, a, current_grp->size);
@@ -159,8 +157,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	}
 	else
 		return ;
-	if (current_grp)
-		ft_pop_clear_stk(&current_grp);
+	ft_pop_clear_stk(&current_grp);
 }
 
 void	ft_push_swap(t_stk *a, t_stk *b)
