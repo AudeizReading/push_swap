@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/12 12:47:47 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/12 22:30:50 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /* Warn: definitely sort args in croissant order */
 t_piv	ft_get_median(char **args, int end)
 {
-	t_piv	pivot;
-	char	**p_args;
+	t_piv		pivot;
+	char		**p_args;
 
 	p_args = args;
 	end--;
@@ -28,9 +28,6 @@ t_piv	ft_get_median(char **args, int end)
 	pivot.q3 = ft_atol(p_args[(5 * end) / 7]);
 	pivot.me = ft_atol(p_args[end / 2]);
 	pivot.max = ft_atol(p_args[end]);
-	// rendement 1/7 5/7 950 8300
-	// rendement 3/14 11/14 855 9600
-	// rendement 3/13 5/7 840 9000
 	return (pivot);
 }
 
