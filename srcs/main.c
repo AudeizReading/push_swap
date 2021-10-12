@@ -18,7 +18,8 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	if (!b->size)
 		return ;
 	info_grp = ft_get_grp_stk(b);
-	current_grp = ft_get_stk_4_med(b, info_grp->top->grp);
+	current_grp = ft_get_stk_4_med(b, b->top->grp);
+	//current_grp = ft_get_stk_4_med(b, info_grp->top->grp);
 	current_grp_tab = ft_stack_to_tab(current_grp);
 	pivot = ft_get_median(current_grp_tab, current_grp->size);
 	size = current_grp->size;
@@ -75,7 +76,8 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 					ft_pop_clear_stk(&info_grp);
 					info_grp = ft_get_grp_stk(a);
 					ft_pop_clear_stk(&current_grp);
-					current_grp = ft_get_stk_4_med(a, info_grp->top->grp);
+					//current_grp = ft_get_stk_4_med(a, info_grp->top->grp);
+					current_grp = ft_get_stk_4_med(a, a->top->grp);
 					ft_free_args(current_grp_tab);
 					current_grp_tab = ft_stack_to_tab(current_grp);
 	pivot = ft_get_median(current_grp_tab, current_grp->size);
@@ -94,15 +96,16 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 							ft_rotate_stack(&a);
 							i++;
 						}
-						else if (a->base->value >= pivot.q3)
+						else if (a->base->value >= pivot.me)
 						{
 							ft_rotate_reverse_stack(&a);
-							ft_push_stack(&a, &b);
+				//			ft_push_stack(&a, &b);
 							ft_sort_two(b);
-							i--;
+				//			i--;
 						}
 					}
 					while (i-- && info_grp->top->prev)
+				//	while (i-- && a->top->grp == a->base->grp)
 					{
 						ft_rotate_reverse_stack(&a);
 						ft_sort_two(a);
@@ -142,6 +145,14 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 void	ft_push_swap(t_stk *a, t_stk *b)
 {
 	ft_divide_stack_a(a, b);
+		if (a->size && ft_stack_is_sort(a))
+			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+		else if (!ft_stack_is_sort(a))
+			ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+		ft_print_top_stack(a);
+		ft_putendl("");
+		ft_print_top_stack(b);
+		ft_putendl("\033[0m");
 	ft_divide_stack_b(b, a);
 }
 //	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
