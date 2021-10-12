@@ -2,7 +2,6 @@
 
 /*   TO-DO LIST 
 **   - norminette
-**   - leaks
 **   - breaking by mates
 */
 
@@ -160,113 +159,71 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	ft_pop_clear_stk(&current_grp);
 }
 
-void	ft_push_swap(t_stk *a, t_stk *b)
+t_bool	ft_are_stacks_ready_2_sort(t_stk *a, t_stk *b, char **args)
 {
-	ft_divide_stack_a(a, b);
-	ft_divide_stack_b(b, a);
-}
-//	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-//	if (info_grp->size)
-//		ft_print_top_stack(info_grp);
-//	ft_putendl("\033[0m");
-//	ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-//	if (current_grp->size)
-//		ft_print_top_stack(current_grp);
-//	ft_putendl("\033[0m");
-//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-//	if (a->size)
-//		ft_print_top_stack(a);
-//	ft_putendl("\033[0m");
-//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-//	if (b->size)
-//		ft_print_top_stack(b);
-//	ft_putendl("\033[0m");
-			//	ft_putendl("\033[44;37;1m--------------------------------------------------------------------------------");
-			//	ft_putendl("");
-			//	if (a->size)
-			//		ft_print_top_stack(a);
-			//	ft_putendl("");
-			//	if (b->size)
-			//		ft_print_top_stack(b);
-			//	ft_putendl("\033[0m");
-			//		ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
-			//		if (info_grp->size)
-			//			ft_print_top_stack(info_grp);
-			//		ft_putendl("\033[0m");
-			//		ft_putendl("\033[35;1m--------------------------------------------------------------------------------");
-			//		if (current_grp->size)
-			//			ft_print_top_stack(current_grp);
-			//		ft_putendl("\033[0m");
-			//	printf("\033[34;1mmin: [%ld], q1: [%ld], me [%ld], q3: [%ld], max: [%ld]\033[0m\n", pivot.min, pivot.q1, pivot.me, pivot.q3, pivot.max);
-			//	ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-			//	if (a->size)
-			//		ft_print_top_stack(a);
-			//	ft_putendl("\033[0m");
-			//	ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-			//	if (b->size)
-			//		ft_print_top_stack(b);
-			//	ft_putendl("\033[0m");
-
-// Si la liste est deja triee en entree -> return 0
-int	main(int argc, char **argv)
-{
-	if (argc > 1)
+	if (!a || !b)
 	{
-		char	**args;
-
-		argv++;
-		// --------------------PARSE ARGV----------------------------------
-		args = ft_parse_args(argc, argv);
-		if (!args)
-			return (-1);
-		// --------------------INIT STACKS---------------------------------
-		t_stk		*a;
-		t_stk		*b;
-
-		a = ft_tab_to_stack(args);
-		b = ft_init_stack("b");
-		if (!a || !b)
-		{
-			if (a)
-				ft_pop_clear_stk(&a);
-			ft_free_args(args);
-			return (-1);
-		}
-		// --------------------QUIT IF STACK SIZE < 2----------------------
-		// --------------------CHECK A IS SORTED---------------------------
-		if (a->size < 2 || ft_stack_a_is_sort(a))
-		{
-			ft_pop_clear_stk(&a);
-			ft_pop_clear_stk(&b);
-			ft_free_args(args);
-			return (0);
-		}
-		// --------------------ALGORITHM-----------------------------------
-		ft_push_swap(a, b);
-/*		if (a->size && ft_stack_is_sort(a))
-			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-		else if (!ft_stack_is_sort(a))
-			ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-		ft_print_top_stack(a);
-		ft_putendl("\033[0m");*/
-		// --------------------FREE STACK----------------------------------
 		if (a)
 			ft_pop_clear_stk(&a);
-		if (b)
-			ft_pop_clear_stk(&b);
-		// --------------------FREE ARGS-----------------------------------
-		// On free le tableau genere par split
 		ft_free_args(args);
+		return (e_false);
+	}
+	return (e_true);
+}
+
+t_bool	ft_is_end_bef_begin(t_stk *a, t_stk *b, char **args)
+{
+	if (a->size < 2 || ft_stack_a_is_sort(a))
+	{
+		ft_pop_clear_stk(&a);
+		ft_pop_clear_stk(&b);
+		ft_free_args(args);
+		return (e_true);
+	}
+	return (e_false);
+}
+
+int		ft_push_swap(int argc, char **argv)
+{
+	char	**args;
+	t_stk	*a;
+	t_stk	*b;
+	
+	args = ft_parse_args(argc, argv);
+	if (!args)
+		return (-1);
+	a = ft_tab_to_stack(args);
+	b = ft_init_stack("b");
+	if (!ft_are_stacks_ready_2_sort(a, b, args))
+		return (-1);
+	if (ft_is_end_bef_begin(a, b, args))
+		return (0);
+	ft_divide_stack_a(a, b);
+	ft_divide_stack_b(b, a);
+	if (a)
+		ft_pop_clear_stk(&a);
+	if (b)
+		ft_pop_clear_stk(&b);
+	if (args)
+		ft_free_args(args);
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	int	push_swap;
+
+	push_swap = -1;
+	if (argc > 1)
+	{
+		argv++;
+		push_swap = ft_push_swap(argc, argv);
+		if (push_swap == -1)
+			return (-1);
+		else
+			return (0);
 	}
 	else
-	{
-		// --------------------DISPLAY-------------------------------------
-		// only give the prompt back, display nothing if no arg
 		ft_puterr();
-		return (0);
-		// ----------------------------------------------------------------
-	}
-//	ft_putstr("---------------------------------------\n");
 	return (0);
 }
