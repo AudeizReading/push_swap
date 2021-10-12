@@ -163,14 +163,6 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 void	ft_push_swap(t_stk *a, t_stk *b)
 {
 	ft_divide_stack_a(a, b);
-/*		if (a->size && ft_stack_is_sort(a))
-		ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
-		else if (!ft_stack_is_sort(a))
-		ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
-		ft_print_top_stack(a);
-		ft_putendl("");
-		ft_print_top_stack(b);
-		ft_putendl("\033[0m");*/
 	ft_divide_stack_b(b, a);
 }
 //	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
