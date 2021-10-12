@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:16:56 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 15:15:37 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:55:59 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_parse_stack_a(t_stk *a, t_stk *b, int grp)
 	size = a->size;
 	args = ft_stack_to_tab(a);
 	pivot = ft_get_median(args, size);
+	if (size < 7)
+		pivot.q1 = pivot.me;
 	while (size--)
 	{
 		if (a->top->value > pivot.q1)
