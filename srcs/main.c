@@ -6,7 +6,15 @@
 **   - breaking by mates
 */
 
+/*t_piv	ft_get_median_grp(t_stk *grp)
+{
+	t_piv	pivot;
+	char	**grp_tab;
 
+	if (!grp)
+		return ((t_piv){0, 0, 0, 0, 0});
+	return (pivot);
+}*/
 void	ft_divide_stack_b(t_stk *b, t_stk *a)
 {
 	t_piv		pivot;
@@ -14,6 +22,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	t_stk		*current_grp;
 	char		**current_grp_tab;
 	int			size;
+	int			i;
 
 	if (!b->size)
 		return ;
@@ -41,12 +50,12 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	{
 		if (current_grp->size > 3)
 		{
-			int	i;
 			i = 0;
 			while (size--)
 			{
 				if (b->top->value >= pivot.q3)
 				{
+					b->top->grp += 10000;
 					ft_push_stack(&b, &a);
 					ft_sort_two(a);
 				}
@@ -56,60 +65,44 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 					b->base->grp += 1000;
 					i++;
 				}
-				else if (b->base->value >= pivot.q3)
-				{
-					ft_rotate_reverse_stack(&b);
-					ft_push_stack(&b, &a);
-					ft_sort_two(a);
-					i--;
-				}
 			}
 			while (i-- && info_grp->top->prev)
 			{
 				ft_rotate_reverse_stack(&b);
 				ft_sort_two(b);
 			}
-			if (!ft_stack_is_sort(a))
+			while (!ft_stack_is_sort(a))
 			{
-				while (current_grp->size > 3)
+				ft_pop_clear_stk(&info_grp);
+				info_grp = ft_get_grp_stk(a);
+				ft_pop_clear_stk(&current_grp);
+				//current_grp = ft_get_stk_4_med(a, info_grp->top->grp);
+				current_grp = ft_get_stk_4_med(a, a->top->grp);
+				ft_free_args(current_grp_tab);
+				current_grp_tab = ft_stack_to_tab(current_grp);
+				pivot = ft_get_median(current_grp_tab, current_grp->size);
+				size = current_grp->size;
+				i = 0;
+				while (size--)
 				{
-					ft_pop_clear_stk(&info_grp);
-					info_grp = ft_get_grp_stk(a);
-					ft_pop_clear_stk(&current_grp);
-					//current_grp = ft_get_stk_4_med(a, info_grp->top->grp);
-					current_grp = ft_get_stk_4_med(a, a->top->grp);
-					ft_free_args(current_grp_tab);
-					current_grp_tab = ft_stack_to_tab(current_grp);
-	pivot = ft_get_median(current_grp_tab, current_grp->size);
-	size = current_grp->size;
-					i = 0;
-					while (size--)
+					if (a->top->value <= pivot.me)
 					{
-						if (a->top->value <= pivot.me)
-						{
-							ft_push_stack(&a, &b);
-							ft_sort_two(b);
+						a->top->grp += 7777;
+						ft_push_stack(&a, &b);
+						ft_sort_two(b);
 
-						}
-						else if (a->top->value > pivot.me)
-						{
-							ft_rotate_stack(&a);
-							i++;
-						}
-						else if (a->base->value >= pivot.me)
-						{
-							ft_rotate_reverse_stack(&a);
-				//			ft_push_stack(&a, &b);
-							ft_sort_two(b);
-				//			i--;
-						}
 					}
-					while (i-- && info_grp->top->prev)
-				//	while (i-- && a->top->grp == a->base->grp)
+					else if (a->top->value > pivot.me)
 					{
-						ft_rotate_reverse_stack(&a);
-						ft_sort_two(a);
+						ft_rotate_stack(&a);
+						a->base->grp += 777;
+						i++;
 					}
+				}
+				while (i-- && info_grp->top->prev)
+				{
+					ft_rotate_reverse_stack(&a);
+					ft_sort_two(a);
 				}
 			}
 		}
@@ -133,7 +126,7 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 	else
 		return ;
 
-		// free elts
+	// free elts
 	if (info_grp)
 		ft_pop_clear_stk(&info_grp);
 	if (current_grp)
@@ -145,14 +138,14 @@ void	ft_divide_stack_b(t_stk *b, t_stk *a)
 void	ft_push_swap(t_stk *a, t_stk *b)
 {
 	ft_divide_stack_a(a, b);
-		if (a->size && ft_stack_is_sort(a))
-			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
+	/*	if (a->size && ft_stack_is_sort(a))
+		ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
 		else if (!ft_stack_is_sort(a))
-			ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
+		ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
 		ft_print_top_stack(a);
 		ft_putendl("");
 		ft_print_top_stack(b);
-		ft_putendl("\033[0m");
+		ft_putendl("\033[0m");*/
 	ft_divide_stack_b(b, a);
 }
 //	ft_putendl("\033[32;1m--------------------------------------------------------------------------------");
@@ -234,12 +227,12 @@ int	main(int argc, char **argv)
 		}
 		// --------------------ALGORITHM-----------------------------------
 		ft_push_swap(a, b);
-		if (a->size && ft_stack_is_sort(a))
+/*		if (a->size && ft_stack_is_sort(a))
 			ft_putendl("\033[33;1m--------------------------------------------------------------------------------");
 		else if (!ft_stack_is_sort(a))
 			ft_putendl("\033[31;1m--------------------------------------------------------------------------------");
 		ft_print_top_stack(a);
-		ft_putendl("\033[0m");
+		ft_putendl("\033[0m");*/
 		// --------------------FREE STACK----------------------------------
 		if (a)
 			ft_pop_clear_stk(&a);
