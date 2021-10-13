@@ -6,13 +6,13 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:36:10 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/13 09:42:05 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:21:19 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int		ft_set_grp_b(t_stk *b, t_stk *a, int grp, long piv)
+int	ft_set_grp_b(t_stk *b, t_stk *a, int grp, long piv)
 {
 	if (!a->size || !b->size)
 		return (0);
@@ -31,7 +31,7 @@ int		ft_set_grp_b(t_stk *b, t_stk *a, int grp, long piv)
 	return (0);
 }
 
-int		ft_set_grp_a(t_stk *a, t_stk *b, int grp, long piv)
+int	ft_set_grp_a(t_stk *a, t_stk *b, int grp, long piv)
 {
 	if (!a->size || !b->size)
 		return (0);

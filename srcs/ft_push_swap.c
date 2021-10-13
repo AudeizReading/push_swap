@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:32:50 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/13 10:35:54 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:26:43 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_divide_stack(t_stk *src, t_stk *dst)
 {
-	t_piv		pivot;
-	t_stk		*current_grp;
-	int			size;
-	int			i;
+	t_piv	pivot;
+	t_stk	*current_grp;
+	int		size;
+	int		i;
 
 	if (!src->size || !dst->size)
 		return ;
@@ -38,7 +38,7 @@ void	ft_divide_stack(t_stk *src, t_stk *dst)
 
 void	ft_divide_stack_b(t_stk *b, t_stk *a)
 {
-	t_stk		*current_grp;
+	t_stk	*current_grp;
 
 	if (!b->size)
 		return ;
@@ -74,12 +74,12 @@ t_bool	ft_is_end_bef_begin(t_stk *a, t_stk *b, char **args)
 	return (e_false);
 }
 
-int		ft_push_swap(int argc, char **argv)
+int	ft_push_swap(int argc, char **argv)
 {
 	char	**args;
 	t_stk	*a;
 	t_stk	*b;
-	
+
 	args = ft_parse_args(argc, argv);
 	if (!args)
 		return (-1);

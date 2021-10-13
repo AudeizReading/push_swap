@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 22:16:03 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/04 15:26:41 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:17:39 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_bool	ft_sort_two(t_stk *stack)
 	return (e_false);
 }
 
-// sort up to 6 elts
 void	ft_sort_five(t_stk *a, t_stk *b)
 {
 	ft_divide_stack_a(a, b);

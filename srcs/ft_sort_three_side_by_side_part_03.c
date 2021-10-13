@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:50:03 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 15:50:55 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:22:13 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* value. Thank you the norm */
 
 /* 3 1 2 */
-t_bool ft_sort_p_pp_t(t_stk *src, t_stk *dst)
+t_bool	ft_sort_p_pp_t(t_stk *src, t_stk *dst)
 {
 	long	top;
 	long	prev;

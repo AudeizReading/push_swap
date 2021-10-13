@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/13 09:34:45 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:26:16 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,30 @@
 t_piv	ft_get_median(char **args, int end)
 {
 	t_piv		pivot;
-	char		**p_args;
+	char		**ag;
 
-	p_args = args;
+	ag = args;
 	end--;
 	if (end < 0)
 		end = 0;
-	ft_qsort_tab((void **)p_args, 0, end, (int (*) (void *, void *)) ft_lnbrcmp);
-	pivot.min = ft_atol(p_args[0]);
-	pivot.q1 = ft_atol(p_args[(14 * end) / 65]);
-	pivot.q3 = ft_atol(p_args[(5 * end) / 7]);
-	pivot.me = ft_atol(p_args[end / 2]);
-	pivot.max = ft_atol(p_args[end]);
+	ft_qsort_tab((void **)ag, 0, end, (int (*)(void *, void *)) ft_lnbrcmp);
+	pivot.min = ft_atol(ag[0]);
+	pivot.q1 = ft_atol(ag[(14 * end) / 65]);
+	pivot.q3 = ft_atol(ag[(5 * end) / 7]);
+	pivot.me = ft_atol(ag[end / 2]);
+	pivot.max = ft_atol(ag[end]);
 	return (pivot);
 }
 
-/* return a double linked list with the values of the groups previously created by
-** dividing stack A, we get the number of the grp (member grp) and the size of
-** the grp (member value), very useful for getting the median value*/
+/* return a double linked list with the values of the groups previously created
+** by dividing stack A, we get the number of the grp (member grp) and the size
+** of the grp (member value), very useful for getting the median value */
 t_stk	*ft_get_grp_stk(t_stk *stack)
 {
 	t_stk		*grp;
 	t_stk_elt	*elt;
 	t_stk_elt	*tmp;
-	
+
 	grp = ft_init_stack("grp");
 	if (!grp || !stack)
 		return (NULL);
@@ -57,6 +57,20 @@ t_stk	*ft_get_grp_stk(t_stk *stack)
 	if (!grp->size)
 		return (NULL);
 	return (grp);
+}
+
+//void	ft_set_stk_4_med(t_stk **stk, int grp)
+t_bool	ft_set_stk_4_med(t_stk *stk, t_stk_elt *elt_grp)
+{
+
+	if (!stk->size)
+		return 0;
+	if (!elt_grp)
+	{
+		ft_pop_clear_stk(&stk);
+		return 0;
+	}
+	return 1;
 }
 
 /* return a double linked list with the group, that the num is passed in
@@ -78,6 +92,8 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 		if (tmp->grp == grp)
 		{
 			elt_grp = ft_init_stk_elt(tmp->value, tmp->grp, stk_grp->stk_name);
+		//	if (!ft_set_stk_4_med(stk_grp, elt_grp))
+			//	return (NULL);
 			if (!elt_grp)
 			{
 				ft_pop_clear_stk(&stk_grp);
@@ -87,6 +103,7 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 		}
 		tmp = tmp->prev;
 	}
+//	ft_set_stk_4_med(&stk_grp, grp);
 	if (!stk_grp->size)
 		return (NULL);
 	return (stk_grp);
@@ -94,8 +111,8 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 
 t_piv	ft_get_median_grp(t_stk *grp)
 {
-	t_piv	pivot;
-	char	**grp_tab;
+	t_piv		pivot;
+	char		**grp_tab;
 
 	if (!grp || !grp->size)
 		return ((t_piv){0, 0, 0, 0, 0});

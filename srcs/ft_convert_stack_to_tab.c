@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:43:27 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/04 15:18:37 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:35:16 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_stack_to_tab(t_stk *stack)
 		return (NULL);
 	i = 0;
 	dst = (char **)malloc(sizeof(*dst) * (stack->size + 1));
-	if(!dst)
+	if (!dst)
 		return (NULL);
 	tmp = stack->top;
 	while (tmp)

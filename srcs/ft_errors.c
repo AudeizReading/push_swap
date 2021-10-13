@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 12:46:37 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/21 12:46:54 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:11:02 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	ft_puterr(void)
 {
-	// Attention a enlever couleur rouge
-	ft_putendl_fd("\033[31mError\033[0m", 2);
+	ft_putendl_fd("Error", 2);
 }

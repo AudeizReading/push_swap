@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/13 07:50:17 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:59:17 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_piv
 	long	me;
 	long	q1;
 	long	q3;
-}				t_piv;
+}			t_piv;
 
 typedef struct s_dup
 {
@@ -30,7 +30,7 @@ typedef struct s_dup
 	int		j;
 	char	*trim_i;
 	char	*trim_j;
-}				t_dup;
+}			t_dup;
 
 typedef struct s_stk_elt
 {
@@ -39,7 +39,7 @@ typedef struct s_stk_elt
 	char				*stack_name;
 	struct s_stk_elt	*prev;
 	struct s_stk_elt	*next;
-}				t_stk_elt;
+}			t_stk_elt;
 
 typedef struct s_stk
 {
@@ -47,10 +47,10 @@ typedef struct s_stk
 	char		*stk_name;
 	t_stk_elt	*top;
 	t_stk_elt	*base;
-}				t_stk;
+}			t_stk;
 
 /* Errors Handling */
-void	ft_puterr(void);
+void		ft_puterr(void);
 
 /* Parsing Handling - ps for push_swap */
 t_bool		ft_is_valid_ps_args(char **argv);
@@ -88,6 +88,8 @@ void		rrr(t_stk **a, t_stk **b);
 /* Median */
 t_piv		ft_get_median(char **args, int end);
 t_stk		*ft_get_grp_stk(t_stk *stack);
+//void		ft_set_stk_4_med(t_stk **stack, int grp);
+t_bool		ft_set_stk_4_med(t_stk *stack, t_stk_elt *elt_grp);
 t_stk		*ft_get_stk_4_med(t_stk *stack, int grp);
 t_piv		ft_get_median_grp(t_stk *grp);
 
@@ -137,5 +139,5 @@ t_bool		ft_is_end_bef_begin(t_stk *a, t_stk *b, char **args);
 int			ft_push_swap(int argc, char **argv);
 
 /* Launch Program */
-int	main(int argc, char **argv);
+int			main(int argc, char **argv);
 #endif

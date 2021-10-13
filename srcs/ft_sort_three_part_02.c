@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 18:17:18 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 15:10:19 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:36:26 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ t_bool	ft_sort_three(t_stk *stack)
 
 	if (!stack || stack->size < 3)
 		return (e_false);
-	cond_1 = ft_sort_top_mid_base(stack) || ft_sort_base_mid_top(stack);
-	cond_2 = ft_sort_mid_base_top(stack) || ft_sort_mid_top_base(stack);
-	cond_3 = ft_sort_top_base_mid(stack) || ft_sort_base_top_mid(stack);
+	cond_1 = (ft_sort_top_mid_base(stack) || ft_sort_base_mid_top(stack));
+	cond_2 = (ft_sort_mid_base_top(stack) || ft_sort_mid_top_base(stack));
+	cond_3 = (ft_sort_top_base_mid(stack) || ft_sort_base_top_mid(stack));
 	if (cond_1 || cond_2 || cond_3)
 		return (e_true);
 	return (e_false);

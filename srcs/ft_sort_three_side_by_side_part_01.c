@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:28:58 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 15:49:48 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:37:15 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_push_stack_nb(t_stk *src, t_stk *dst, int nb)
 		ft_push_stack(&src, &dst);
 }
 
-/* tgl is for toggle -> thank you the norm*/
+/* tgl is for toggle -> thank you the norm */
 void	ft_swap_bef_push_stack(t_stk *src, t_stk *dst, t_bool tgl, int nb)
 {
 	if (!src->size || !dst->size)
@@ -58,13 +58,13 @@ t_bool	ft_sort_3_elts_side_by_side(t_stk *src, t_stk *dst)
 
 	if (!src || !dst || src->size < 3)
 		return (e_false);
-	cond_1 = ft_sort_t_p_pp(src, dst) || ft_sort_t_pp_p(src, dst);
+	cond_1 = (ft_sort_t_p_pp(src, dst) || ft_sort_t_pp_p(src, dst));
 	if (cond_1)
 		return (e_true);
-	cond_2 = ft_sort_p_pp_t(src, dst) || ft_sort_p_t_pp(src, dst);
+	cond_2 = (ft_sort_p_pp_t(src, dst) || ft_sort_p_t_pp(src, dst));
 	if (cond_2)
 		return (e_true);
-	cond_3 = ft_sort_pp_t_p(src, dst) || ft_sort_pp_p_t(src, dst);
+	cond_3 = (ft_sort_pp_t_p(src, dst) || ft_sort_pp_p_t(src, dst));
 	if (cond_3)
 		return (e_true);
 	return (e_false);

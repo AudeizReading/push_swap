@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:54:45 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/02 19:13:11 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:24:05 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool	ft_is_valid_ps_args(char **argv)
 	{
 		pp_argv = *p_argv;
 		cond_1 = !ft_isdigit(*pp_argv);
-		cond_2 = *pp_argv != 32 && *pp_argv != 43 && *pp_argv != 45;
+		cond_2 = (*pp_argv != 32 && *pp_argv != 43 && *pp_argv != 45);
 		while (*pp_argv)
 		{
 			if (cond_1 && cond_2)
@@ -39,7 +39,7 @@ t_bool	ft_is_valid_ps_args(char **argv)
 	return (e_true);
 }
 
-t_bool ft_has_duplicate_chars(char **argv)
+t_bool	ft_has_duplicate_chars(char **argv)
 {
 	t_dup	st;
 
@@ -116,7 +116,7 @@ char	**ft_parse_args(int argc, char **argv)
 
 void	ft_free_args(char **args)
 {
-	int	i;
+	int		i;
 
 	if (!args)
 		return ;
