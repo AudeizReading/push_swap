@@ -63,6 +63,8 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 sort_three_side_by_side_part_02\
 	 sort_three_side_by_side_part_03\
 	 handle_grp\
+	 sort_stack\
+	 push_swap\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap

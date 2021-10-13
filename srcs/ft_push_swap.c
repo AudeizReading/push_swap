@@ -1,11 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/13 10:32:50 by alellouc          #+#    #+#             */
+/*   Updated: 2021/10/13 10:35:54 by alellouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-/*   TO-DO LIST 
-**   - norminette
-**   - breaking by mates
-*/
-
-/*void	ft_divide_stack(t_stk *src, t_stk *dst)
+void	ft_divide_stack(t_stk *src, t_stk *dst)
 {
 	t_piv		pivot;
 	t_stk		*current_grp;
@@ -91,23 +98,4 @@ int		ft_push_swap(int argc, char **argv)
 	if (args)
 		ft_free_args(args);
 	return (1);
-}*/
-
-int	main(int argc, char **argv)
-{
-	int	push_swap;
-
-	push_swap = -1;
-	if (argc > 1)
-	{
-		argv++;
-		push_swap = ft_push_swap(argc, argv);
-		if (push_swap == -1)
-			return (-1);
-		else
-			return (0);
-	}
-	else
-		ft_puterr();
-	return (0);
 }
