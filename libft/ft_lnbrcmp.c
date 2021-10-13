@@ -6,13 +6,13 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 15:22:36 by alellouc          #+#    #+#             */
-/*   Updated: 2021/09/23 15:23:27 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:46:10 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_lnbrcmp(char *s1, char *s2)
+int	ft_lnbrcmp(char *s1, char *s2)
 {
 	long	n1;
 	long	n2;

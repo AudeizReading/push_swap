@@ -6,7 +6,7 @@
 /*   By: alellouc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:40:55 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/13 10:41:00 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:21:04 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,5 @@ int	main(int argc, char **argv)
 		else
 			return (0);
 	}
-	else
-		ft_puterr();
 	return (0);
 }

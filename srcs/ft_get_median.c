@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/13 12:26:16 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:43:29 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,14 @@ t_stk	*ft_get_grp_stk(t_stk *stack)
 	return (grp);
 }
 
-//void	ft_set_stk_4_med(t_stk **stk, int grp)
 t_bool	ft_set_stk_4_med(t_stk *stk, t_stk_elt *elt_grp)
 {
-
-	if (!stk->size)
-		return 0;
 	if (!elt_grp)
 	{
 		ft_pop_clear_stk(&stk);
-		return 0;
+		return (0);
 	}
-	return 1;
+	return (1);
 }
 
 /* return a double linked list with the group, that the num is passed in
@@ -81,10 +77,10 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 	t_stk_elt	*elt_grp;
 	t_stk_elt	*tmp;
 
-	if (!stack || !stack->size || !grp)
-		return (NULL);
 	tmp = stack->top;
 	stk_grp = ft_init_stack("stk_4_med");
+	if (!stack || !stack->size || !grp)
+		return (NULL);
 	if (!stk_grp)
 		return (NULL);
 	while (tmp)
@@ -92,18 +88,12 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 		if (tmp->grp == grp)
 		{
 			elt_grp = ft_init_stk_elt(tmp->value, tmp->grp, stk_grp->stk_name);
-		//	if (!ft_set_stk_4_med(stk_grp, elt_grp))
-			//	return (NULL);
-			if (!elt_grp)
-			{
-				ft_pop_clear_stk(&stk_grp);
+			if (!ft_set_stk_4_med(stk_grp, elt_grp))
 				return (NULL);
-			}
 			ft_stkadd_front(&stk_grp, elt_grp);
 		}
 		tmp = tmp->prev;
 	}
-//	ft_set_stk_4_med(&stk_grp, grp);
 	if (!stk_grp->size)
 		return (NULL);
 	return (stk_grp);
