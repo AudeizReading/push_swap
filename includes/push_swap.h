@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 22:12:01 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/11 16:44:01 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 07:50:17 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void		rrr(t_stk **a, t_stk **b);
 t_piv		ft_get_median(char **args, int end);
 t_stk		*ft_get_grp_stk(t_stk *stack);
 t_stk		*ft_get_stk_4_med(t_stk *stack, int grp);
+t_piv		ft_get_median_grp(t_stk *grp);
 
 /* Sorting Elts */
 t_bool		ft_stack_a_is_sort(t_stk *stack);
@@ -116,12 +117,24 @@ t_bool		ft_sort_pp_t_p(t_stk *src, t_stk *dst);
 t_bool		ft_sort_t_pp_p(t_stk *src, t_stk *dst);
 t_bool		ft_sort_p_pp_t(t_stk *src, t_stk *dst);
 t_bool		ft_sort_3_elts_side_by_side(t_stk *src, t_stk *dst);
+void		ft_sort_little_grp(t_stk *src, t_stk *dst, int size);
+void		ft_sort_big_grp(t_stk *src, t_stk *dst);
+void		ft_sort_little_stack(t_stk *src, t_stk *dst);
+void		ft_sort_big_stack(t_stk *src, t_stk *dst, int size);
 
 /* Algos */
 void		ft_qsort_tab(void *tab[], int l, int r, int (*cmp)(void *, void *));
 void		ft_a_inf_med(t_stk *a, t_stk *b, int grp);
 void		ft_parse_stack_a(t_stk *a, t_stk *b, int grp);
 void		ft_divide_stack_a(t_stk *a, t_stk *b);
+int			ft_set_grp_b(t_stk *b, t_stk *a, int grp, long piv);
+int			ft_set_grp_a(t_stk *a, t_stk *b, int grp, long piv);
+void		ft_put_grp_on_top(t_stk *stk, int *i);
+void		ft_divide_stack(t_stk *src, t_stk *dst);
+void		ft_divide_stack_b(t_stk *b, t_stk *a);
+t_bool		ft_are_stacks_ready_2_sort(t_stk *a, t_stk *b, char **args);
+t_bool		ft_is_end_bef_begin(t_stk *a, t_stk *b, char **args);
+int			ft_push_swap(int argc, char **argv);
 
 /* Launch Program */
 int	main(int argc, char **argv);
