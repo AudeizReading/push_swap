@@ -5,7 +5,7 @@
 **   - breaking by mates
 */
 
-t_piv	ft_get_median_grp(t_stk *grp)
+/*t_piv	ft_get_median_grp(t_stk *grp)
 {
 	t_piv	pivot;
 	char	**grp_tab;
@@ -16,9 +16,9 @@ t_piv	ft_get_median_grp(t_stk *grp)
 	pivot = ft_get_median(grp_tab, grp->size);
 	ft_free_args(grp_tab);
 	return (pivot);
-}
+}*/
 
-int		ft_set_grp_b(t_stk *b, t_stk *a, int grp, long piv)
+/*int		ft_set_grp_b(t_stk *b, t_stk *a, int grp, long piv)
 {
 	if (!a->size || !b->size)
 		return (0);
@@ -66,7 +66,7 @@ void	ft_put_grp_on_top(t_stk *stk, int *i)
 		ft_rotate_reverse_stack(&stk);
 		ft_sort_two(stk);
 	}
-}
+}*/
 
 void	ft_divide_stack(t_stk *src, t_stk *dst)
 {
@@ -89,6 +89,7 @@ void	ft_divide_stack(t_stk *src, t_stk *dst)
 			i += ft_set_grp_b(src, dst, 10000, pivot.q3);
 	}
 	ft_put_grp_on_top(src, &i);
+	ft_pop_clear_stk(&current_grp);
 }
 
 void	ft_sort_little_grp(t_stk *src, t_stk *dst, int size)

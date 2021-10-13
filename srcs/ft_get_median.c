@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:02:25 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/12 22:30:50 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/13 09:34:45 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,17 @@ t_stk	*ft_get_stk_4_med(t_stk *stack, int grp)
 	if (!stk_grp->size)
 		return (NULL);
 	return (stk_grp);
+}
+
+t_piv	ft_get_median_grp(t_stk *grp)
+{
+	t_piv	pivot;
+	char	**grp_tab;
+
+	if (!grp || !grp->size)
+		return ((t_piv){0, 0, 0, 0, 0});
+	grp_tab = ft_stack_to_tab(grp);
+	pivot = ft_get_median(grp_tab, grp->size);
+	ft_free_args(grp_tab);
+	return (pivot);
 }

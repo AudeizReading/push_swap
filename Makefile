@@ -62,6 +62,7 @@ SRCS=$(addprefix srcs/, $(addsuffix .c, \
 	 sort_three_side_by_side_part_01\
 	 sort_three_side_by_side_part_02\
 	 sort_three_side_by_side_part_03\
+	 handle_grp\
 	 ))
 OBJ=$(SRCS:.c=.o)
 NAME=push_swap
@@ -287,8 +288,8 @@ debug-full: $(OBJ)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_3)
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_5)
-#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_100)
-#	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_500)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_100)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_SHUFFLE_500)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_1)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_STR_VALID_1)
 #	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(ARGS_IS_VALID_15)
