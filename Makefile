@@ -111,7 +111,7 @@ ARGS_IS_STR_INVALID_INT_600="-43778239 -183686475 1842924014 103536413 112750451
 # -----------------------------------------------------------------------------
 #                            RULES
 # -----------------------------------------------------------------------------
-.PHONY: all clean fclean re test debug debug-full libft gnl libftclean gnlclean sani 
+.PHONY: all clean fclean re test debug debug-full libft libftclean sani 
 
 all: $(NAME)
 
